@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom CSS for Navbar */
+.nav-container {
+  background: #1a1a1a;
+  padding: 0.5rem;
+}
+
+.nav-tabs {
+  background: #2c2c2c;
+  border-radius: 0.5rem;
+  padding: 0.25rem;
+  position: relative;
+}
+
+.nav-tab {
+  padding: 0.5rem 1rem;
+  color: #d1d5db;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.nav-tab.active {
+  color: #e5e7eb;
+}
+
+.nav-glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
+  border-radius: 0.5rem;
+  transition: width 0.3s ease-out, left 0.3s ease-out;
+}

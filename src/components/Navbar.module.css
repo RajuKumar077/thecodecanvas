@@ -1,0 +1,188 @@
+/* Define custom properties for a premium black glass theme */
+:root {
+  --accent-color: #1b3f65; /* Apple's signature blue for highlights */
+  --accent-glow: #4373a0; /* Brighter blue for glow effects */
+  --glass-bg: #000000; /* Pure black for main container */
+  --inner-bg: rgba(30, 30, 30, 0.4); /* Dark gray for inner container depth */
+  --tab-bg: rgba(30, 30, 30, 0.5); /* Semi-transparent black for tab glass */
+  --tab-active-bg: linear-gradient(135deg, rgba(0, 122, 255, 0.3) 0%, rgba(77, 168, 255, 0.4) 100%); /* Glowing gradient for active tab */
+  --border-color: rgba(255, 255, 255, 0.12); /* Faint white for outer border */
+  --text-default: rgba(150, 150, 150, 0.7); /* Muted gray for default text/icons */
+  --text-hover: #ffffff; /* Pure white for hover contrast */
+}
+
+/* Outer container for centering */
+.fixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 50;
+  display: flex;
+  justify-content: center;
+  padding: 1rem 0;
+  pointer-events: none;
+  background: transparent;
+}
+
+/* Re-enable pointer events for children */
+.fixed > * {
+  pointer-events: auto;
+}
+
+/* Main navbar container with pure black glassmorphism */
+.navContainer {
+  background: var(--glass-bg);
+  backdrop-filter: blur(28px) saturate(160%);
+  border: 1px solid var(--border-color);
+  border-radius: 1.75rem;
+  padding: 0.7rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4),
+              inset 0 0 8px rgba(255, 255, 255, 0.08);
+  position: relative;
+  z-index: 1000;
+  max-width: fit-content;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+  overflow: hidden;
+}
+
+/* Inner track for tabs */
+.navTabs {
+  background: var(--inner-bg);
+  border-radius: 1.5rem;
+  padding: 0.35rem;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: nowrap;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.25),
+              inset 0 0 7px rgba(255, 255, 255, 0.06);
+}
+
+/* Individual tab styling */
+.navTab {
+  padding: 0.6rem 1.1rem;
+  color: var(--text-default);
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  position: relative;
+  z-index: 10;
+  background: var(--tab-bg); /* Glass-like background for tabs */
+  backdrop-filter: blur(10px) saturate(140%); /* Subtle glass effect */
+  border-radius: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  white-space: nowrap;
+  transition: color 0.4s ease,
+              background 0.4s ease,
+              transform 0.25s cubic-bezier(0.25, 0.8, 0.25, 1),
+              box-shadow 0.4s ease; /* Smooth transitions for all properties */
+}
+
+.navTab:hover {
+  color: var(--text-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1); /* Subtle hover glow */
+}
+
+.navTab.active {
+  color: var(--accent-color);
+  font-weight: 600;
+  background: var(--tab-active-bg); /* Glowing gradient for active tab */
+  box-shadow: 0 0 15px var(--accent-glow), /* Strong glow for active state */
+              inset 0 0 8px rgba(255, 255, 255, 0.15);
+}
+
+/* Text within tabs */
+.tabText {
+  transition: color 0.4s ease;
+}
+
+/* Sliding glass highlight */
+.navGlass {
+  position: absolute;
+  top: 0.35rem;
+  height: calc(100% - 0.7rem);
+  background: linear-gradient(135deg, var(--accent-color) 0%, var(--accent-glow) 70%, rgba(255, 255, 255, 0.15) 100%);
+  backdrop-filter: blur(20px) saturate(180%);
+  border-radius: 1.25rem;
+  transition: width 0.7s cubic-bezier(0.25, 0.8, 0.25, 1),
+              left 0.7s cubic-bezier(0.25, 0.8, 0.25, 1),
+              opacity 0.35s ease;
+  box-shadow: 0 0 22px var(--accent-glow),
+              inset 0 0 12px rgba(255, 255, 255, 0.18);
+  z-index: 5;
+  opacity: 0;
+}
+
+/* Ensure glass bar visibility when active */
+.navGlass[style*="opacity: 1"] {
+  opacity: 1;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .fixed {
+    padding: 0.8rem 0;
+  }
+  .navContainer {
+    width: 90%;
+    border-radius: 1.25rem;
+    padding: 0.55rem;
+    box-shadow: 0 5px 14px rgba(0, 0, 0, 0.35),
+                inset 0 0 6px rgba(255, 255, 255, 0.07);
+  }
+  .navTabs {
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.25),
+                inset 0 0 6px rgba(255, 255, 255, 0.05);
+  }
+  .navTab {
+    padding: 0.5rem 0.9rem;
+    font-size: 0.9rem;
+    border-radius: 1rem;
+    backdrop-filter: blur(8px) saturate(140%);
+  }
+  .navTab:hover {
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.08);
+  }
+  .navTab.active {
+    box-shadow: 0 0 12px var(--accent-glow),
+                inset 0 0 6px rgba(255, 255, 255, 0.12);
+  }
+  .navGlass {
+    border-radius: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .navContainer {
+    border-radius: 1rem;
+    padding: 0.4rem;
+  }
+  .navTab {
+    font-size: 0.85rem;
+    padding: 0.45rem 0.7rem;
+    gap: 0.25rem;
+    backdrop-filter: blur(6px) saturate(140%);
+  }
+  .navTab:hover {
+    box-shadow: 0 0 6px rgba(255, 255, 255, 0.06);
+  }
+  .navTab.active {
+    box-shadow: 0 0 10px var(--accent-glow),
+                inset 0 0 5px rgba(255, 255, 255, 0.1);
+  }
+  .navGlass {
+    border-radius: 0.9rem;
+  }
+}

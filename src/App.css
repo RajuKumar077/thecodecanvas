@@ -1,0 +1,99 @@
+/* Define custom properties for consistency with NavbarIcons.css */
+:root {
+  --accent-color: #007aff; /* Matches navbar's signature blue */
+  --accent-glow: #4da8ff; /* Matches navbar's glow */
+  --glass-bg: rgba(30, 30, 30, 0.5); /* Dark gray glass for card */
+  --text-primary: #ffffff; /* White for primary text */
+  --text-secondary: #bbbbbb; /* Light gray for secondary text */
+}
+
+/* Root container with pure black background */
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 1.5rem; /* Slightly reduced for a sleeker look */
+  text-align: center;
+  background: #000000; /* Pure black background */
+  color: var(--text-primary); /* White text for contrast */
+  min-height: 100vh; /* Ensure full viewport height coverage */
+}
+
+/* Logo styling with dark theme glow */
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms ease; /* Smooth transition for glow */
+}
+
+.logo:hover {
+  filter: drop-shadow(0 0 1.5em var(--accent-glow)); /* Blue glow matching navbar */
+}
+
+.logo.react:hover {
+  filter: drop-shadow(0 0 1.5em var(--accent-glow)); /* Consistent glow for React logo */
+}
+
+/* Logo spin animation */
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+/* Card with glass-like background */
+.card {
+  padding: 1.5rem; /* Slightly reduced for compactness */
+  background: var(--glass-bg); /* Dark gray glass effect */
+  backdrop-filter: blur(10px) saturate(140%); /* Subtle glassmorphism */
+  border-radius: 1rem; /* Rounded corners for Apple-like aesthetic */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3), /* Dark shadow for depth */
+              inset 0 0 6px rgba(255, 255, 255, 0.08);
+  transition: box-shadow 0.3s ease; /* Smooth shadow transition */
+}
+
+.card:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4), /* Enhanced shadow on hover */
+              inset 0 0 8px rgba(255, 255, 255, 0.1);
+}
+
+/* Secondary text styling */
+.read-the-docs {
+  color: var(--text-secondary); /* Light gray for readability */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  #root {
+    padding: 1rem;
+  }
+  .card {
+    padding: 1.2rem;
+    border-radius: 0.8rem;
+    backdrop-filter: blur(8px) saturate(140%); /* Slightly reduced blur for performance */
+  }
+}
+
+@media (max-width: 480px) {
+  #root {
+    padding: 0.8rem;
+  }
+  .logo {
+    height: 5em;
+    padding: 1em;
+  }
+  .card {
+    padding: 1rem;
+    border-radius: 0.6rem;
+    backdrop-filter: blur(6px) saturate(140%);
+  }
+}
