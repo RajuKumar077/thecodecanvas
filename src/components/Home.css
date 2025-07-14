@@ -19,18 +19,15 @@
   box-sizing: border-box;
 }
 
-/* Glass-like card with flexbox for text and image */
+/* Glass-like card for Home section */
 .homeCard {
   background: var(--glass-bg);
   backdrop-filter: blur(calc(10px + 0.3vmin)) saturate(150%);
   border-radius: calc(0.8rem + 0.2vmin);
   padding: calc(2rem + 0.5vw) calc(1.5rem + 0.3vw);
   box-shadow: 0 calc(0.4rem + 0.2vmin) calc(1.2rem + 0.3vmin) rgba(0, 0, 0, 0.35);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: calc(1rem + 0.5vw);
-  max-width: calc(800px + 10vw); /* Increased to accommodate image */
+  text-align: center;
+  max-width: calc(600px + 5vw);
   width: 100%;
   transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
@@ -38,12 +35,6 @@
 .homeCard:hover {
   box-shadow: 0 calc(0.5rem + 0.3vmin) calc(1.5rem + 0.4vmin) rgba(0, 0, 0, 0.4);
   transform: translateY(-4px);
-}
-
-/* Text content container */
-.heroContent {
-  text-align: left;
-  flex: 1;
 }
 
 /* Hero section text */
@@ -70,7 +61,7 @@
 /* Hero buttons container */
 .heroButtons {
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   gap: calc(0.8rem + 0.2vw);
 }
 
@@ -107,20 +98,6 @@
   color: #000000;
 }
 
-/* Image styling */
-.heroImage {
-  max-width: calc(200px + 5vw);
-  height: auto;
-  border-radius: calc(0.6rem + 0.2vmin);
-  box-shadow: 0 calc(0.2rem + 0.1vmin) calc(0.6rem + 0.2vmin) rgba(0, 0, 0, 0.3);
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
-}
-
-.heroImage:hover {
-  box-shadow: 0 calc(0.3rem + 0.2vmin) calc(0.8rem + 0.3vmin) rgba(0, 0, 0, 0.4);
-  transform: scale(1.05);
-}
-
 /* Responsive adjustments */
 @media (max-width: 1024px) {
   .homeSection {
@@ -128,11 +105,8 @@
   }
   .homeCard {
     padding: calc(1.5rem + 0.4vw) calc(1.2rem + 0.2vw);
-    max-width: calc(700px + 8vw);
-    gap: calc(0.8rem + 0.4vw);
-  }
-  .heroImage {
-    max-width: calc(180px + 4vw);
+    max-width: calc(500px + 5vw);
+    backdrop-filter: blur(calc(8px + 0.2vmin)) saturate(140%);
   }
   .heroTitle {
     font-size: calc(1.75rem + 0.4vmin);
@@ -143,6 +117,9 @@
   .heroDesc {
     font-size: calc(0.8rem + 0.2vmin);
   }
+  .heroButtons {
+    gap: calc(0.6rem + 0.15vw);
+  }
 }
 
 @media (max-width: 768px) {
@@ -150,20 +127,9 @@
     padding: calc(1rem + 0.3vw);
   }
   .homeCard {
-    flex-direction: column;
-    align-items: center;
-    padding: calc(1.2rem + 0.3vw);
-    max-width: calc(500px + 6vw);
-    gap: calc(1rem + 0.3vw);
-  }
-  .heroContent {
-    text-align: center;
-  }
-  .heroButtons {
-    justify-content: center;
-  }
-  .heroImage {
-    max-width: calc(150px + 4vw);
+    padding: calc(1.2rem + 0.3vw) calc(1rem + 0.2vw);
+    max-width: calc(400px + 5vw);
+    backdrop-filter: blur(calc(6px + 0.2vmin)) saturate(140%);
   }
   .heroTitle {
     font-size: calc(1.5rem + 0.3vmin);
@@ -187,11 +153,9 @@
     padding: calc(0.8rem + 0.2vw);
   }
   .homeCard {
-    padding: calc(1rem + 0.2vw);
-    max-width: calc(400px + 5vw);
-  }
-  .heroImage {
-    max-width: calc(120px + 3vw);
+    padding: calc(1rem + 0.2vw) calc(0.8rem + 0.15vw);
+    max-width: calc(300px + 5vw);
+    backdrop-filter: blur(calc(5px + 0.1vmin)) saturate(140%);
   }
   .heroTitle {
     font-size: calc(1.25rem + 0.3vmin);
@@ -213,10 +177,7 @@
     padding: calc(0.6rem + 0.2vw);
   }
   .homeCard {
-    padding: calc(0.8rem + 0.2vw);
-  }
-  .heroImage {
-    max-width: calc(100px + 3vw);
+    padding: calc(0.8rem + 0.2vw) calc(0.7rem + 0.1vw);
   }
   .heroTitle {
     font-size: calc(1.2rem + 0.3vmin);
@@ -228,11 +189,8 @@
     padding: calc(2rem + 0.6vw);
   }
   .homeCard {
-    padding: calc(2.5rem + 0.6vw);
-    max-width: calc(900px + 10vw);
-  }
-  .heroImage {
-    max-width: calc(250px + 6vw);
+    padding: calc(2.5rem + 0.6vw) calc(2rem + 0.4vw);
+    max-width: calc(700px + 5vw);
   }
   .heroTitle {
     font-size: calc(2.25rem + 0.6vmin);

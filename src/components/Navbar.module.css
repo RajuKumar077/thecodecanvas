@@ -6,7 +6,7 @@
   --inner-bg: rgba(30, 30, 30, 0.4); /* Dark gray for inner container depth */
   --tab-bg: rgba(30, 30, 30, 0.5); /* Semi-transparent black for tab glass */
   --tab-active-bg: linear-gradient(135deg, rgba(119, 121, 123, 0.3) 0%, rgba(137, 142, 147, 0.4) 100%); /* Glowing gradient for active tab */
-  --border-color: rgba(77, 75, 75, 0.12); /* Faint white for outer border */
+  --border-color: rgba(0, 0, 0, 0.12); /* Faint white for outer border */
   --text-default: rgba(150, 150, 150, 0.7); /* Muted gray for default text/icons */
   --text-hover: #ffffff; /* White for hover contrast, changed from red */
 }

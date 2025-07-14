@@ -1,132 +1,247 @@
-/* Define custom properties for consistency with Navbar.module.css */
+/* Define custom properties for consistency with Navbar.module.css, App.css, and Home.css */
 :root {
   --accent-color: #e7e7e8; /* Matches navbar's grayish accent */
-  --accent-glow: #e8e8e8; /* Matches navbar's glow */
+  --accent-glow: #bfbfbf; /* Matches navbar's glow */
   --glass-bg: rgba(30, 30, 30, 0.5); /* Dark gray glass for cards */
   --text-primary: #ffffff; /* White for primary text */
   --text-secondary: #bbbbbb; /* Light gray for secondary text */
 }
 
-/* Ensure full black background for the entire page */
-html, body {
-  margin: 0;
-  padding: 0;
+/* Skills section with full-size pure black background */
+.skillsSection {
+  min-height: 100vh;
   width: 100%;
-  height: 100%;
   background: #000000; /* Pure black for full coverage */
-  overflow-x: hidden;
-}
-
-/* Main container with pure black background */
-.app-container {
-  max-width: calc(1280px + 2vw);
-  margin: 0 auto;
-  padding: calc(1rem + 0.5vw);
-  text-align: center;
-  background: #000000;
-  color: var(--text-primary);
-  min-height: 100vh;
-  width: 100%;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  box-sizing: border-box;
-}
-
-/* Section styling for full-screen layout */
-.section {
-  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: calc(0.8rem + 0.3vw);
-  background: #000000;
-  width: 100%;
+  padding: calc(1.5rem + 0.5vw);
+  box-sizing: border-box;
+  position: relative;
+  z-index: 10; /* Below navbar (z-index: 50, 1000) */
 }
 
-/* Card for all sections except Home */
-.section:not(#home) .card {
-  padding: calc(1rem + 0.3vw);
+/* Glass-like card for skills and certificates */
+.skillsCard {
   background: var(--glass-bg);
-  backdrop-filter: blur(calc(8px + 0.2vmin)) saturate(140%);
+  backdrop-filter: blur(calc(10px + 0.3vmin)) saturate(150%);
   border-radius: calc(0.8rem + 0.2vmin);
-  box-shadow: 0 calc(0.3rem + 0.1vmin) calc(0.8rem + 0.2vmin) rgba(0, 0, 0, 0.3);
+  padding: calc(2rem + 0.5vw) calc(1.5rem + 0.3vw);
+  box-shadow: 0 calc(0.4rem + 0.2vmin) calc(1.2rem + 0.3vmin) rgba(0, 0, 0, 0.35);
+  text-align: center;
+  max-width: calc(900px + 10vw);
+  width: 100%;
   transition: box-shadow 0.3s ease, transform 0.3s ease;
-  font-size: calc(1.5rem + 0.5vmin);
-  font-weight: 500;
-  color: var(--text-primary);
 }
 
-.section:not(#home) .card:hover {
-  box-shadow: 0 calc(0.4rem + 0.2vmin) calc(1rem + 0.3vmin) rgba(0, 0, 0, 0.4);
+.skillsCard:hover {
+  box-shadow: 0 calc(0.5rem + 0.3vmin) calc(1.5rem + 0.4vmin) rgba(0, 0, 0, 0.4);
   transform: translateY(-4px);
+}
+
+/* Skills title */
+.skillsTitle {
+  font-size: calc(2rem + 0.5vmin);
+  color: var(--accent-color);
+  margin-bottom: calc(1.5rem + 0.3vw);
+  font-weight: 700;
+}
+
+/* Grid for certificates */
+.certificateGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(calc(200px + 5vw), 1fr));
+  gap: calc(1rem + 0.5vw);
+  justify-items: center;
+}
+
+/* Certificate frame with premium photo frame corners */
+.certificateFrame {
+  position: relative;
+  padding: calc(0.6rem + 0.2vw);
+  background: var(--glass-bg);
+  border-radius: calc(0.6rem + 0.2vmin);
+  box-shadow: 0 calc(0.2rem + 0.1vmin) calc(0.6rem + 0.2vmin) rgba(0, 0, 0, 0.3);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Ornate corner effects using pseudo-elements */
+.certificateFrame::before,
+.certificateFrame::after {
+  content: '';
+  position: absolute;
+  width: calc(0.8rem + 0.2vw);
+  height: calc(0.8rem + 0.2vw);
+  background: linear-gradient(45deg, var(--accent-color), var(--accent-glow));
+  z-index: 2;
+}
+
+.certificateFrame::before {
+  top: calc(-0.1rem - 0.05vw);
+  left: calc(-0.1rem - 0.05vw);
+  clip-path: polygon(0 0, 100% 0, 0 100%);
+}
+
+.certificateFrame::after {
+  bottom: calc(-0.1rem - 0.05vw);
+  right: calc(-0.1rem - 0.05vw);
+  clip-path: polygon(100% 0, 0 100%, 100% 100%);
+}
+
+.certificateFrame:hover {
+  box-shadow: 0 calc(0.3rem + 0.2vmin) calc(0.8rem + 0.3vmin) rgba(0, 0, 0, 0.4);
+  transform: scale(1.05);
+}
+
+/* Certificate image */
+.certificateImage {
+  max-width: 100%;
+  max-height: calc(150px + 5vmin); /* Limit height to prevent overflow */
+  width: auto;
+  height: auto;
+  border-radius: calc(0.4rem + 0.1vmin);
+  display: block;
+  object-fit: contain;
+  z-index: 1; /* Below corner pseudo-elements */
+}
+
+/* Certificate title */
+.certificateTitle {
+  font-size: calc(0.8rem + 0.2vmin);
+  color: var(--text-secondary);
+  margin-top: calc(0.5rem + 0.1vw);
+  font-weight: 500;
+}
+
+/* Certificate link */
+.certificateLink {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 }
 
 /* Responsive adjustments */
 @media (max-width: 1024px) {
-  .app-container {
-    padding: calc(0.8rem + 0.4vw);
+  .skillsSection {
+    padding: calc(1.2rem + 0.4vw);
   }
-  .section {
-    padding: calc(0.6rem + 0.2vw);
+  .skillsCard {
+    padding: calc(1.5rem + 0.4vw) calc(1.2rem + 0.2vw);
+    max-width: calc(800px + 8vw);
   }
-  .section:not(#home) .card {
-    padding: calc(0.8rem + 0.2vw);
-    border-radius: calc(0.6rem + 0.15vmin);
-    backdrop-filter: blur(calc(6px + 0.2vmin)) saturate(140%);
-    font-size: calc(1.25rem + 0.4vmin);
+  .skillsTitle {
+    font-size: calc(1.75rem + 0.4vmin);
+  }
+  .certificateGrid {
+    grid-template-columns: repeat(auto-fit, minmax(calc(180px + 4vw), 1fr));
+    gap: calc(0.8rem + 0.4vw);
+  }
+  .certificateFrame::before,
+  .certificateFrame::after {
+    width: calc(0.7rem + 0.2vw);
+    height: calc(0.7rem + 0.2vw);
+  }
+  .certificateImage {
+    max-height: calc(140px + 4vmin);
+  }
+  .certificateTitle {
+    font-size: calc(0.75rem + 0.2vmin);
   }
 }
 
 @media (max-width: 768px) {
-  .app-container {
-    padding: calc(0.6rem + 0.3vw);
+  .skillsSection {
+    padding: calc(1rem + 0.3vw);
   }
-  .section {
-    padding: calc(0.5rem + 0.15vw);
+  .skillsCard {
+    padding: calc(1.2rem + 0.3vw);
+    max-width: calc(600px + 6vw);
   }
-  .section:not(#home) .card {
-    padding: calc(0.7rem + 0.15vw);
-    border-radius: calc(0.5rem + 0.1vmin);
-    backdrop-filter: blur(calc(5px + 0.1vmin)) saturate(140%);
-    font-size: calc(1rem + 0.3vmin);
+  .skillsTitle {
+    font-size: calc(1.5rem + 0.3vmin);
+  }
+  .certificateGrid {
+    grid-template-columns: repeat(auto-fit, minmax(calc(150px + 4vw), 1fr));
+    gap: calc(0.6rem + 0.3vw);
+  }
+  .certificateFrame::before,
+  .certificateFrame::after {
+    width: calc(0.6rem + 0.2vw);
+    height: calc(0.6rem + 0.2vw);
+  }
+  .certificateImage {
+    max-height: calc(120px + 4vmin);
+  }
+  .certificateTitle {
+    font-size: calc(0.7rem + 0.2vmin);
   }
 }
 
 @media (max-width: 480px) {
-  .app-container {
-    padding: calc(0.5rem + 0.2vw);
+  .skillsSection {
+    padding: calc(0.8rem + 0.2vw);
   }
-  .section {
-    padding: calc(0.4rem + 0.1vw);
+  .skillsCard {
+    padding: calc(1rem + 0.2vw);
+    max-width: calc(400px + 5vw);
   }
-  .section:not(#home) .card {
-    padding: calc(0.6rem + 0.1vw);
-    border-radius: calc(0.4rem + 0.1vmin);
-    backdrop-filter: blur(calc(4px + 0.1vmin)) saturate(140%);
-    font-size: calc(0.9rem + 0.2vmin);
+  .skillsTitle {
+    font-size: calc(1.25rem + 0.3vmin);
+  }
+  .certificateGrid {
+    grid-template-columns: 1fr;
+    gap: calc(0.5rem + 0.2vw);
+  }
+  .certificateFrame::before,
+  .certificateFrame::after {
+    width: calc(0.5rem + 0.1vw);
+    height: calc(0.5rem + 0.1vw);
+  }
+  .certificateImage {
+    max-height: calc(100px + 3vmin);
+  }
+  .certificateTitle {
+    font-size: calc(0.65rem + 0.2vmin);
   }
 }
 
 @media (max-aspect-ratio: 1/1) {
-  .app-container {
-    padding: calc(0.4rem + 0.2vw);
+  .skillsSection {
+    padding: calc(0.6rem + 0.2vw);
   }
-  .section {
-    padding: calc(0.3rem + 0.1vw);
+  .skillsCard {
+    padding: calc(0.8rem + 0.2vw);
   }
-  .section:not(#home) .card {
-    padding: calc(0.5rem + 0.1vw);
-    font-size: calc(0.8rem + 0.2vmin);
+  .skillsTitle {
+    font-size: calc(1.2rem + 0.3vmin);
+  }
+  .certificateGrid {
+    gap: calc(0.4rem + 0.2vw);
   }
 }
 
 @media (min-aspect-ratio: 2/1) {
-  .app-container {
-    max-width: calc(1400px + 2vw);
-    padding: calc(1.2rem + 0.6vw);
+  .skillsSection {
+    padding: calc(2rem + 0.6vw);
   }
-  .section:not(#home) .card {
-    padding: calc(1.2rem + 0.4vw);
-    border-radius: calc(1rem + 0.3vmin);
-    font-size: calc(1.75rem + 0.6vmin);
+  .skillsCard {
+    padding: calc(2.5rem + 0.6vw);
+    max-width: calc(1000px + 10vw);
+  }
+  .skillsTitle {
+    font-size: calc(2.25rem + 0.6vmin);
+  }
+  .certificateGrid {
+    grid-template-columns: repeat(auto-fit, minmax(calc(250px + 6vw), 1fr));
+  }
+  .certificateImage {
+    max-height: calc(180px + 6vmin);
   }
 }
