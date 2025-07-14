@@ -1,5 +1,7 @@
 import NavbarIcons from './components/Navbar';
+import Home from './components/Home'; // ✅ Make sure this line exists
 import './App.css'; // Import App.css for full-page styling
+import Skills from './components/Skills';
 
 function App() {
   return (
@@ -8,17 +10,21 @@ function App() {
 
       {/* Sections with IDs */}
       <section id="home" className="section">
-        <div className="card">🏠 Home</div>
+        <Home /> {/* ✅ This will show your actual Home component UI */}
       </section>
+
       <section id="about" className="section">
         <div className="card">📁 About</div>
       </section>
+
       <section id="projects" className="section">
         <div className="card">💼 Projects</div>
       </section>
+
       <section id="skills" className="section">
-        <div className="card">📊 Skills</div>
+         <Skills /> 
       </section>
+
       <section id="contact" className="section">
         <div className="card">✉️ Contact</div>
       </section>

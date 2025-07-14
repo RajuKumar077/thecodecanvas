@@ -1,0 +1,240 @@
+/* Define custom properties for consistency with Navbar.module.css and App.css */
+:root {
+  --accent-color: #e7e7e8; /* Matches navbar's grayish accent */
+  --accent-glow: #e8e8e8; /* Matches navbar's glow */
+  --glass-bg: rgba(30, 30, 30, 0.5); /* Dark gray glass for cards */
+  --text-primary: #ffffff; /* White for primary text */
+  --text-secondary: #bbbbbb; /* Light gray for secondary text */
+}
+
+/* Home section with full-size pure black background */
+.homeSection {
+  min-height: 100vh;
+  width: 100%;
+  background: #000000; /* Pure black for full coverage */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: calc(1.5rem + 0.5vw);
+  box-sizing: border-box;
+}
+
+/* Glass-like card with flexbox for text and image */
+.homeCard {
+  background: var(--glass-bg);
+  backdrop-filter: blur(calc(10px + 0.3vmin)) saturate(150%);
+  border-radius: calc(0.8rem + 0.2vmin);
+  padding: calc(2rem + 0.5vw) calc(1.5rem + 0.3vw);
+  box-shadow: 0 calc(0.4rem + 0.2vmin) calc(1.2rem + 0.3vmin) rgba(0, 0, 0, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: calc(1rem + 0.5vw);
+  max-width: calc(800px + 10vw); /* Increased to accommodate image */
+  width: 100%;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.homeCard:hover {
+  box-shadow: 0 calc(0.5rem + 0.3vmin) calc(1.5rem + 0.4vmin) rgba(0, 0, 0, 0.4);
+  transform: translateY(-4px);
+}
+
+/* Text content container */
+.heroContent {
+  text-align: left;
+  flex: 1;
+}
+
+/* Hero section text */
+.heroTitle {
+  font-size: calc(2rem + 0.5vmin);
+  color: var(--accent-color);
+  margin-bottom: calc(0.4rem + 0.1vw);
+  font-weight: 700;
+}
+
+.heroSubtitle {
+  font-size: calc(1rem + 0.3vmin);
+  color: var(--text-secondary);
+  margin-bottom: calc(0.8rem + 0.2vw);
+  font-weight: 500;
+}
+
+.heroDesc {
+  font-size: calc(0.9rem + 0.2vmin);
+  color: var(--text-secondary);
+  margin-bottom: calc(1.5rem + 0.3vw);
+}
+
+/* Hero buttons container */
+.heroButtons {
+  display: flex;
+  justify-content: flex-start;
+  gap: calc(0.8rem + 0.2vw);
+}
+
+/* Primary button */
+.primaryBtn {
+  padding: calc(0.6rem + 0.1vw) calc(1.2rem + 0.3vw);
+  background-color: var(--accent-color);
+  color: #000000;
+  border: none;
+  border-radius: calc(0.4rem + 0.1vmin);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.primaryBtn:hover {
+  background-color: var(--accent-glow);
+}
+
+/* Secondary button */
+.secondaryBtn {
+  padding: calc(0.6rem + 0.1vw) calc(1.2rem + 0.3vw);
+  background-color: transparent;
+  color: var(--accent-color);
+  border: 2px solid var(--accent-color);
+  border-radius: calc(0.4rem + 0.1vmin);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.secondaryBtn:hover {
+  background-color: var(--accent-color);
+  color: #000000;
+}
+
+/* Image styling */
+.heroImage {
+  max-width: calc(200px + 5vw);
+  height: auto;
+  border-radius: calc(0.6rem + 0.2vmin);
+  box-shadow: 0 calc(0.2rem + 0.1vmin) calc(0.6rem + 0.2vmin) rgba(0, 0, 0, 0.3);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.heroImage:hover {
+  box-shadow: 0 calc(0.3rem + 0.2vmin) calc(0.8rem + 0.3vmin) rgba(0, 0, 0, 0.4);
+  transform: scale(1.05);
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .homeSection {
+    padding: calc(1.2rem + 0.4vw);
+  }
+  .homeCard {
+    padding: calc(1.5rem + 0.4vw) calc(1.2rem + 0.2vw);
+    max-width: calc(700px + 8vw);
+    gap: calc(0.8rem + 0.4vw);
+  }
+  .heroImage {
+    max-width: calc(180px + 4vw);
+  }
+  .heroTitle {
+    font-size: calc(1.75rem + 0.4vmin);
+  }
+  .heroSubtitle {
+    font-size: calc(0.9rem + 0.2vmin);
+  }
+  .heroDesc {
+    font-size: calc(0.8rem + 0.2vmin);
+  }
+}
+
+@media (max-width: 768px) {
+  .homeSection {
+    padding: calc(1rem + 0.3vw);
+  }
+  .homeCard {
+    flex-direction: column;
+    align-items: center;
+    padding: calc(1.2rem + 0.3vw);
+    max-width: calc(500px + 6vw);
+    gap: calc(1rem + 0.3vw);
+  }
+  .heroContent {
+    text-align: center;
+  }
+  .heroButtons {
+    justify-content: center;
+  }
+  .heroImage {
+    max-width: calc(150px + 4vw);
+  }
+  .heroTitle {
+    font-size: calc(1.5rem + 0.3vmin);
+  }
+  .heroSubtitle {
+    font-size: calc(0.8rem + 0.2vmin);
+  }
+  .heroDesc {
+    font-size: calc(0.7rem + 0.2vmin);
+  }
+  .heroButtons {
+    gap: calc(0.5rem + 0.1vw);
+  }
+  .primaryBtn, .secondaryBtn {
+    padding: calc(0.5rem + 0.1vw) calc(1rem + 0.2vw);
+  }
+}
+
+@media (max-width: 480px) {
+  .homeSection {
+    padding: calc(0.8rem + 0.2vw);
+  }
+  .homeCard {
+    padding: calc(1rem + 0.2vw);
+    max-width: calc(400px + 5vw);
+  }
+  .heroImage {
+    max-width: calc(120px + 3vw);
+  }
+  .heroTitle {
+    font-size: calc(1.25rem + 0.3vmin);
+  }
+  .heroSubtitle {
+    font-size: calc(0.7rem + 0.2vmin);
+  }
+  .heroDesc {
+    font-size: calc(0.65rem + 0.2vmin);
+  }
+  .heroButtons {
+    flex-direction: column;
+    gap: calc(0.5rem + 0.1vw);
+  }
+}
+
+@media (max-aspect-ratio: 1/1) {
+  .homeSection {
+    padding: calc(0.6rem + 0.2vw);
+  }
+  .homeCard {
+    padding: calc(0.8rem + 0.2vw);
+  }
+  .heroImage {
+    max-width: calc(100px + 3vw);
+  }
+  .heroTitle {
+    font-size: calc(1.2rem + 0.3vmin);
+  }
+}
+
+@media (min-aspect-ratio: 2/1) {
+  .homeSection {
+    padding: calc(2rem + 0.6vw);
+  }
+  .homeCard {
+    padding: calc(2.5rem + 0.6vw);
+    max-width: calc(900px + 10vw);
+  }
+  .heroImage {
+    max-width: calc(250px + 6vw);
+  }
+  .heroTitle {
+    font-size: calc(2.25rem + 0.6vmin);
+  }
+}
