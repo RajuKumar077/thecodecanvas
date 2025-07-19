@@ -1,0 +1,177 @@
+/* src/components/Skills.css */
+
+/* Import Google Font - Inter for a modern, premium look */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+
+/* Base styles for the section to ensure glass effect is visible */
+body {
+    /* Ensure a background that allows blur to be seen (e.g., a gradient or image) */
+    /* If you have a global dark background in App.css, this might be redundant but good for testing */
+    background: linear-gradient(135deg, #1a202c, #2d3748); /* Dark gradient background */
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center content vertically */
+    align-items: center; /* Center content horizontally */
+}
+
+/* Main container for the Skills section with glass effect */
+.skills-glass-section {
+    background-color: rgba(255, 255, 255, 0.08); /* Semi-transparent white for glass */
+    backdrop-filter: blur(15px); /* The core glass effect */
+    border: 1px solid rgba(255, 255, 255, 0.15); /* Subtle border for definition */
+    border-radius: 25px; /* More rounded corners for premium feel */
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.25); /* Deeper shadow for depth */
+    padding: 3rem 2.5rem; /* Generous padding for 'premium fill' */
+    margin: 3rem auto; /* Center the box and provide vertical spacing */
+    max-width: 1000px; /* 'Short size' by limiting max width */
+    width: 90%; /* Responsive width */
+    position: relative;
+    overflow: hidden; /* Ensures content respects border-radius */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 1; /* Ensure it layers correctly */
+}
+
+/* Subtle inner glow/gradient for extra premium touch */
+.skills-glass-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 25px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0));
+    z-index: -1;
+}
+
+/* Title styling */
+.skills-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 3.2rem; /* Large and prominent title */
+    font-weight: 800; /* Extra bold */
+    color: #ffffff; /* Bright white for contrast */
+    text-align: center;
+    margin-bottom: 2.5rem;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.4); /* Soft glow effect */
+    letter-spacing: -0.05em; /* Tighter letter spacing */
+}
+
+/* No certificates message */
+.no-certificates-message {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1.1rem;
+    text-align: center;
+    padding: 1rem;
+}
+
+/* Certificate grid container */
+.certificate-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); /* Flexible columns */
+    gap: 2.5rem; /* Increased gap for premium spacing */
+    width: 100%; /* Ensure grid takes full width of parent */
+    justify-content: center; /* Center items in grid */
+}
+
+/* Individual certificate frame with glass effect */
+.certificate-glass-frame {
+    background-color: rgba(255, 255, 255, 0.05); /* Slightly less transparent for cards */
+    backdrop-filter: blur(8px); /* Less blur for cards than main section */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 18px; /* Rounded corners for cards */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Subtle card shadow */
+    padding: 1.8rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: all 0.3s ease-in-out; /* Smooth transitions for hover */
+    overflow: hidden; /* Prevent image overflow */
+}
+
+.certificate-glass-frame:hover {
+    background-color: rgba(255, 255, 255, 0.15); /* More opaque on hover */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2); /* Deeper shadow on hover */
+    transform: translateY(-8px) scale(1.02); /* Lift and slightly scale on hover */
+    border-color: rgba(255, 255, 255, 0.3); /* Brighter border on hover */
+}
+
+/* Certificate image styling */
+.certificate-glass-frame img {
+    /* Changed width to a fixed size and added margin-left/right auto for centering */
+    width: 120px; /* Decreased fixed width */
+    max-height: 160px; /* Keep max-height as a constraint */
+    object-fit: contain; /* Ensure image fits without cropping */
+    margin-bottom: 1.2rem;
+    margin-left: auto; /* Center the image horizontally */
+    margin-right: auto; /* Center the image horizontally */
+    border-radius: 10px; /* Rounded image corners */
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border for image */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); /* Image shadow */
+}
+
+/* Certificate title styling */
+.certificate-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #e0e0e0; /* Light gray text for readability */
+    line-height: 1.4;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .skills-glass-section {
+        padding: 2rem 1.5rem;
+        margin: 2rem auto;
+        width: 95%;
+    }
+
+    .skills-title {
+        font-size: 2.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .certificate-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .certificate-glass-frame {
+        padding: 1.2rem;
+    }
+
+    .certificate-glass-frame img {
+        width: 100px; /* Adjust for smaller screens */
+        max-height: 140px;
+    }
+
+    .certificate-title {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .skills-glass-section {
+        padding: 1.5rem 1rem;
+        margin: 1rem auto;
+    }
+
+    .skills-title {
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .certificate-grid {
+        grid-template-columns: 1fr; /* Single column on very small screens */
+        gap: 1rem;
+    }
+
+    .certificate-glass-frame img {
+        width: 80px; /* Further adjust for very small screens */
+    }
+}

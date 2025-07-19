@@ -1,0 +1,106 @@
+/* src/components/About.css */
+
+/* About section styling */
+.aboutSection {
+    min-height: 100vh;
+    width: 100%;
+    background: #000000; /* Pure black background, consistent with other sections */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: calc(2rem + 1vw); /* Dynamic padding */
+    box-sizing: border-box;
+    position: relative;
+    z-index: 10;
+    /* TEMPORARY DEBUGGING: Add a border to see the section's boundaries */
+    /* You can remove this line once centering is confirmed */
+    border: 2px dashed rgba(255, 0, 0, 0.5);
+}
+
+/* Glass-like card for About content */
+.aboutCard {
+    background: var(--glass-bg); /* Uses global glass background variable */
+    backdrop-filter: blur(calc(10px + 0.3vmin)) saturate(150%);
+    border-radius: calc(0.8rem + 0.2vmin);
+    /* Adjusted padding to make the content feel more centered and 'middle' */
+    padding: calc(3rem + 1vw) calc(2.5rem + 0.8vw); /* Increased padding for a more substantial feel */
+    box-shadow: 0 calc(0.4rem + 0.2vmin) calc(1.2rem + 0.3vmin) rgba(0, 0, 0, 0.35);
+    text-align: center;
+    /* Adjusted max-width slightly to ensure it has room to center */
+    max-width: calc(850px + 10vw); /* Slightly reduced from 900px + 12vw */
+    width: 100%;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.aboutCard:hover {
+    box-shadow: 0 calc(0.5rem + 0.3vmin) calc(1.5rem + 0.4vmin) rgba(0, 0, 0, 0.4);
+    transform: translateY(-4px);
+}
+
+/* About title */
+.aboutTitle {
+    font-size: calc(2.5rem + 0.7vmin); /* Slightly increased font size for prominence */
+    color: var(--accent-color); /* Uses global accent color variable */
+    margin-bottom: calc(1.8rem + 0.4vw); /* Increased margin below title */
+    font-weight: 700;
+}
+
+/* About description text */
+.aboutDescription {
+    font-size: calc(1.1rem + 0.4vmin); /* Slightly increased font size for readability */
+    color: var(--text-secondary); /* Uses global secondary text color variable */
+    line-height: 1.7; /* Improved line height for better readability */
+    margin-bottom: calc(1.8rem + 0.4vw); /* Increased margin between paragraphs */
+    max-width: 800px; /* Constrain text width for readability, slightly wider */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+    .aboutSection {
+        padding: calc(1.5rem + 0.5vw);
+    }
+    .aboutCard {
+        padding: calc(2rem + 0.5vw) calc(1.5rem + 0.3vw);
+        max-width: calc(700px + 8vw); /* Adjusted max-width for this breakpoint */
+    }
+    .aboutTitle {
+        font-size: calc(2rem + 0.5vmin);
+    }
+    .aboutDescription {
+        font-size: calc(0.95rem + 0.3vmin);
+    }
+}
+
+@media (max-width: 768px) {
+    .aboutSection {
+        padding: calc(1rem + 0.3vw);
+    }
+    .aboutCard {
+        padding: calc(1.5rem + 0.3vw) calc(1rem + 0.2vw);
+        max-width: calc(500px + 6vw);
+    }
+    .aboutTitle {
+        font-size: calc(1.7rem + 0.4vmin);
+    }
+    .aboutDescription {
+        font-size: calc(0.85rem + 0.25vmin);
+    }
+}
+
+@media (max-width: 480px) {
+    .aboutSection {
+        padding: calc(0.8rem + 0.2vw);
+    }
+    .aboutCard {
+        padding: calc(1rem + 0.2vw) calc(0.8rem + 0.15vw);
+        max-width: calc(350px + 5vw);
+    }
+    .aboutTitle {
+        font-size: calc(1.4rem + 0.3vmin);
+    }
+    .aboutDescription {
+        font-size: calc(0.75rem + 0.2vmin);
+    }
+}

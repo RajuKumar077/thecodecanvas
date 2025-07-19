@@ -38,7 +38,7 @@
   border-radius: calc(1rem + 0.5vmin); /* Dynamic rounded corners */
   padding: calc(0.4rem + 0.3vw);
   box-shadow: 0 calc(0.4rem + 0.2vmin) calc(1rem + 0.5vmin) rgba(0, 0, 0, 0.4),
-              inset 0 0 calc(0.4rem + 0.2vmin) rgba(255, 255, 255, 0.08);
+              inset 0 0 calc(0.4rem + 0.2vmin) rgba(3, 6, 57, 0.853);
   position: relative;
   z-index: 1000;
   max-width: 90%; /* Flexible width */
