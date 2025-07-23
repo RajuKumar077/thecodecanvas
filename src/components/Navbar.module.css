@@ -1,14 +1,14 @@
 /* Define custom properties for a premium black glass theme */
 :root {
-  --accent-color: #e7e7e8; /* Apple's signature blue for highlights */
-  --accent-glow: #e8e8e8; /* Brighter blue for glow effects */
-  --glass-bg: #000000; /* Pure black for main container */
-  --inner-bg: rgba(30, 30, 30, 0.4); /* Dark gray for inner container depth */
-  --tab-bg: rgba(30, 30, 30, 0.5); /* Semi-transparent black for tab glass */
-  --tab-active-bg: linear-gradient(135deg, rgba(119, 121, 123, 0.3) 0%, rgba(137, 142, 147, 0.4) 100%); /* Glowing gradient for active tab */
-  --border-color: rgba(0, 0, 0, 0.12); /* Faint white for outer border */
-  --text-default: rgba(150, 150, 150, 0.7); /* Muted gray for default text/icons */
-  --text-hover: #ffffff; /* White for hover contrast, changed from red */
+  --accent-color: #D4AF37; /* Metallic Gold for highlights */
+  --accent-glow: #FFD700; /* Brighter Gold for glow effects */
+  --glass-bg: #2C1E16; /* Deep Espresso Brown for main container */
+  --inner-bg: rgba(44, 30, 22, 0.6); /* Slightly transparent darker brown for inner container depth */
+  --tab-bg: rgba(54, 38, 28, 0.7); /* Semi-transparent medium brown for tab glass */
+  --tab-active-bg: linear-gradient(135deg, rgba(212, 175, 55, 0.3) 0%, rgba(255, 215, 0, 0.4) 100%); /* Glowing gold gradient for active tab */
+  --border-color: rgba(100, 70, 50, 0.3); /* Subtle brown for outer border */
+  --text-default: #E0D5C7; /* Creamy off-white for default text/icons */
+  --text-hover: #FFFFFF; /* Pure white for hover contrast */
 }
 
 /* Outer container for centering */
@@ -33,12 +33,12 @@
 /* Main navbar container with pure black glassmorphism */
 .navContainer {
   background: var(--glass-bg);
-  backdrop-filter: blur(calc(20px + 0.5vmin)) saturate(160%); /* Dynamic blur */
+  backdrop-filter: blur(calc(20px + 0.5vmin)) saturate(160%); /* Dynamic blur for polished leather effect */
   border: 1px solid var(--border-color);
   border-radius: calc(1rem + 0.5vmin); /* Dynamic rounded corners */
   padding: calc(0.4rem + 0.3vw);
-  box-shadow: 0 calc(0.4rem + 0.2vmin) calc(1rem + 0.5vmin) rgba(0, 0, 0, 0.4),
-              inset 0 0 calc(0.4rem + 0.2vmin) rgba(3, 6, 57, 0.853);
+  box-shadow: 0 calc(0.4rem + 0.2vmin) calc(1rem + 0.5vmin) rgba(0, 0, 0, 0.6), /* Darker, richer shadow */
+              inset 0 0 calc(0.4rem + 0.2vmin) rgba(100, 70, 50, 0.4); /* Inner warm glow */
   position: relative;
   z-index: 1000;
   max-width: 90%; /* Flexible width */
@@ -61,8 +61,8 @@
   align-items: center;
   gap: calc(0.3rem + 0.2vw); /* Dynamic gap */
   flex-wrap: nowrap;
-  box-shadow: inset 0 0 calc(0.3rem + 0.1vmin) rgba(0, 0, 0, 0.25),
-              inset 0 0 calc(0.4rem + 0.2vmin) rgba(255, 255, 255, 0.06);
+  box-shadow: inset 0 0 calc(0.3rem + 0.1vmin) rgba(0, 0, 0, 0.4), /* Darker inner shadow */
+              inset 0 0 calc(0.4rem + 0.2vmin) rgba(255, 255, 255, 0.08); /* Subtle inner highlight */
 }
 
 /* Individual tab styling */
@@ -87,23 +87,31 @@
               box-shadow 0.4s ease;
 }
 
+/* Enhanced Hover Effect for navTab */
 .navTab:hover {
   color: var(--text-hover);
-  transform: translateY(-2px);
-  box-shadow: 0 0 calc(0.5rem + 0.2vmin) rgba(255, 255, 255, 0.1);
+  transform: translateY(-3px) scale(1.02); /* More pronounced lift and slight scale */
+  background: rgba(64, 48, 38, 0.8); /* Slightly lighter, more opaque brown on hover */
+  box-shadow: 0 0 calc(0.8rem + 0.3vmin) rgba(255, 215, 0, 0.3), /* Gold outer glow on hover */
+              inset 0 0 calc(0.3rem + 0.1vmin) rgba(255, 255, 255, 0.12); /* Subtle inner highlight */
 }
 
+/* Active tab styling */
 .navTab.active {
   color: var(--accent-color);
   font-weight: 600;
   background: var(--tab-active-bg);
   box-shadow: 0 0 calc(0.8rem + 0.3vmin) var(--accent-glow),
-              inset 0 0 calc(0.5rem + 0.2vmin) rgba(255, 255, 255, 0.15);
+              inset 0 0 calc(0.5rem + 0.2vmin) rgba(255, 255, 255, 0.18); /* Stronger inner highlight */
 }
 
-/* Text within tabs */
+/* Text within tabs - subtle scale on hover */
 .tabText {
-  transition: color 0.4s ease;
+  transition: color 0.4s ease, transform 0.25s ease;
+}
+
+.navTab:hover .tabText {
+  transform: scale(1.05); /* Slightly scale text on hover */
 }
 
 /* Sliding glass highlight */
@@ -111,16 +119,37 @@
   position: absolute;
   top: calc(0.2rem + 0.1vw);
   height: calc(100% - (0.4rem + 0.2vw));
-  background: linear-gradient(135deg, var(--accent-color) 0%, var(--accent-glow) 70%, rgba(255, 255, 255, 0.15) 100%);
+  /* Dynamic Background for Live Color Animation - Premium Glass Palette */
+  background: linear-gradient(
+    90deg,
+    rgba(135, 206, 250, 0.6),   /* Light Sky Blue */
+    rgba(173, 216, 230, 0.6),   /* Light Blue */
+    rgba(147, 112, 219, 0.6),   /* Medium Purple */
+    rgba(255, 192, 203, 0.6),   /* Pink (very subtle) */
+    rgba(135, 206, 250, 0.6)    /* Repeat first color for seamless loop */
+  );
+  background-size: 200% 100%; /* Smaller size for subtle movement */
+  animation: glowing-glass 20s linear infinite; /* Slower animation for ethereal feel */
+
   backdrop-filter: blur(calc(15px + 0.5vmin)) saturate(180%);
   border-radius: calc(0.8rem + 0.2vmin);
   transition: width 0.7s cubic-bezier(0.25, 0.8, 0.25, 1),
               left 0.7s cubic-bezier(0.25, 0.8, 0.25, 1),
               opacity 0.35s ease;
-  box-shadow: 0 0 calc(1rem + 0.4vmin) var(--accent-glow),
-              inset 0 0 calc(0.6rem + 0.3vmin) rgba(255, 255, 255, 0.18);
+  box-shadow: 0 0 calc(0.8rem + 0.3vmin) rgba(135, 206, 250, 0.5), /* Subtle blue glow */
+              inset 0 0 calc(0.5rem + 0.2vmin) rgba(255, 255, 255, 0.2); /* Softer inner white highlight */
   z-index: 5;
   opacity: 0;
+}
+
+/* Keyframes for the glowing glass animation */
+@keyframes glowing-glass {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%; /* Go fully across */
+  }
 }
 
 /* Ensure glass bar visibility when active */

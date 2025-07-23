@@ -9,7 +9,6 @@ const icons = [
   { id: 'contact', emoji: '✉️', text: 'Contact' },
 ];
 
-// NavbarIcons component now accepts 'sectionIds' prop
 const NavbarIcons = ({ sectionIds }) => {
   const [active, setActive] = useState('home');
   const [sliderStyles, setSliderStyles] = useState({ opacity: 0 }); // Initialize with opacity 0
@@ -47,21 +46,21 @@ const NavbarIcons = ({ sectionIds }) => {
     const observers = [];
     const observerOptions = {
       root: null, // viewport
-      rootMargin: '-50% 0px -50% 0px', // Trigger when section is roughly in the middle of the viewport
+      rootMargin: '-20% 0px -20% 0px', // Adjusted to be less strict
       threshold: 0, // Trigger as soon as any part of the section is visible
     };
 
-    icons.forEach((item) => {
-      const sectionElement = document.getElementById(item.id);
+    sectionIds.forEach((id) => { 
+      const sectionElement = document.getElementById(id);
       if (sectionElement) {
+        console.log(`Navbar OBSERVER: Observing section: #${id}`); 
         const observer = new IntersectionObserver((entries) => {
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
               // Only update if the intersecting section is not already active
-              // This prevents rapid flickering if multiple sections briefly intersect
               if (active !== entry.target.id) {
                 setActive(entry.target.id);
-                console.log(`Active section changed to: ${entry.target.id}`);
+                console.log(`Navbar OBSERVER: Active section changed to: ${entry.target.id}`);
               }
             }
           });
@@ -69,22 +68,27 @@ const NavbarIcons = ({ sectionIds }) => {
         observer.observe(sectionElement);
         observers.push(observer);
       } else {
-        console.warn(`Section with ID '${item.id}' not found for IntersectionObserver.`);
+        console.warn(`Navbar OBSERVER: Section with ID '${id}' not found for IntersectionObserver.`);
       }
     });
 
     // Cleanup function: disconnect all observers when component unmounts
     return () => {
       observers.forEach((observer) => observer.disconnect());
+      console.log('Navbar OBSERVER: All IntersectionObservers disconnected.');
     };
-  }, []); // Empty dependency array means this runs once on mount
+  }, [sectionIds, active]);
 
   const handleScrollTo = (id) => {
-    // When clicking a tab, set active immediately and scroll
     setActive(id);
     const target = document.getElementById(id);
+    console.log(`Navbar CLICK: Attempting to scroll to ID: ${id}`); // Log the ID being clicked
     if (target) {
+      console.log(`Navbar CLICK: Target element found:`, target); // Log the actual DOM element found
       target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      console.log(`Navbar CLICK: scrollIntoView called for ID: ${id}`); // Confirm scroll method is called
+    } else {
+      console.error(`Navbar CLICK: Element with ID '${id}' NOT FOUND for scrolling.`); // Error if not found
     }
   };
 

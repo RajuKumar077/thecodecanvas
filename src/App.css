@@ -1,291 +1,131 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-/* Define custom properties for consistency across all pages */
-:root {
-  --accent-color: #e7e7e8; /* Matches navbar's grayish accent */
-  --accent-glow: #bfbfbf; /* Matches navbar's glow */
-  --glass-bg: rgba(30, 30, 30, 0.5); /* Dark gray glass for cards */
-  --text-primary: #ffffff; /* White for primary text */
-  --text-secondary: #bbbbbb; /* Light gray for secondary text */
+/* Basic styling for the entire app container */
+.app-container {
+  font-family: 'Inter', sans-serif; /* Using Inter font as per instructions */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: transparent; /* IMPORTANT: Make app-container background transparent */
+  color: #e2e8f0; /* Light text color */
+  overflow-x: hidden; /* Prevent horizontal scroll */
+  position: relative; /* Needed for z-index context for children */
+  z-index: 1; /* Ensure app-container is above the canvas */
+  min-height: 100vh; /* Ensure app-container takes at least full viewport height */
 }
 
-/* --- GLOBAL BODY/HTML/ROOT STYLES: ENSURE FULL BLACK BACKGROUND AND DEFAULT TEXT COLOR --- */
-html, body, #root { /* Target html, body, AND the common React root element */
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Inter', sans-serif; /* Example font, ensure it's loaded if not via Tailwind */
-  background: #000000 !important; /* Use 'background' shorthand for broader coverage, with !important */
-  color: var(--text-primary); /* Default text color for the whole app */
-  min-height: 100vh; /* Ensure elements take full height */
-  width: 100vw; /* Ensure elements take full width */
-  overflow-x: hidden; /* Prevent horizontal scroll on small overflows */
-}
-
-/* Reset default link color to inherit from parent or use a variable */
-a {
-  color: inherit; /* Links will now use the parent's text color (var(--text-primary) by default) */
-  text-decoration: none; /* Remove default underline */
-}
-
-/* Add a subtle hover effect for links if desired */
-a:hover {
-  color: var(--accent-color); /* Change color on hover */
-  text-decoration: underline; /* Add underline on hover */
-}
-
-
-/* --- CUSTOM CSS FOR NAVBAR (Global, as it appears on all pages) --- */
-.nav-container {
-  background: #1a1a1a;
-  padding: 0.5rem;
-  /* Add more global navbar styles if needed */
-}
-
-.nav-tabs {
-  background: #2c2c2c;
-  border-radius: 0.5rem;
-  padding: 0.25rem;
-  position: relative;
-}
-
-.nav-tab {
-  padding: 0.5rem 1rem;
-  color: #d1d5db;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: color 0.3s;
-}
-
-.nav-tab.active {
-  color: #e5e7eb;
-}
-
-.nav-glass {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(8px);
-  border-radius: 0.5rem;
-  transition: width 0.3s ease-out, left 0.3s ease-out;
-}
-
-/* --- HOME PAGE SPECIFIC STYLES (Since App.jsx is your home page) --- */
-
-/* Home section with full-size pure black background and dynamic sizing */
+/* Styling for the Home section (hero) - now just for content layout */
 .homeSection {
-  min-height: 100vh; /* Ensures full viewport height */
-  width: 100%; /* Ensures full viewport width */
-  background: #000000; /* Pure black for full coverage */
+  position: relative; /* Keep relative for its content positioning */
+  width: 100%;
+  min-height: 100vh; /* Ensure it takes full viewport height */
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0.5vw; /* Reduced padding to allow the card to expand more */
-  box-sizing: border-box;
+  /* No specific background-color here, it will show the global canvas */
 }
 
-/* Glass-like card for Home section */
+/* Styling for the content card within the home section */
 .homeCard {
-  background: var(--glass-bg);
-  backdrop-filter: blur(calc(10px + 0.3vmin)) saturate(150%); /* Dynamic blur */
-  border-radius: calc(0.8rem + 0.2vmin); /* Dynamic border-radius */
-  padding: calc(3.5rem + 1.5vw) calc(3rem + 1vw); /* Generous padding for premium feel */
-  box-shadow: 0 calc(0.4rem + 0.2vmin) calc(1.2rem + 0.3vmin) rgba(0, 0, 0, 0.35); /* Dynamic shadow */
+  position: relative; /* Bring content above canvas */
+  z-index: 10;
+  background-color: rgba(26, 32, 44, 0.7); /* Semi-transparent dark background for the card */
+  padding: 2.5rem; /* Increased padding */
+  border-radius: 1rem; /* More rounded corners */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* Stronger shadow */
   text-align: center;
-  max-width: 90vw; /* Set to 90% of viewport width for a truly expansive feel */
-  width: 100%;
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  max-width: 90%; /* Responsive width */
+  margin: 0 auto; /* Center the card */
+  backdrop-filter: blur(5px); /* Subtle blur effect behind the card */
+  -webkit-backdrop-filter: blur(5px); /* For Safari */
 }
 
-.homeCard:hover {
-  box-shadow: 0 calc(0.5rem + 0.3vmin) calc(1.5rem + 0.4vmin) rgba(0, 0, 0, 0.4);
-  transform: translateY(-4px);
-}
-
-/* Hero section text */
 .heroTitle {
-  font-size: calc(2.5rem + 0.7vmin); /* Increased dynamic font-size for title */
-  color: var(--accent-color);
-  margin-bottom: calc(0.6rem + 0.2vw); /* Adjusted dynamic margin */
-  font-weight: 700;
+  font-size: 3.5rem; /* Larger title */
+  font-weight: 800; /* Extra bold */
+  margin-bottom: 1rem;
+  color: #e2e8f0; /* Light text */
+  line-height: 1.2;
+}
+
+.heroTitle .text-blue-300 {
+  color: #93c5fd; /* Tailwind blue-300 equivalent */
 }
 
 .heroSubtitle {
-  font-size: calc(1.2rem + 0.4vmin); /* Increased dynamic font-size for subtitle */
-  color: var(--text-secondary);
-  margin-bottom: calc(1rem + 0.3vw); /* Adjusted dynamic margin */
+  font-size: 1.75rem; /* Larger subtitle */
   font-weight: 500;
+  margin-bottom: 1.5rem;
+  color: #cbd5e1; /* Gray-200 equivalent */
 }
 
 .heroDesc {
-  font-size: calc(1rem + 0.3vmin); /* Slightly increased dynamic font-size for description */
-  color: var(--text-secondary);
-  margin-bottom: calc(2rem + 0.5vw); /* Adjusted dynamic margin */
+  font-size: 1.125rem; /* Slightly larger description */
+  margin-bottom: 2rem;
+  color: #a0aec0; /* Gray-300 equivalent */
+  max-width: 700px; /* Limit width for readability */
+  margin-left: auto;
+  margin-right: auto;
 }
 
-/* Hero buttons container */
 .heroButtons {
   display: flex;
+  flex-direction: column; /* Stack buttons on small screens */
+  gap: 1rem; /* Space between buttons */
   justify-content: center;
-  gap: calc(1rem + 0.3vw); /* Increased dynamic gap for buttons */
+  align-items: center;
 }
 
-/* Primary button */
-.primaryBtn {
-  padding: calc(0.7rem + 0.2vw) calc(1.5rem + 0.4vw); /* Increased dynamic padding */
-  background-color: var(--accent-color);
-  color: #000000;
-  border: none;
-  border-radius: calc(0.4rem + 0.1vmin); /* Dynamic border-radius */
+@media (min-width: 640px) { /* Tailwind's 'sm' breakpoint */
+  .heroButtons {
+    flex-direction: row; /* Row for larger screens */
+  }
+}
+
+.primaryBtn,
+.secondaryBtn {
+  padding: 0.75rem 2rem; /* Consistent padding */
+  border-radius: 9999px; /* Full rounded */
   font-weight: 600;
+  transition: all 0.3s ease-in-out;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.primaryBtn {
+  background-color: #3b82f6; /* Tailwind blue-500 */
+  color: white;
 }
 
 .primaryBtn:hover {
-  background-color: var(--accent-glow);
+  background-color: #2563eb; /* Tailwind blue-600 */
+  transform: scale(1.05);
 }
 
-/* Secondary button */
 .secondaryBtn {
-  padding: calc(0.7rem + 0.2vw) calc(1.5rem + 0.4vw); /* Increased dynamic padding */
   background-color: transparent;
-  color: var(--accent-color);
-  border: 2px solid var(--accent-color);
-  border-radius: calc(0.4rem + 0.1vmin); /* Dynamic border-radius */
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  border: 2px solid #60a5fa; /* Tailwind blue-400 */
+  color: #93c5fd; /* Tailwind blue-300 */
 }
 
 .secondaryBtn:hover {
-  background-color: var(--accent-color);
-  color: #000000;
+  background-color: #60a5fa; /* Tailwind blue-400 */
+  color: white;
+  transform: scale(1.05);
 }
 
-/* Responsive adjustments */
-@media (max-width: 1024px) {
-  .homeSection {
-    padding: 1vw; /* Adjusted padding for this breakpoint */
-  }
-  .homeCard {
-    padding: calc(2.5rem + 0.8vw) calc(2rem + 0.5vw); /* Adjusted padding for this breakpoint */
-    max-width: 85vw; /* Adjusted max-width for this breakpoint */
-    backdrop-filter: blur(calc(8px + 0.2vmin)) saturate(140%);
-  }
-  .heroTitle {
-    font-size: calc(2rem + 0.5vmin); /* Adjusted font-size */
-  }
-  .heroSubtitle {
-    font-size: calc(1rem + 0.3vmin); /* Adjusted font-size */
-  }
-  .heroDesc {
-    font-size: calc(0.9rem + 0.2vmin); /* Adjusted font-size */
-  }
-  .heroButtons {
-    gap: calc(0.8rem + 0.2vw); /* Adjusted gap */
-  }
-}
-
-@media (max-width: 768px) {
-  .homeSection {
-    padding: 2vw;
-  }
-  .homeCard {
-    padding: calc(2rem + 0.5vw) calc(1.5rem + 0.3vw);
-    max-width: 90vw;
-    backdrop-filter: blur(calc(6px + 0.2vmin)) saturate(140%);
-  }
-  .heroTitle {
-    font-size: calc(1.75rem + 0.4vmin);
-  }
-  .heroSubtitle {
-    font-size: calc(0.9rem + 0.2vmin);
-  }
-  .heroDesc {
-    font-size: calc(0.8rem + 0.2vmin);
-  }
-  .heroButtons {
-    gap: calc(0.6rem + 0.15vw);
-  }
-  .primaryBtn, .secondaryBtn {
-    padding: calc(0.6rem + 0.1vw) calc(1.2rem + 0.3vw);
-  }
-}
-
-@media (max-width: 480px) {
-  .homeSection {
-    padding: 3vw;
-  }
-  .homeCard {
-    padding: calc(1.5rem + 0.3vw) calc(1rem + 0.2vw);
-    max-width: 95vw;
-    backdrop-filter: blur(calc(5px + 0.1vmin)) saturate(140%);
-  }
-  .heroTitle {
-    font-size: calc(1.5rem + 0.3vmin);
-  }
-  .heroSubtitle {
-    font-size: calc(0.8rem + 0.2vmin);
-  }
-  .heroDesc {
-    font-size: calc(0.7rem + 0.2vmin);
-  }
-  .heroButtons {
-    flex-direction: column;
-    gap: calc(0.5rem + 0.1vw);
-  }
-}
-
-@media (max-aspect-ratio: 1/1) {
-  .homeSection {
-    padding: 4vw;
-  }
-  .homeCard {
-    padding: calc(1.2rem + 0.2vw) calc(1rem + 0.15vw);
-  }
-  .heroTitle {
-    font-size: calc(1.25rem + 0.3vmin);
-  }
-}
-
-@media (min-aspect-ratio: 2/1) {
-  .homeSection {
-    padding: 0.5vw;
-  }
-  .homeCard {
-    padding: calc(4rem + 2vw) calc(3.5rem + 1.5vw);
-    max-width: 80vw; /* Adjusted for very wide screens, still expansive */
-  }
-  .heroTitle {
-    font-size: calc(2.75rem + 0.8vmin);
-  }
-  .heroSubtitle {
-    font-size: calc(1.4rem + 0.5vmin);
-  }
-}
-
-/* TEMPORARY DEBUGGING STYLES: REMOVED AFTER ANIMATIONS WORK */
-/* This ensures each section is tall enough to trigger scrolling */
-/* Removed min-height: 100vh; */
+/* General section styling for other components */
 .section {
-  /* min-height: 100vh;  <-- REMOVED THIS LINE */
-  padding: calc(2rem + 1vw); /* Maintain some padding for content */
+  padding: 4rem 1rem; /* Add padding to all sections */
+  min-height: 80vh; /* Ensure sections are tall enough for scroll trigger */
   display: flex;
-  align-items: center;
+  flex-direction: column;
   justify-content: center;
-  background-color: #000000; /* Ensure black background for all sections */
-  border-top: 1px solid rgba(255,255,255,0.1); /* Visual separator */
+  align-items: center;
+  text-align: center;
+  /* Add a background color if you want a solid background for these sections */
+  background-color: rgba(15, 23, 42, 0.9); /* Slightly transparent dark background */
 }
 
-.section .card {
-  background: var(--glass-bg);
-  backdrop-filter: blur(10px);
-  border-radius: 15px;
-  padding: 2rem;
-  color: var(--text-primary);
-  font-size: 2rem;
-  text-align: center;
-  width: 80%;
-  max-width: 600px;
+/* Ensure images and other elements are responsive */
+img {
+  max-width: 100%;
+  height: auto;
 }

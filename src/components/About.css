@@ -4,103 +4,259 @@
 .aboutSection {
     min-height: 100vh;
     width: 100%;
-    background: #000000; /* Pure black background, consistent with other sections */
+    /* Subtle radial gradient background for depth */
+    background: radial-gradient(circle at center, #1a1a1a 0%, #000000 70%);
     display: flex;
+    flex-direction: column; /* Allow content to stack */
     align-items: center;
     justify-content: center;
-    padding: calc(2rem + 1vw); /* Dynamic padding */
+    padding: calc(3rem + 1.5vw) calc(2rem + 1vw); /* Generous dynamic padding */
     box-sizing: border-box;
     position: relative;
     z-index: 10;
-    /* TEMPORARY DEBUGGING: Add a border to see the section's boundaries */
-    /* You can remove this line once centering is confirmed */
-    border: 2px dashed rgba(255, 0, 0, 0.5);
+    overflow: hidden; /* Ensure nothing spills out */
 }
 
-/* Glass-like card for About content */
+/* Glass-like card for About content - main container */
 .aboutCard {
     background: var(--glass-bg); /* Uses global glass background variable */
     backdrop-filter: blur(calc(10px + 0.3vmin)) saturate(150%);
     border-radius: calc(0.8rem + 0.2vmin);
-    /* Adjusted padding to make the content feel more centered and 'middle' */
-    padding: calc(3rem + 1vw) calc(2.5rem + 0.8vw); /* Increased padding for a more substantial feel */
-    box-shadow: 0 calc(0.4rem + 0.2vmin) calc(1.2rem + 0.3vmin) rgba(0, 0, 0, 0.35);
+    padding: calc(3rem + 1.5vw) calc(2.5rem + 0.8vw); /* Generous padding */
+    box-shadow: 0 calc(0.6rem + 0.3vmin) calc(2rem + 0.8vmin) rgba(0, 0, 0, 0.5),
+                inset 0 0 calc(0.5rem + 0.2vmin) rgba(255, 255, 255, 0.05); /* Inner glow */
     text-align: center;
-    /* Adjusted max-width slightly to ensure it has room to center */
-    max-width: calc(850px + 10vw); /* Slightly reduced from 900px + 12vw */
+    max-width: calc(950px + 15vw); /* Wider card for more content */
     width: 100%;
     transition: box-shadow 0.3s ease, transform 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border */
+    position: relative; /* For potential pseudo-elements or inner positioning */
 }
 
 .aboutCard:hover {
-    box-shadow: 0 calc(0.5rem + 0.3vmin) calc(1.5rem + 0.4vmin) rgba(0, 0, 0, 0.4);
-    transform: translateY(-4px);
+    box-shadow: 0 calc(0.8rem + 0.4vmin) calc(2.5rem + 1vmin) rgba(0, 0, 0, 0.6),
+                inset 0 0 calc(0.6rem + 0.3vmin) rgba(255, 255, 255, 0.1);
+    transform: translateY(-8px) scale(1.005); /* Lift and subtle scale on hover */
 }
 
 /* About title */
 .aboutTitle {
-    font-size: calc(2.5rem + 0.7vmin); /* Slightly increased font size for prominence */
+    font-size: calc(2.8rem + 0.8vmin); /* Larger title */
     color: var(--accent-color); /* Uses global accent color variable */
-    margin-bottom: calc(1.8rem + 0.4vw); /* Increased margin below title */
+    margin-bottom: calc(2rem + 0.5vw); /* More spacing below title */
     font-weight: 700;
+    text-shadow: 0 0 15px rgba(231, 231, 232, 0.3); /* Subtle text glow */
 }
 
-/* About description text */
+/* Decorative divider */
+.aboutDivider {
+    width: calc(80px + 3vw); /* Wider dynamic width */
+    height: 4px; /* Thicker */
+    background: linear-gradient(to right, transparent 0%, var(--accent-glow) 50%, transparent 100%);
+    margin: calc(1.5rem + 0.3vw) auto calc(2.5rem + 0.8vw) auto; /* Centered with more spacing */
+    border-radius: 5px;
+    opacity: 0.8;
+}
+
+/* Profile image container */
+.profileImageContainer {
+    width: calc(180px + 5vw); /* Dynamic size */
+    height: calc(180px + 5vw);
+    border-radius: 50%; /* Circular image */
+    overflow: hidden;
+    margin: calc(1rem + 0.2vw) auto calc(2.5rem + 0.8vw) auto; /* Centered with spacing */
+    box-shadow: 0 0 0 5px rgba(255, 255, 255, 0.1), /* Outer ring */
+                0 0 20px rgba(0, 0, 0, 0.5); /* Shadow for depth */
+    display: flex; /* For centering image if it's smaller */
+    align-items: center;
+    justify-content: center;
+    background-color: #333; /* Fallback background for image container */
+}
+
+.profileImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures image fills the circle */
+    display: block;
+}
+
+/* Two-column text layout */
+.aboutTextColumns {
+    display: flex;
+    flex-wrap: wrap; /* Allow columns to wrap on smaller screens */
+    gap: calc(1.5rem + 0.5vw); /* Space between columns */
+    margin-bottom: calc(3rem + 1vw); /* Spacing below columns */
+    justify-content: center; /* Center columns if they don't fill width */
+}
+
 .aboutDescription {
-    font-size: calc(1.1rem + 0.4vmin); /* Slightly increased font size for readability */
-    color: var(--text-secondary); /* Uses global secondary text color variable */
-    line-height: 1.7; /* Improved line height for better readability */
-    margin-bottom: calc(1.8rem + 0.4vw); /* Increased margin between paragraphs */
-    max-width: 800px; /* Constrain text width for readability, slightly wider */
+    font-size: calc(1.1rem + 0.4vmin);
+    color: var(--text-secondary);
+    line-height: 1.8; /* Increased line height for better readability */
+    margin-bottom: calc(1rem + 0.3vw); /* Spacing between paragraphs */
+    max-width: 800px; /* Constrain text width for readability */
     margin-left: auto;
     margin-right: auto;
+    text-align: justify; /* Justify text for a cleaner block look */
+    flex: 1; /* Allow each paragraph to take available space in columns */
+    min-width: 300px; /* Minimum width for a column before wrapping */
+}
+
+/* Highlight section for a call-out */
+.aboutHighlight {
+    background: rgba(255, 255, 255, 0.08); /* Lighter glass background */
+    border-left: 4px solid var(--accent-color); /* Accent border */
+    border-radius: calc(0.5rem + 0.1vmin);
+    padding: calc(1.2rem + 0.3vw) calc(1.8rem + 0.4vw);
+    margin: calc(2rem + 0.5vw) auto; /* Centered with spacing */
+    max-width: 700px;
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    text-align: left; /* Ensure highlight text aligns left */
+}
+
+.highlightIcon {
+    font-size: calc(2rem + 0.6vmin); /* Larger icon size */
+    color: var(--accent-glow); /* Glow color for icon */
+    flex-shrink: 0; /* Prevent icon from shrinking */
+}
+
+.highlightText {
+    font-size: calc(1.1rem + 0.3vmin);
+    color: var(--text-primary);
+    font-weight: 500;
+    flex-grow: 1; /* Allow text to grow */
 }
 
 /* Responsive adjustments */
 @media (max-width: 1024px) {
     .aboutSection {
-        padding: calc(1.5rem + 0.5vw);
+        padding: calc(2rem + 1vw);
     }
     .aboutCard {
-        padding: calc(2rem + 0.5vw) calc(1.5rem + 0.3vw);
-        max-width: calc(700px + 8vw); /* Adjusted max-width for this breakpoint */
+        padding: calc(2.5rem + 0.8vw) calc(2rem + 0.5vw);
+        max-width: calc(800px + 10vw);
     }
     .aboutTitle {
-        font-size: calc(2rem + 0.5vmin);
+        font-size: calc(2.2rem + 0.6vmin);
+        margin-bottom: calc(1.5rem + 0.4vw);
+    }
+    .aboutDivider {
+        width: calc(70px + 2.5vw);
+        margin: calc(1.2rem + 0.2vw) auto calc(2rem + 0.5vw) auto;
+    }
+    .profileImageContainer {
+        width: calc(150px + 4vw);
+        height: calc(150px + 4vw);
+        margin-bottom: calc(2rem + 0.5vw);
+    }
+    .aboutTextColumns {
+        gap: calc(1rem + 0.3vw);
+        margin-bottom: calc(2.5rem + 0.8vw);
     }
     .aboutDescription {
-        font-size: calc(0.95rem + 0.3vmin);
+        font-size: calc(1rem + 0.3vmin);
+        line-height: 1.7;
+        min-width: 280px;
+    }
+    .aboutHighlight {
+        padding: calc(1rem + 0.2vw) calc(1.5rem + 0.3vw);
+        margin: calc(1.5rem + 0.3vw) auto;
+    }
+    .highlightIcon {
+        font-size: calc(1.8rem + 0.5vmin);
+    }
+    .highlightText {
+        font-size: calc(1rem + 0.25vmin);
     }
 }
 
 @media (max-width: 768px) {
     .aboutSection {
-        padding: calc(1rem + 0.3vw);
+        padding: calc(1.5rem + 0.5vw);
     }
     .aboutCard {
-        padding: calc(1.5rem + 0.3vw) calc(1rem + 0.2vw);
-        max-width: calc(500px + 6vw);
+        padding: calc(2rem + 0.5vw) calc(1.5rem + 0.3vw);
+        max-width: calc(600px + 8vw);
     }
     .aboutTitle {
-        font-size: calc(1.7rem + 0.4vmin);
+        font-size: calc(1.8rem + 0.5vmin);
+        margin-bottom: calc(1.2rem + 0.3vw);
+    }
+    .aboutDivider {
+        width: calc(60px + 2vw);
+        margin: calc(1rem + 0.2vw) auto calc(1.8rem + 0.4vw) auto;
+    }
+    .profileImageContainer {
+        width: calc(120px + 3vw);
+        height: calc(120px + 3vw);
+        margin-bottom: calc(1.8rem + 0.4vw);
+    }
+    .aboutTextColumns {
+        flex-direction: column; /* Stack columns vertically on smaller screens */
+        gap: 1rem;
+        margin-bottom: calc(2rem + 0.5vw);
     }
     .aboutDescription {
-        font-size: calc(0.85rem + 0.25vmin);
+        font-size: calc(0.9rem + 0.2vmin);
+        line-height: 1.6;
+        text-align: center; /* Center text when stacked */
+        min-width: unset; /* Remove min-width for stacked columns */
+    }
+    .aboutHighlight {
+        flex-direction: column; /* Stack icon and text vertically */
+        text-align: center;
+        padding: calc(0.8rem + 0.15vw) calc(1.2rem + 0.25vw);
+        margin: calc(1.5rem + 0.3vw) auto;
+        gap: 0.5rem;
+    }
+    .highlightIcon {
+        font-size: calc(1.5rem + 0.4vmin);
+    }
+    .highlightText {
+        font-size: calc(0.9rem + 0.2vmin);
     }
 }
 
 @media (max-width: 480px) {
     .aboutSection {
-        padding: calc(0.8rem + 0.2vw);
+        padding: calc(1rem + 0.3vw);
     }
     .aboutCard {
-        padding: calc(1rem + 0.2vw) calc(0.8rem + 0.15vw);
-        max-width: calc(350px + 5vw);
+        padding: calc(1.5rem + 0.3vw) calc(1rem + 0.2vw);
+        max-width: calc(400px + 6vw);
     }
     .aboutTitle {
-        font-size: calc(1.4rem + 0.3vmin);
+        font-size: calc(1.5rem + 0.4vmin);
+        margin-bottom: calc(1rem + 0.2vw);
+    }
+    .aboutDivider {
+        width: calc(50px + 1.5vw);
+        margin: calc(0.8rem + 0.15vw) auto calc(1.5rem + 0.3vw) auto;
+    }
+    .profileImageContainer {
+        width: calc(100px + 2vw);
+        height: calc(100px + 2vw);
+        margin-bottom: calc(1.5rem + 0.3vw);
+    }
+    .aboutTextColumns {
+        gap: 0.8rem;
+        margin-bottom: calc(1.5rem + 0.3vw);
     }
     .aboutDescription {
-        font-size: calc(0.75rem + 0.2vmin);
+        font-size: calc(0.8rem + 0.15vmin);
+        line-height: 1.5;
+    }
+    .aboutHighlight {
+        padding: calc(0.6rem + 0.1vw) calc(0.8rem + 0.15vw);
+        margin: calc(1rem + 0.2vw) auto;
+    }
+    .highlightIcon {
+        font-size: calc(1.3rem + 0.3vmin);
+    }
+    .highlightText {
+        font-size: calc(0.8rem + 0.15vmin);
     }
 }

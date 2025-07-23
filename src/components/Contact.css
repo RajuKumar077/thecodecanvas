@@ -1,0 +1,99 @@
+.contactSection {
+  position: relative; /* Keep relative for its content positioning */
+  width: 100%;
+  min-height: 100vh; /* Ensure it takes full viewport height */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden; /* Hide any overflowing content */
+  /* Add a background color to this section if you want it to be distinct from the global canvas */
+  background-color: rgba(15, 23, 42, 0.9); /* Slightly transparent dark background */
+  padding: 4rem 1rem; /* Consistent padding */
+}
+
+/* No specific canvas styling needed here, as it's handled by global .background-canvas */
+
+.contactTitle {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #e2e8f0;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.contactCard {
+  position: relative; /* Crucial: Bring content above the canvas */
+  z-index: 10;
+  background-color: rgba(26, 32, 44, 0.7); /* Semi-transparent background for the card */
+  padding: 2.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  max-width: 700px;
+  width: 90%;
+  text-align: center;
+  backdrop-filter: blur(5px); /* Subtle blur effect */
+  -webkit-backdrop-filter: blur(5px);
+}
+
+.contactText {
+  font-size: 1.125rem;
+  color: #a0aec0;
+  margin-bottom: 2.5rem;
+  line-height: 1.6;
+}
+
+.contactLinks {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem; /* Space between links */
+  align-items: center;
+}
+
+.contactLinkItem {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1.5rem;
+  background-color: rgba(59, 130, 246, 0.2); /* Light blue background for links */
+  border-radius: 9999px; /* Fully rounded */
+  color: #93c5fd; /* Light blue text */
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease-in-out;
+  border: 1px solid rgba(59, 130, 246, 0.4);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.contactLinkItem:hover {
+  background-color: rgba(59, 130, 246, 0.4); /* Darker blue on hover */
+  color: white;
+  transform: translateY(-3px) scale(1.02); /* Lift and slightly enlarge */
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+.contactIcon {
+  font-size: 1.5rem; /* Larger icons */
+}
+
+.contactLinkText {
+  font-size: 1rem;
+}
+
+/* Responsive adjustments */
+@media (min-width: 768px) {
+  .contactTitle {
+    font-size: 3.5rem;
+  }
+  .contactText {
+    font-size: 1.25rem;
+  }
+  .contactLinks {
+    flex-direction: row; /* Layout links in a row on larger screens */
+    flex-wrap: wrap; /* Allow wrapping if many links */
+    justify-content: center;
+  }
+  .contactLinkItem {
+    padding: 0.75rem 2rem;
+  }
+}

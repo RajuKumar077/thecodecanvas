@@ -1,0 +1,215 @@
+/* src/components/Projects.css */
+
+/* Projects section styling */
+.projectsSection {
+    min-height: 100vh; /* Ensures section takes at least full viewport height */
+    width: 100%;
+    background: #000000; /* Pure black background, consistent with other sections */
+    display: flex;
+    flex-direction: column; /* Stack content vertically */
+    align-items: center;
+    justify-content: center;
+    padding: calc(3rem + 1.5vw) calc(2rem + 1vw); /* Generous dynamic padding */
+    box-sizing: border-box;
+    position: relative;
+    z-index: 10;
+}
+
+/* Title for the Projects section */
+.projectsTitle {
+    font-size: calc(2.5rem + 0.7vmin);
+    color: var(--accent-color); /* Uses global accent color variable */
+    margin-bottom: calc(2.5rem + 0.8vw); /* Spacing below the main title */
+    font-weight: 700;
+    text-align: center;
+}
+
+/* Individual project card/box */
+.projectCard {
+    background: var(--glass-bg); /* Uses global glass background variable */
+    backdrop-filter: blur(calc(10px + 0.3vmin)) saturate(150%);
+    border-radius: calc(0.8rem + 0.2vmin);
+    padding: calc(1.5rem + 0.5vw); /* Padding inside each project card */
+    box-shadow: 0 calc(0.4rem + 0.2vmin) calc(1.2rem + 0.3vmin) rgba(0, 0, 0, 0.35);
+    margin-bottom: calc(3rem + 1vw); /* Spacing between project cards */
+    max-width: calc(1100px + 15vw); /* Max width for the entire project card */
+    width: 100%;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    overflow: hidden; /* Ensures content respects border-radius */
+}
+
+.projectCard:hover {
+    box-shadow: 0 calc(0.5rem + 0.3vmin) calc(1.5rem + 0.4vmin) rgba(0, 0, 0, 0.4);
+    transform: translateY(-8px) scale(1.01); /* Lift and slightly scale on hover */
+}
+
+/* Container for image and description (flexbox for left/right layout) */
+.projectContent {
+    display: flex;
+    flex-direction: row; /* Default: image left, description right */
+    align-items: center; /* Vertically align items in the middle */
+    gap: calc(1.5rem + 0.5vw); /* Space between image and text */
+}
+
+/* Image container */
+.projectImageContainer {
+    flex: 1; /* Takes available space */
+    min-width: 40%; /* Minimum width for image on desktop */
+    max-width: 50%; /* Maximum width for image on desktop */
+    border-radius: calc(0.5rem + 0.1vmin);
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.projectImage {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover; /* Ensures image covers its container */
+    border-radius: calc(0.5rem + 0.1vmin);
+}
+
+/* Description container */
+.projectDescriptionContainer {
+    flex: 1; /* Takes available space */
+    min-width: 50%; /* Minimum width for description on desktop */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.projectTitle {
+    font-size: calc(1.8rem + 0.5vmin);
+    color: var(--text-primary); /* Uses global primary text color */
+    margin-bottom: calc(0.8rem + 0.2vw);
+    font-weight: 600;
+    text-align: left; /* Align title to the left */
+}
+
+.projectText {
+    font-size: calc(0.9rem + 0.2vmin);
+    color: var(--text-secondary); /* Uses global secondary text color */
+    line-height: 1.6;
+    margin-bottom: calc(1rem + 0.3vw);
+    text-align: left; /* Align text to the left */
+}
+
+.projectTags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: calc(1rem + 0.3vw);
+    justify-content: flex-start; /* Align tags to the left */
+}
+
+.projectTag {
+    background-color: rgba(255, 255, 255, 0.15);
+    color: var(--accent-color);
+    padding: 0.4rem 0.8rem;
+    border-radius: 5px;
+    font-size: calc(0.75rem + 0.1vmin);
+    font-weight: 500;
+}
+
+.projectLinks {
+    display: flex;
+    gap: 1rem;
+    margin-top: calc(0.5rem + 0.1vw);
+    justify-content: flex-start; /* Align links to the left */
+}
+
+.projectLink {
+    background-color: var(--accent-color);
+    color: #000000;
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.projectLink:hover {
+    background-color: var(--accent-glow);
+    transform: translateY(-2px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+    .projectsTitle {
+        font-size: calc(2rem + 0.5vmin);
+        margin-bottom: calc(2rem + 0.5vw);
+    }
+    .projectCard {
+        padding: calc(1.2rem + 0.4vw);
+        margin-bottom: calc(2.5rem + 0.8vw);
+        max-width: calc(900px + 12vw);
+    }
+    .projectContent {
+        gap: calc(1rem + 0.3vw);
+    }
+    .projectTitle {
+        font-size: calc(1.5rem + 0.4vmin);
+    }
+    .projectText {
+        font-size: calc(0.85rem + 0.2vmin);
+    }
+    .projectLink {
+        padding: 0.5rem 1rem;
+        font-size: calc(0.85rem + 0.1vmin);
+    }
+}
+
+@media (max-width: 768px) {
+    .projectsTitle {
+        font-size: calc(1.8rem + 0.4vmin);
+        margin-bottom: calc(1.8rem + 0.4vw);
+    }
+    .projectCard {
+        padding: calc(1rem + 0.3vw);
+        margin-bottom: calc(2rem + 0.6vw);
+        max-width: calc(700px + 10vw);
+    }
+    .projectContent {
+        flex-direction: column; /* Stack image and description vertically on smaller screens */
+        gap: 1.5rem;
+    }
+    .projectImageContainer,
+    .projectDescriptionContainer {
+        flex: none; /* Remove flex sizing */
+        width: 100%; /* Take full width when stacked */
+        max-width: 100%;
+        min-width: unset;
+    }
+    .projectTitle,
+    .projectText,
+    .projectTags,
+    .projectLinks {
+        text-align: center; /* Center content when stacked */
+        justify-content: center; /* Center items when stacked */
+    }
+}
+
+@media (max-width: 480px) {
+    .projectsTitle {
+        font-size: calc(1.5rem + 0.3vmin);
+        margin-bottom: calc(1.5rem + 0.3vw);
+    }
+    .projectCard {
+        padding: calc(0.8rem + 0.2vw);
+        margin-bottom: calc(1.5rem + 0.4vw);
+        max-width: calc(500px + 8vw);
+    }
+    .projectTitle {
+        font-size: calc(1.3rem + 0.3vmin);
+    }
+    .projectText {
+        font-size: calc(0.75rem + 0.15vmin);
+    }
+    .projectLink {
+        padding: 0.4rem 0.8rem;
+        font-size: calc(0.75rem + 0.1vmin);
+    }
+}
