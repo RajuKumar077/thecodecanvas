@@ -1,17 +1,33 @@
-/* Define custom properties for a premium black glass theme */
+/* Define custom properties for a premium platinum glass theme */
 :root {
-  --accent-color: #D4AF37; /* Metallic Gold for highlights */
-  --accent-glow: #FFD700; /* Brighter Gold for glow effects */
-  --glass-bg: #2C1E16; /* Deep Espresso Brown for main container */
-  --inner-bg: rgba(44, 30, 22, 0.6); /* Slightly transparent darker brown for inner container depth */
-  --tab-bg: rgba(54, 38, 28, 0.7); /* Semi-transparent medium brown for tab glass */
-  --tab-active-bg: linear-gradient(135deg, rgba(212, 175, 55, 0.3) 0%, rgba(255, 215, 0, 0.4) 100%); /* Glowing gold gradient for active tab */
-  --border-color: rgba(100, 70, 50, 0.3); /* Subtle brown for outer border */
-  --text-default: #E0D5C7; /* Creamy off-white for default text/icons */
-  --text-hover: #FFFFFF; /* Pure white for hover contrast */
+  --accent-color: #E8E8E8; /* Premium Platinum Silver */
+  --accent-glow: #FFFFFF; /* Pure White for glow effects */
+  --accent-secondary: #B8B8B8; /* Darker silver for depth */
+  --accent-blue: #4A90E2; /* Elegant Blue accent */
+  --accent-blue-glow: #6BB6FF; /* Brighter Blue for glow */
+  --glass-bg: #0A0A0A; /* Deep Pure Black for main container */
+  --inner-bg: rgba(15, 15, 15, 0.95); /* Ultra-dark inner background */
+  --tab-bg: rgba(25, 25, 25, 0.9); /* Premium dark charcoal for tabs */
+  --tab-hover-bg: rgba(45, 45, 45, 0.95); /* Enhanced hover background */
+  --tab-active-bg: linear-gradient(135deg, 
+    rgba(74, 144, 226, 0.4) 0%, 
+    rgba(107, 182, 255, 0.5) 50%,
+    rgba(232, 232, 232, 0.3) 100%); /* Premium blue-silver gradient */
+  --border-color: rgba(232, 232, 232, 0.25); /* Platinum border */
+  --border-glow: rgba(107, 182, 255, 0.4); /* Blue glowing border on hover */
+  --text-default: #F8F8F8; /* Premium off-white */
+  --text-hover: #FFFFFF; /* Pure white for contrast */
+  --text-muted: #C0C0C0; /* Subtle silver text */
+  --shadow-primary: rgba(0, 0, 0, 0.9); /* Ultra-deep shadows */
+  --shadow-secondary: rgba(0, 0, 0, 0.5); /* Medium shadows */
+  --highlight-inner: rgba(255, 255, 255, 0.2); /* Premium inner highlights */
+  --premium-gradient: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.12) 0%,
+    rgba(74, 144, 226, 0.08) 50%,
+    rgba(0, 0, 0, 0.15) 100%);
 }
 
-/* Outer container for centering */
+/* Outer container for centering with enhanced backdrop */
 .fixed {
   position: fixed;
   top: 0;
@@ -20,7 +36,7 @@
   z-index: 50;
   display: flex;
   justify-content: center;
-  padding: calc(0.5rem + 0.5vw) 0; /* Dynamic padding based on screen width */
+  padding: calc(0.75rem + 0.5vw) 0;
   pointer-events: none;
   background: transparent;
 }
@@ -30,126 +46,217 @@
   pointer-events: auto;
 }
 
-/* Main navbar container with pure black glassmorphism */
+/* Main navbar container with premium glassmorphism */
 .navContainer {
   background: var(--glass-bg);
-  backdrop-filter: blur(calc(20px + 0.5vmin)) saturate(160%); /* Dynamic blur for polished leather effect */
-  border: 1px solid var(--border-color);
-  border-radius: calc(1rem + 0.5vmin); /* Dynamic rounded corners */
-  padding: calc(0.4rem + 0.3vw);
-  box-shadow: 0 calc(0.4rem + 0.2vmin) calc(1rem + 0.5vmin) rgba(0, 0, 0, 0.6), /* Darker, richer shadow */
-              inset 0 0 calc(0.4rem + 0.2vmin) rgba(100, 70, 50, 0.4); /* Inner warm glow */
+  backdrop-filter: blur(calc(25px + 0.8vmin)) saturate(180%) brightness(1.1);
+  border: 2px solid var(--border-color);
+  border-radius: calc(1.5rem + 0.5vmin);
+  padding: calc(0.6rem + 0.4vw);
+  box-shadow: 
+    0 calc(0.8rem + 0.4vmin) calc(2rem + 1vmin) var(--shadow-primary),
+    0 calc(0.4rem + 0.2vmin) calc(1rem + 0.5vmin) var(--shadow-secondary),
+    inset 0 1px calc(0.5rem + 0.2vmin) var(--highlight-inner),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.05);
   position: relative;
   z-index: 1000;
-  max-width: 90%; /* Flexible width */
+  max-width: 85%;
   margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
   overflow: hidden;
 }
 
-/* Inner track for tabs */
+/* Premium hover effect for container */
+.navContainer:hover {
+  border-color: var(--border-glow);
+  box-shadow: 
+    0 calc(1rem + 0.5vmin) calc(2.5rem + 1.2vmin) var(--shadow-primary),
+    0 calc(0.5rem + 0.3vmin) calc(1.5rem + 0.7vmin) var(--shadow-secondary),
+    0 0 calc(1rem + 0.5vmin) rgba(107, 182, 255, 0.3),
+    inset 0 1px calc(0.5rem + 0.2vmin) var(--highlight-inner),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+  transform: translateY(-2px);
+}
+
+/* Inner track for tabs with enhanced depth */
 .navTabs {
   background: var(--inner-bg);
-  border-radius: calc(0.9rem + 0.3vmin);
-  padding: calc(0.2rem + 0.1vw);
+  border-radius: calc(1.2rem + 0.3vmin);
+  padding: calc(0.4rem + 0.2vw);
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: calc(0.3rem + 0.2vw); /* Dynamic gap */
+  gap: calc(0.5rem + 0.3vw);
   flex-wrap: nowrap;
-  box-shadow: inset 0 0 calc(0.3rem + 0.1vmin) rgba(0, 0, 0, 0.4), /* Darker inner shadow */
-              inset 0 0 calc(0.4rem + 0.2vmin) rgba(255, 255, 255, 0.08); /* Subtle inner highlight */
+  box-shadow: 
+    inset 0 calc(0.2rem + 0.1vmin) calc(0.8rem + 0.3vmin) rgba(0, 0, 0, 0.6),
+    inset 0 -1px calc(0.3rem + 0.1vmin) rgba(255, 255, 255, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  background-image: var(--premium-gradient);
 }
 
-/* Individual tab styling */
+/* Individual tab styling with premium effects */
 .navTab {
-  padding: calc(0.4rem + 0.2vw) calc(0.7rem + 0.4vw);
+  padding: calc(0.6rem + 0.3vw) calc(1rem + 0.5vw);
   color: var(--text-default);
-  font-size: calc(0.85rem + 0.1vmin); /* Dynamic font size */
+  font-size: calc(0.9rem + 0.15vmin);
   font-weight: 500;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  letter-spacing: 0.025em;
   cursor: pointer;
   position: relative;
   z-index: 10;
   background: var(--tab-bg);
-  backdrop-filter: blur(calc(8px + 0.2vmin)) saturate(140%);
-  border-radius: calc(0.8rem + 0.2vmin);
+  backdrop-filter: blur(calc(12px + 0.4vmin)) saturate(150%);
+  border-radius: calc(1rem + 0.3vmin);
+  border: 1px solid rgba(255, 255, 255, 0.05);
   display: flex;
   align-items: center;
-  gap: calc(0.2rem + 0.1vw);
+  gap: calc(0.3rem + 0.15vw);
   white-space: nowrap;
-  transition: color 0.4s ease,
-              background 0.4s ease,
-              transform 0.25s cubic-bezier(0.25, 0.8, 0.25, 1),
-              box-shadow 0.4s ease;
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  background-image: var(--premium-gradient);
+  overflow: hidden;
+}
+
+/* Pseudo-element for premium shimmer effect */
+.navTab::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(255, 255, 255, 0.1), 
+    transparent);
+  transition: left 0.8s ease;
+  z-index: -1;
+}
+
+.navTab:hover::before {
+  left: 100%;
 }
 
 /* Enhanced Hover Effect for navTab */
 .navTab:hover {
   color: var(--text-hover);
-  transform: translateY(-3px) scale(1.02); /* More pronounced lift and slight scale */
-  background: rgba(64, 48, 38, 0.8); /* Slightly lighter, more opaque brown on hover */
-  box-shadow: 0 0 calc(0.8rem + 0.3vmin) rgba(255, 215, 0, 0.3), /* Gold outer glow on hover */
-              inset 0 0 calc(0.3rem + 0.1vmin) rgba(255, 255, 255, 0.12); /* Subtle inner highlight */
+  transform: translateY(-4px) scale(1.05);
+  background: var(--tab-hover-bg);
+  border-color: rgba(107, 182, 255, 0.4);
+  box-shadow: 
+    0 calc(0.6rem + 0.3vmin) calc(1.5rem + 0.7vmin) rgba(0, 0, 0, 0.4),
+    0 0 calc(1.2rem + 0.5vmin) rgba(107, 182, 255, 0.4),
+    inset 0 1px calc(0.4rem + 0.2vmin) rgba(255, 255, 255, 0.15),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(calc(15px + 0.5vmin)) saturate(160%);
 }
 
-/* Active tab styling */
+/* Active tab styling with premium effects */
 .navTab.active {
   color: var(--accent-color);
   font-weight: 600;
   background: var(--tab-active-bg);
-  box-shadow: 0 0 calc(0.8rem + 0.3vmin) var(--accent-glow),
-              inset 0 0 calc(0.5rem + 0.2vmin) rgba(255, 255, 255, 0.18); /* Stronger inner highlight */
+  border-color: var(--accent-blue);
+  box-shadow: 
+    0 calc(0.8rem + 0.4vmin) calc(2rem + 0.8vmin) rgba(0, 0, 0, 0.5),
+    0 0 calc(1.5rem + 0.7vmin) var(--accent-blue-glow),
+    0 0 calc(0.8rem + 0.3vmin) rgba(74, 144, 226, 0.5),
+    inset 0 1px calc(0.5rem + 0.2vmin) rgba(255, 255, 255, 0.2),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+  text-shadow: 0 0 calc(0.5rem + 0.2vmin) rgba(107, 182, 255, 0.6);
 }
 
-/* Text within tabs - subtle scale on hover */
+/* Text within tabs with enhanced transitions */
 .tabText {
-  transition: color 0.4s ease, transform 0.25s ease;
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  position: relative;
+  z-index: 1;
 }
 
 .navTab:hover .tabText {
-  transform: scale(1.05); /* Slightly scale text on hover */
+  transform: scale(1.08);
+  text-shadow: 0 0 calc(0.3rem + 0.1vmin) rgba(255, 255, 255, 0.3);
 }
 
-/* Sliding glass highlight */
+.navTab.active .tabText {
+  transform: scale(1.05);
+}
+
+/* Premium sliding glass highlight with enhanced effects */
 .navGlass {
   position: absolute;
-  top: calc(0.2rem + 0.1vw);
-  height: calc(100% - (0.4rem + 0.2vw));
-  /* Dynamic Background for Live Color Animation - Premium Glass Palette */
+  top: calc(0.4rem + 0.2vw);
+  height: calc(100% - (0.8rem + 0.4vw));
   background: linear-gradient(
-    90deg,
-    rgba(135, 206, 250, 0.6),   /* Light Sky Blue */
-    rgba(173, 216, 230, 0.6),   /* Light Blue */
-    rgba(147, 112, 219, 0.6),   /* Medium Purple */
-    rgba(255, 192, 203, 0.6),   /* Pink (very subtle) */
-    rgba(135, 206, 250, 0.6)    /* Repeat first color for seamless loop */
+    135deg,
+    rgba(107, 182, 255, 0.5) 0%,   /* Premium Blue */
+    rgba(147, 197, 253, 0.6) 25%,  /* Light Blue */
+    rgba(232, 232, 232, 0.4) 50%,  /* Platinum Silver */
+    rgba(196, 224, 255, 0.5) 75%,  /* Soft Blue */
+    rgba(107, 182, 255, 0.5) 100%  /* Back to Premium Blue */
   );
-  background-size: 200% 100%; /* Smaller size for subtle movement */
-  animation: glowing-glass 20s linear infinite; /* Slower animation for ethereal feel */
-
-  backdrop-filter: blur(calc(15px + 0.5vmin)) saturate(180%);
-  border-radius: calc(0.8rem + 0.2vmin);
-  transition: width 0.7s cubic-bezier(0.25, 0.8, 0.25, 1),
-              left 0.7s cubic-bezier(0.25, 0.8, 0.25, 1),
-              opacity 0.35s ease;
-  box-shadow: 0 0 calc(0.8rem + 0.3vmin) rgba(135, 206, 250, 0.5), /* Subtle blue glow */
-              inset 0 0 calc(0.5rem + 0.2vmin) rgba(255, 255, 255, 0.2); /* Softer inner white highlight */
+  background-size: 300% 300%;
+  animation: premium-glass-flow 25s ease-in-out infinite;
+  backdrop-filter: blur(calc(20px + 0.8vmin)) saturate(200%) brightness(1.2);
+  border-radius: calc(1rem + 0.3vmin);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+  box-shadow: 
+    0 0 calc(1.2rem + 0.5vmin) rgba(107, 182, 255, 0.5),
+    0 0 calc(0.8rem + 0.3vmin) rgba(255, 255, 255, 0.3),
+    inset 0 1px calc(0.6rem + 0.3vmin) rgba(255, 255, 255, 0.3),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.15);
   z-index: 5;
   opacity: 0;
+  overflow: hidden;
 }
 
-/* Keyframes for the glowing glass animation */
-@keyframes glowing-glass {
-  0% {
+/* Premium keyframes for the enhanced glass animation */
+@keyframes premium-glass-flow {
+  0%, 100% {
     background-position: 0% 50%;
+    filter: hue-rotate(0deg) brightness(1);
   }
-  100% {
-    background-position: 100% 50%; /* Go fully across */
+  25% {
+    background-position: 100% 25%;
+    filter: hue-rotate(90deg) brightness(1.1);
   }
+  50% {
+    background-position: 100% 75%;
+    filter: hue-rotate(180deg) brightness(1.2);
+  }
+  75% {
+    background-position: 0% 100%;
+    filter: hue-rotate(270deg) brightness(1.1);
+  }
+}
+
+/* Additional shimmer effect for the glass */
+.navGlass::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent);
+  animation: glass-shimmer 3s ease-in-out infinite;
+}
+
+@keyframes glass-shimmer {
+  0% { left: -100%; }
+  50% { left: 100%; }
+  100% { left: 100%; }
 }
 
 /* Ensure glass bar visibility when active */
@@ -157,97 +264,118 @@
   opacity: 1;
 }
 
-/* Responsive Design for Different Screen Sizes and Ratios */
+/* Premium responsive design with enhanced scaling */
 @media (max-width: 1024px) {
   .fixed {
-    padding: calc(0.4rem + 0.4vw) 0;
+    padding: calc(0.6rem + 0.4vw) 0;
   }
   .navContainer {
-    max-width: 95%;
-    border-radius: calc(0.8rem + 0.4vmin);
-    padding: calc(0.3rem + 0.2vw);
-    box-shadow: 0 calc(0.3rem + 0.2vmin) calc(0.8rem + 0.4vmin) rgba(0, 0, 0, 0.35),
-                inset 0 0 calc(0.3rem + 0.1vmin) rgba(255, 255, 255, 0.07);
+    max-width: 90%;
+    border-radius: calc(1.2rem + 0.4vmin);
+    padding: calc(0.5rem + 0.3vw);
+    box-shadow: 
+      0 calc(0.6rem + 0.3vmin) calc(1.5rem + 0.7vmin) var(--shadow-primary),
+      0 calc(0.3rem + 0.15vmin) calc(0.8rem + 0.4vmin) var(--shadow-secondary),
+      inset 0 1px calc(0.4rem + 0.2vmin) var(--highlight-inner);
   }
   .navTabs {
-    gap: calc(0.2rem + 0.15vw);
-    box-shadow: inset 0 0 calc(0.2rem + 0.1vmin) rgba(0, 0, 0, 0.25),
-                inset 0 0 calc(0.3rem + 0.1vmin) rgba(255, 255, 255, 0.05);
+    gap: calc(0.4rem + 0.2vw);
+    padding: calc(0.3rem + 0.15vw);
   }
   .navTab {
-    padding: calc(0.3rem + 0.15vw) calc(0.5rem + 0.3vw);
-    font-size: calc(0.8rem + 0.1vmin);
-    border-radius: calc(0.6rem + 0.15vmin);
-    backdrop-filter: blur(calc(6px + 0.2vmin)) saturate(140%);
-  }
-  .navTab:hover {
-    box-shadow: 0 0 calc(0.4rem + 0.15vmin) rgba(255, 255, 255, 0.08);
-  }
-  .navTab.active {
-    box-shadow: 0 0 calc(0.6rem + 0.2vmin) var(--accent-glow),
-                inset 0 0 calc(0.4rem + 0.1vmin) rgba(255, 255, 255, 0.12);
-  }
-  .navGlass {
-    border-radius: calc(0.6rem + 0.15vmin);
+    padding: calc(0.5rem + 0.2vw) calc(0.8rem + 0.4vw);
+    font-size: calc(0.85rem + 0.12vmin);
+    border-radius: calc(0.8rem + 0.2vmin);
   }
 }
 
 @media (max-width: 768px) {
   .navContainer {
-    max-width: 98%;
-    border-radius: calc(0.7rem + 0.3vmin);
-    padding: calc(0.25rem + 0.15vw);
-  }
-  .navTabs {
-    flex-wrap: wrap; /* Allow wrapping for narrow screens */
-    gap: calc(0.15rem + 0.1vw);
-  }
-  .navTab {
-    padding: calc(0.25rem + 0.1vw) calc(0.4rem + 0.2vw);
-    font-size: calc(0.75rem + 0.1vmin);
-    border-radius: calc(0.5rem + 0.1vmin);
-    backdrop-filter: blur(calc(5px + 0.1vmin)) saturate(140%);
-  }
-  .navTab:hover {
-    box-shadow: 0 0 calc(0.3rem + 0.1vmin) rgba(255, 255, 255, 0.06);
-  }
-  .navTab.active {
-    box-shadow: 0 0 calc(0.5rem + 0.15vmin) var(--accent-glow),
-                inset 0 0 calc(0.3rem + 0.1vmin) rgba(255, 255, 255, 0.1);
-  }
-  .navGlass {
-    border-radius: calc(0.5rem + 0.1vmin);
-  }
-}
-
-/* Adjustments for narrow screens (e.g., tall phones) */
-@media (max-aspect-ratio: 1/1) {
-  .navContainer {
-    max-width: 100%;
-    padding: calc(0.2rem + 0.1vw);
+    max-width: 95%;
+    border-radius: calc(1rem + 0.3vmin);
+    padding: calc(0.4rem + 0.2vw);
   }
   .navTabs {
     flex-wrap: wrap;
-    gap: calc(0.1rem + 0.1vw);
+    gap: calc(0.3rem + 0.15vw);
   }
   .navTab {
-    padding: calc(0.2rem + 0.1vw) calc(0.3rem + 0.2vw);
-    font-size: calc(0.7rem + 0.1vmin);
+    padding: calc(0.4rem + 0.15vw) calc(0.6rem + 0.3vw);
+    font-size: calc(0.8rem + 0.1vmin);
+    border-radius: calc(0.7rem + 0.15vmin);
+  }
+  .navTab:hover {
+    transform: translateY(-2px) scale(1.03);
   }
 }
 
-/* Adjustments for wide screens (e.g., ultrawide monitors) */
-@media (min-aspect-ratio: 2/1) {
+@media (max-width: 480px) {
   .navContainer {
-    max-width: 80%;
-    border-radius: calc(1.2rem + 0.6vmin);
-    padding: calc(0.5rem + 0.4vw);
+    max-width: 98%;
+    border: 1px solid var(--border-color);
+    padding: calc(0.3rem + 0.15vw);
+  }
+  .navTabs {
+    flex-wrap: wrap;
+    gap: calc(0.2rem + 0.1vw);
   }
   .navTab {
-    padding: calc(0.5rem + 0.3vw) calc(0.8rem + 0.5vw);
-    font-size: calc(0.9rem + 0.15vmin);
+    padding: calc(0.3rem + 0.1vw) calc(0.5rem + 0.2vw);
+    font-size: calc(0.75rem + 0.1vmin);
+    border-radius: calc(0.6rem + 0.1vmin);
+  }
+}
+
+/* Premium wide screen optimizations */
+@media (min-width: 1440px) {
+  .navContainer {
+    max-width: 75%;
+    border-radius: calc(1.8rem + 0.6vmin);
+    padding: calc(0.8rem + 0.5vw);
+  }
+  .navTab {
+    padding: calc(0.8rem + 0.4vw) calc(1.2rem + 0.6vw);
+    font-size: calc(1rem + 0.18vmin);
   }
   .navGlass {
-    border-radius: calc(0.9rem + 0.3vmin);
+    border-radius: calc(1.2rem + 0.4vmin);
+  }
+}
+
+/* Accessibility enhancements */
+@media (prefers-reduced-motion: reduce) {
+  .navTab,
+  .navContainer,
+  .navGlass,
+  .tabText {
+    transition-duration: 0.2s;
+    animation-duration: 0.5s;
+  }
+  
+  .navGlass {
+    animation: none;
+  }
+  
+  .navTab::before,
+  .navGlass::before {
+    animation: none;
+  }
+}
+
+/* Focus states for accessibility */
+.navTab:focus-visible {
+  outline: 2px solid var(--accent-blue);
+  outline-offset: 2px;
+  box-shadow: 
+    0 0 0 4px rgba(107, 182, 255, 0.4),
+    0 calc(0.6rem + 0.3vmin) calc(1.5rem + 0.7vmin) rgba(0, 0, 0, 0.4);
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --text-default: #FFFFFF;
+    --border-color: rgba(255, 255, 255, 0.5);
+    --tab-bg: rgba(0, 0, 0, 0.9);
   }
 }

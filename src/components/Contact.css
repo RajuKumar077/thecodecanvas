@@ -1,99 +1,168 @@
+/* Contact.css */
+
+/* Section Styling */
 .contactSection {
-  position: relative; /* Keep relative for its content positioning */
-  width: 100%;
-  min-height: 100vh; /* Ensure it takes full viewport height */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden; /* Hide any overflowing content */
-  /* Add a background color to this section if you want it to be distinct from the global canvas */
-  background-color: rgba(15, 23, 42, 0.9); /* Slightly transparent dark background */
-  padding: 4rem 1rem; /* Consistent padding */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Full viewport height for the section */
+    padding: 2rem;
+    box-sizing: border-box;
+    position: relative; /* Needed for positioning child elements if any */
+    z-index: 2; /* Ensure it's above a potential global background/particle layer */
+    overflow: hidden; /* Hide overflow from animations */
 }
 
-/* No specific canvas styling needed here, as it's handled by global .background-canvas */
-
-.contactTitle {
-  font-size: 3rem;
-  font-weight: 700;
-  color: #e2e8f0;
-  margin-bottom: 2rem;
-  text-align: center;
-}
-
+/* Contact Card Styling */
 .contactCard {
-  position: relative; /* Crucial: Bring content above the canvas */
-  z-index: 10;
-  background-color: rgba(26, 32, 44, 0.7); /* Semi-transparent background for the card */
-  padding: 2.5rem;
-  border-radius: 1rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-  max-width: 700px;
-  width: 90%;
-  text-align: center;
-  backdrop-filter: blur(5px); /* Subtle blur effect */
-  -webkit-backdrop-filter: blur(5px);
+    background: rgba(255, 255, 255, 0.08); /* Slightly transparent white for a frosted glass effect */
+    border-radius: 15px;
+    padding: 3rem;
+    max-width: 700px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2); /* Soft shadow for depth */
+    backdrop-filter: blur(10px); /* Frosted glass effect */
+    -webkit-backdrop-filter: blur(10px); /* Safari support */
+    border: 1px solid rgba(255, 255, 255, 0.18); /* Subtle border */
+}
+
+/* Title and Text Styling */
+.contactTitle {
+    font-size: 3.5rem;
+    color: #e0e0e0; /* Light gray for contrast */
+    margin-bottom: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
 }
 
 .contactText {
-  font-size: 1.125rem;
-  color: #a0aec0;
-  margin-bottom: 2.5rem;
-  line-height: 1.6;
+    font-size: 1.3rem;
+    color: #c0c0c0; /* Slightly darker light gray */
+    margin-bottom: 2.5rem;
+    line-height: 1.6;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
+/* Contact Links Container */
 .contactLinks {
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem; /* Space between links */
-  align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem; /* Space between links */
 }
 
+/* Individual Contact Link Item */
 .contactLinkItem {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.75rem 1.5rem;
-  background-color: rgba(59, 130, 246, 0.2); /* Light blue background for links */
-  border-radius: 9999px; /* Fully rounded */
-  color: #93c5fd; /* Light blue text */
-  text-decoration: none;
-  font-weight: 500;
-  transition: all 0.3s ease-in-out;
-  border: 1px solid rgba(59, 130, 246, 0.4);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    --cursor-x: 50%; /* Default for gradient position */
+    --cursor-y: 50%; /* Default for gradient position */
+
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    background: rgba(255, 255, 255, 0.05); /* Very subtle background */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50px; /* Pill shape */
+    padding: 0.9rem 1.8rem;
+    color: #ffffff; /* White text */
+    font-size: 1.1rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden; /* Crucial for the gradient effect */
+    z-index: 1; /* Ensure text is above pseudo-element */
+}
+
+/* Gradient hover effect */
+.contactLinkItem::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(
+        600px circle at var(--cursor-x) var(--cursor-y),
+        rgba(0, 150, 255, 0.3), /* Light blue */
+        transparent 80%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1; /* Behind the content */
+}
+
+.contactLinkItem:hover::before {
+    opacity: 1;
 }
 
 .contactLinkItem:hover {
-  background-color: rgba(59, 130, 246, 0.4); /* Darker blue on hover */
-  color: white;
-  transform: translateY(-3px) scale(1.02); /* Lift and slightly enlarge */
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+    transform: translateY(-5px); /* Lift effect on hover */
+    box-shadow: 0 5px 20px rgba(0, 150, 255, 0.3); /* Blueish shadow */
+    border-color: rgba(0, 150, 255, 0.5); /* Blue border on hover */
+    color: #f0f8ff; /* Slightly brighter white */
 }
 
 .contactIcon {
-  font-size: 1.5rem; /* Larger icons */
+    font-size: 1.5rem;
+    margin-right: 0.8rem;
+    line-height: 1; /* Ensure proper vertical alignment */
 }
 
 .contactLinkText {
-  font-size: 1rem;
+    white-space: nowrap; /* Prevent text wrapping */
 }
 
-/* Responsive adjustments */
-@media (min-width: 768px) {
-  .contactTitle {
-    font-size: 3.5rem;
-  }
-  .contactText {
-    font-size: 1.25rem;
-  }
-  .contactLinks {
-    flex-direction: row; /* Layout links in a row on larger screens */
-    flex-wrap: wrap; /* Allow wrapping if many links */
-    justify-content: center;
-  }
-  .contactLinkItem {
-    padding: 0.75rem 2rem;
-  }
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .contactTitle {
+        font-size: 2.8rem;
+    }
+
+    .contactText {
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
+    }
+
+    .contactCard {
+        padding: 2rem;
+        margin: 0 1rem;
+    }
+
+    .contactLinkItem {
+        padding: 0.7rem 1.4rem;
+        font-size: 1rem;
+    }
+
+    .contactIcon {
+        font-size: 1.3rem;
+        margin-right: 0.6rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .contactTitle {
+        font-size: 2.2rem;
+    }
+
+    .contactText {
+        font-size: 1rem;
+    }
+
+    .contactCard {
+        padding: 1.5rem;
+    }
+
+    .contactLinks {
+        flex-direction: column; /* Stack links vertically on smaller screens */
+        align-items: center;
+    }
+
+    .contactLinkItem {
+        width: 80%; /* Make links take up more width */
+        justify-content: center; /* Center content within the link item */
+        font-size: 1.1rem;
+    }
 }

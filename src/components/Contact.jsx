@@ -7,6 +7,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 import './Contact.css'; // Import the dedicated CSS for the Contact page
 
+// Define contact details for rendering the links
 const contactDetails = [
   { id: 'email', icon: '📧', text: 'your.email@example.com', link: 'mailto:your.email@example.com' },
   { id: 'github', icon: '💻', text: 'GitHub Profile', link: 'https://github.com/yourusername' },
@@ -17,11 +18,10 @@ const contactDetails = [
 
 // Contact component now handles its own GSAP animations and relies on the global background
 const Contact = React.forwardRef((props, ref) => { // Accepts ref from App.jsx
-  // No internal canvas refs or animation logic needed here anymore
 
   // Effect for setting up GSAP animations for Contact section content
   useEffect(() => {
-    // Ensure GSAP and ScrollTrigger are ready
+    // Ensure GSAP and ScrollTrigger are ready and the ref is attached
     if (!ref.current) return; // Use the passed ref directly
 
     // Create a GSAP Timeline for the contact section content animations
@@ -55,20 +55,38 @@ const Contact = React.forwardRef((props, ref) => { // Accepts ref from App.jsx
       duration: 0.6,
     }, "<0.3"); // Start 0.3 seconds after the previous animation ends
 
-    // Cleanup function for ScrollTrigger
+    // Cursor tracking for gradient move effect on contact link items
+    const handleMouseMove = (e) => {
+      const linkItems = document.querySelectorAll('.contactLinkItem');
+      linkItems.forEach((item) => {
+        const rect = item.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const xPercent = (x / rect.width) * 100;
+        const yPercent = (y / rect.height) * 100;
+        item.style.setProperty('--cursor-x', `${xPercent}%`);
+        item.style.setProperty('--cursor-y', `${yPercent}%`);
+      });
+    };
+
+    // Add the event listener when the component mounts
+    document.addEventListener('mousemove', handleMouseMove);
+
+    // Cleanup function for ScrollTrigger and event listener
     return () => {
       if (tl.scrollTrigger) {
-        tl.scrollTrigger.kill();
+        tl.scrollTrigger.kill(); // Clean up GSAP ScrollTrigger
       }
+      document.removeEventListener('mousemove', handleMouseMove); // Clean up mousemove listener
     };
-  }, [ref]); // Dependency on ref
+  }, [ref]); // Dependency on ref ensures effect re-runs if ref changes (unlikely for a section)
 
   return (
     <section className="contactSection" id="contact" ref={ref}> {/* Use the passed ref here */}
-      {/* NO LOCAL CANVAS HERE - it's now global */}
+      {/* The particle-layer is assumed to be a global element, not local to this section */}
 
       {/* Content for the contact section, layered above the global canvas */}
-      <div className="contactCard relative z-10"> {/* Add relative and z-index */}
+      <div className="contactCard"> {/* The z-index is handled by CSS */}
         <h2 className="contactTitle">Get In Touch</h2>
         <p className="contactText">
           I'm always open to new opportunities, collaborations, and interesting discussions.
