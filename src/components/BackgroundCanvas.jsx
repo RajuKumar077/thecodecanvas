@@ -2,6 +2,14 @@ import React, { useEffect, useRef, useCallback } from 'react';
 
 // Class to represent a single particle in the network
 class Particle {
+  /**
+   * Constructs a new Particle instance.
+   * @param {CanvasRenderingContext2D} ctx - The canvas rendering context.
+   * @param {number} x - The initial x-coordinate.
+   * @param {number} y - The initial y-coordinate.
+   * @param {number} radius - The particle's radius.
+   * @param {string} color - The particle's color (e.g., 'rgba(255, 255, 255, 0.7)').
+   */
   constructor(ctx, x, y, radius, color) {
     this.ctx = ctx;
     this.baseX = x; // Original position
@@ -20,7 +28,7 @@ class Particle {
     let dx = mouse.x - this.x;
     let dy = mouse.y - this.y;
     let distance = Math.sqrt(dx * dx + dy * dy);
-    let maxDistance = 150; // Mouse influence radius for particle repulsion
+    const maxDistance = 150; // Mouse influence radius for particle repulsion
 
     if (mouse.x !== null && mouse.y !== null && distance < maxDistance) {
       // Repel from mouse

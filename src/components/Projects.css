@@ -1,215 +1,412 @@
-/* src/components/Projects.css */
+/* Import Google Fonts - Inter and Poppins for a premium, modern aesthetic */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=Poppins:wght@300;500;700&display=swap');
 
-/* Projects section styling */
+/* Define a premium color palette, incorporating elements from Skills.css */
+:root {
+    --primary-bg-start: #0f172a; /* Deep, rich gradient start */
+    --primary-bg-end: #1e293b;   /* Deep, rich gradient end */
+    --glass-bg-base: rgba(255, 255, 255, 0.06);
+    --glass-backdrop-blur: 30px;
+    --glass-backdrop-saturate: 200%;
+    --glass-border-color: rgba(255, 255, 255, 0.08);
+    --glass-shadow-dark: rgba(0, 0, 0, 0.5);
+    --glass-shadow-inset: rgba(255, 255, 255, 0.05);
+    --glass-border-radius: 24px; /* Reduced for better fit */
+    --accent-color-new: #00C4FF; /* Vibrant blue for accents */
+    --accent-glow-new: #00E1FF; /* Brighter glow for accent hover */
+    --text-light: #e2e8f0; /* Light gray for primary text */
+    --text-muted: #B0B0B0; /* Muted gray for secondary text */
+    --tag-bg: rgba(0, 196, 255, 0.15); /* Slightly more opaque accent for tags */
+    --gradient-blue: #3b82f6;
+    --gradient-purple: #a855f7;
+    --gradient-pink: #ec4899;
+}
+
+/* Base styles for the Projects section */
 .projectsSection {
-    min-height: 100vh; /* Ensures section takes at least full viewport height */
+    min-height: 100vh;
     width: 100%;
-    background: #000000; /* Pure black background, consistent with other sections */
+    background: linear-gradient(145deg, var(--primary-bg-start), var(--primary-bg-end));
+    font-family: 'Inter', sans-serif;
     display: flex;
-    flex-direction: column; /* Stack content vertically */
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: calc(3rem + 1.5vw) calc(2rem + 1vw); /* Generous dynamic padding */
+    padding: clamp(2rem, 3vw, 3rem) clamp(1rem, 2vw, 2rem);
     box-sizing: border-box;
     position: relative;
-    z-index: 10;
+    overflow-x: hidden;
+    color: var(--text-light);
+    max-width: 2400px; /* Reduced max-width for better fit */
+    margin: 0 auto;
+}
+
+/* Animated particle layer */
+.projectsSection::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"><circle cx="6" cy="6" r="3" fill="rgba(255,255,255,0.15)"/></svg>') repeat;
+    animation: particleDrift 25s infinite linear;
+    opacity: 0.3;
+}
+
+/* Keyframes for particle drift animation */
+@keyframes particleDrift {
+    0% { transform: translate(0, 0); }
+    50% { transform: translate(-15px, -15px); }
+    100% { transform: translate(0, 0); }
 }
 
 /* Title for the Projects section */
 .projectsTitle {
-    font-size: calc(2.5rem + 0.7vmin);
-    color: var(--accent-color); /* Uses global accent color variable */
-    margin-bottom: calc(2.5rem + 0.8vw); /* Spacing below the main title */
-    font-weight: 700;
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 900;
     text-align: center;
+    margin-bottom: clamp(2rem, 3vw, 3rem);
+    letter-spacing: -0.02em;
+    background: linear-gradient(90deg, var(--gradient-blue), var(--gradient-purple), var(--gradient-pink));
+    background-size: 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.5), 0 0 40px rgba(59, 130, 246, 0.4);
+    animation: gradientFlow 6s ease-in-out infinite, pulseGlow 3s infinite alternate, fadeInDown 1s ease-out forwards;
+    opacity: 0;
 }
 
-/* Individual project card/box */
-.projectCard {
-    background: var(--glass-bg); /* Uses global glass background variable */
-    backdrop-filter: blur(calc(10px + 0.3vmin)) saturate(150%);
-    border-radius: calc(0.8rem + 0.2vmin);
-    padding: calc(1.5rem + 0.5vw); /* Padding inside each project card */
-    box-shadow: 0 calc(0.4rem + 0.2vmin) calc(1.2rem + 0.3vmin) rgba(0, 0, 0, 0.35);
-    margin-bottom: calc(3rem + 1vw); /* Spacing between project cards */
-    max-width: calc(1100px + 15vw); /* Max width for the entire project card */
+/* Keyframes for animations */
+@keyframes gradientFlow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+@keyframes pulseGlow {
+    from { text-shadow: 0 0 15px rgba(255, 255, 255, 0.5), 0 0 30px rgba(59, 130, 246, 0.4); }
+    to { text-shadow: 0 0 25px rgba(255, 255, 255, 0.7), 0 0 50px rgba(168, 85, 247, 0.6); }
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Grid container for project cards */
+.projectGridContainer {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(1.5rem, 2vw, 2rem);
     width: 100%;
-    transition: box-shadow 0.3s ease, transform 0.3s ease;
-    overflow: hidden; /* Ensures content respects border-radius */
+    max-width: 100%;
+    padding: clamp(1rem, 2vw, 1.5rem) 0;
 }
 
+/* Individual project card */
+.projectCard {
+    background: var(--glass-bg-base);
+    backdrop-filter: blur(var(--glass-backdrop-blur)) saturate(var(--glass-backdrop-saturate));
+    -webkit-backdrop-filter: blur(var(--glass-backdrop-blur)) saturate(var(--glass-backdrop-saturate));
+    border: 1px solid var(--glass-border-color);
+    border-radius: var(--glass-border-radius);
+    box-shadow: 0 15px 40px var(--glass-shadow-dark), inset 0 0 15px var(--glass-shadow-inset);
+    padding: clamp(1.5rem, 2vw, 2rem);
+    width: 100%;
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Cursor-responsive gradient effect */
+.projectCard::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at var(--cursor-x, 50%) var(--cursor-y, 50%),
+                              rgba(59, 130, 246, 0.25) 0%,
+                              rgba(168, 85, 247, 0.15) 20%,
+                              transparent 60%);
+    opacity: 0.3;
+    z-index: -1;
+    transform: translate(-25%, -25%);
+    transition: background 0.3s ease;
+    pointer-events: none;
+}
+
+/* Dynamic gradient border on hover */
+.projectCard::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    border-radius: inherit;
+    background: linear-gradient(45deg, var(--gradient-blue), var(--gradient-purple), var(--gradient-pink));
+    background-size: 200%;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    z-index: 0;
+    opacity: 0;
+    transition: opacity 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    animation: gradientFlow 8s ease-in-out infinite;
+    pointer-events: none;
+}
+
+/* Hover effects */
 .projectCard:hover {
-    box-shadow: 0 calc(0.5rem + 0.3vmin) calc(1.5rem + 0.4vmin) rgba(0, 0, 0, 0.4);
-    transform: translateY(-8px) scale(1.01); /* Lift and slightly scale on hover */
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.55), inset 0 0 20px rgba(255, 255, 255, 0.06);
+    transform: translateY(-10px) scale(1.02);
+    border-color: rgba(255, 255, 255, 0.3);
 }
 
-/* Container for image and description (flexbox for left/right layout) */
+.projectCard:hover::after {
+    opacity: 1;
+}
+
+/* Project content */
 .projectContent {
     display: flex;
-    flex-direction: row; /* Default: image left, description right */
-    align-items: center; /* Vertically align items in the middle */
-    gap: calc(1.5rem + 0.5vw); /* Space between image and text */
+    flex-direction: row;
+    align-items: center;
+    gap: clamp(1rem, 1.5vw, 1.5rem);
+    width: 100%;
 }
 
 /* Image container */
 .projectImageContainer {
-    flex: 1; /* Takes available space */
-    min-width: 40%; /* Minimum width for image on desktop */
-    max-width: 50%; /* Maximum width for image on desktop */
-    border-radius: calc(0.5rem + 0.1vmin);
+    flex: 1;
+    min-width: 40%;
+    max-width: 50%;
+    border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+    position: relative;
+    transition: transform 0.5s ease-out;
 }
 
+/* Project image */
 .projectImage {
     width: 100%;
     height: auto;
     display: block;
-    object-fit: cover; /* Ensures image covers its container */
-    border-radius: calc(0.5rem + 0.1vmin);
+    object-fit: cover;
+    border-radius: inherit;
+    transition: transform 0.5s ease-out;
+}
+
+.projectCard:hover .projectImage {
+    transform: scale(1.03);
 }
 
 /* Description container */
 .projectDescriptionContainer {
-    flex: 1; /* Takes available space */
-    min-width: 50%; /* Minimum width for description on desktop */
+    flex: 1;
+    min-width: 40%;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 }
 
+/* Project title */
 .projectTitle {
-    font-size: calc(1.8rem + 0.5vmin);
-    color: var(--text-primary); /* Uses global primary text color */
-    margin-bottom: calc(0.8rem + 0.2vw);
-    font-weight: 600;
-    text-align: left; /* Align title to the left */
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(1.5rem, 2vw, 1.8rem);
+    color: var(--text-light);
+    margin-bottom: clamp(0.5rem, 1vw, 0.8rem);
+    font-weight: 700;
+    text-align: left;
+    line-height: 1.3;
 }
 
+/* Project text */
 .projectText {
-    font-size: calc(0.9rem + 0.2vmin);
-    color: var(--text-secondary); /* Uses global secondary text color */
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(0.9rem, 1.5vw, 1rem);
+    color: var(--text-muted);
     line-height: 1.6;
-    margin-bottom: calc(1rem + 0.3vw);
-    text-align: left; /* Align text to the left */
+    margin-bottom: clamp(0.8rem, 1.5vw, 1rem);
+    text-align: left;
 }
 
+/* Project tags */
 .projectTags {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
-    margin-bottom: calc(1rem + 0.3vw);
-    justify-content: flex-start; /* Align tags to the left */
+    margin-bottom: clamp(0.8rem, 1.5vw, 1rem);
+    justify-content: flex-start;
 }
 
+/* Project tag */
 .projectTag {
-    background-color: rgba(255, 255, 255, 0.15);
-    color: var(--accent-color);
+    background-color: var(--tag-bg);
+    color: var(--accent-color-new);
     padding: 0.4rem 0.8rem;
-    border-radius: 5px;
-    font-size: calc(0.75rem + 0.1vmin);
+    border-radius: 6px;
+    font-size: clamp(0.7rem, 1vw, 0.8rem);
     font-weight: 500;
+    border: 1px solid rgba(0, 196, 255, 0.2);
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
+.projectTag:hover {
+    background-color: rgba(0, 196, 255, 0.25);
+    transform: translateY(-2px);
+}
+
+/* Project links */
 .projectLinks {
     display: flex;
     gap: 1rem;
-    margin-top: calc(0.5rem + 0.1vw);
-    justify-content: flex-start; /* Align links to the left */
+    margin-top: clamp(0.5rem, 1vw, 0.8rem);
+    justify-content: flex-start;
 }
 
+/* Project link */
 .projectLink {
-    background-color: var(--accent-color);
-    color: #000000;
+    background-color: var(--accent-color-new);
+    color: var(--primary-bg-start);
     padding: 0.6rem 1.2rem;
     border-radius: 8px;
     font-weight: 600;
     text-decoration: none;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
+    font-size: clamp(0.8rem, 1.2vw, 0.9rem);
+    box-shadow: 0 3px 8px rgba(0, 196, 255, 0.25);
 }
 
 .projectLink:hover {
-    background-color: var(--accent-glow);
-    transform: translateY(-2px);
+    background-color: var(--accent-glow-new);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 12px rgba(0, 196, 255, 0.4);
+}
+
+/* Icon styling for links */
+.projectLink i {
+    font-size: clamp(0.9rem, 1.2vw, 1rem);
+    transition: transform 0.2s ease;
+}
+
+.projectLink:hover i {
+    transform: translateX(2px);
 }
 
 /* Responsive adjustments */
-@media (max-width: 1024px) {
+@media (max-width: 1200px) {
+    .projectsSection {
+        padding: clamp(1.5rem, 2.5vw, 2.5rem) clamp(0.8rem, 1.5vw, 1.5rem);
+    }
     .projectsTitle {
-        font-size: calc(2rem + 0.5vmin);
-        margin-bottom: calc(2rem + 0.5vw);
+        font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+        margin-bottom: clamp(1.5rem, 2.5vw, 2.5rem);
+    }
+    .projectGridContainer {
+        gap: clamp(1.2rem, 1.8vw, 1.8rem);
     }
     .projectCard {
-        padding: calc(1.2rem + 0.4vw);
-        margin-bottom: calc(2.5rem + 0.8vw);
-        max-width: calc(900px + 12vw);
+        padding: clamp(1.2rem, 1.8vw, 1.8rem);
     }
     .projectContent {
-        gap: calc(1rem + 0.3vw);
+        gap: clamp(0.8rem, 1.2vw, 1.2rem);
     }
     .projectTitle {
-        font-size: calc(1.5rem + 0.4vmin);
+        font-size: clamp(1.4rem, 1.8vw, 1.6rem);
     }
     .projectText {
-        font-size: calc(0.85rem + 0.2vmin);
-    }
-    .projectLink {
-        padding: 0.5rem 1rem;
-        font-size: calc(0.85rem + 0.1vmin);
+        font-size: clamp(0.85rem, 1.3vw, 0.95rem);
     }
 }
 
 @media (max-width: 768px) {
+    .projectsSection {
+        padding: clamp(1.2rem, 2vw, 2rem) clamp(0.6rem, 1vw, 1rem);
+    }
     .projectsTitle {
-        font-size: calc(1.8rem + 0.4vmin);
-        margin-bottom: calc(1.8rem + 0.4vw);
+        font-size: clamp(1.6rem, 3vw, 2rem);
+        margin-bottom: clamp(1.2rem, 2vw, 2rem);
+    }
+    .projectGridContainer {
+        gap: clamp(1rem, 1.5vw, 1.5rem);
     }
     .projectCard {
-        padding: calc(1rem + 0.3vw);
-        margin-bottom: calc(2rem + 0.6vw);
-        max-width: calc(700px + 10vw);
+        padding: clamp(1rem, 1.5vw, 1.5rem);
     }
     .projectContent {
-        flex-direction: column; /* Stack image and description vertically on smaller screens */
-        gap: 1.5rem;
+        flex-direction: column;
+        gap: clamp(1rem, 1.5vw, 1.5rem);
     }
     .projectImageContainer,
     .projectDescriptionContainer {
-        flex: none; /* Remove flex sizing */
-        width: 100%; /* Take full width when stacked */
+        flex: none;
+        width: 100%;
         max-width: 100%;
         min-width: unset;
+    }
+    .projectImageContainer {
+        order: -1;
     }
     .projectTitle,
     .projectText,
     .projectTags,
     .projectLinks {
-        text-align: center; /* Center content when stacked */
-        justify-content: center; /* Center items when stacked */
+        text-align: center;
+        justify-content: center;
+    }
+    .projectLinks {
+        flex-wrap: wrap;
+        gap: 0.8rem;
     }
 }
 
 @media (max-width: 480px) {
+    .projectsSection {
+        padding: clamp(1rem, 1.5vw, 1.5rem) clamp(0.5rem, 0.8vw, 0.8rem);
+    }
     .projectsTitle {
-        font-size: calc(1.5rem + 0.3vmin);
-        margin-bottom: calc(1.5rem + 0.3vw);
+        font-size: clamp(1.4rem, 2.5vw, 1.8rem);
+        margin-bottom: clamp(1rem, 1.5vw, 1.5rem);
+    }
+    .projectGridContainer {
+        gap: clamp(0.8rem, 1.2vw, 1.2rem);
     }
     .projectCard {
-        padding: calc(0.8rem + 0.2vw);
-        margin-bottom: calc(1.5rem + 0.4vw);
-        max-width: calc(500px + 8vw);
+        padding: clamp(0.8rem, 1.2vw, 1.2rem);
     }
     .projectTitle {
-        font-size: calc(1.3rem + 0.3vmin);
+        font-size: clamp(1.2rem, 1.5vw, 1.4rem);
     }
     .projectText {
-        font-size: calc(0.75rem + 0.15vmin);
+        font-size: clamp(0.8rem, 1.2vw, 0.9rem);
+    }
+    .projectTag {
+        padding: 0.3rem 0.6rem;
+        font-size: clamp(0.65rem, 0.9vw, 0.75rem);
     }
     .projectLink {
-        padding: 0.4rem 0.8rem;
-        font-size: calc(0.75rem + 0.1vmin);
+        padding: 0.5rem 1rem;
+        font-size: clamp(0.75rem, 1vw, 0.85rem);
     }
 }
