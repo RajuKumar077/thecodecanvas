@@ -1,16 +1,17 @@
 import React from 'react';
-import './About.css'; // Import the dedicated CSS for the About page
+import './About.css';
 
-// About component now accepts a 'ref' prop
-const About = React.forwardRef((props, ref) => {
+// About component is a standard functional component
+const About = () => {
   // Add a console log to confirm this component mounts
   React.useEffect(() => {
     console.log('About.jsx component mounted and rendering.');
   }, []);
 
   return (
-    // Pass the ref to the root element of this component
-    <section className="aboutSection" ref={ref}>
+    // Add the id="about" attribute here.
+    // This allows document.getElementById('about') to find this section.
+    <section id="about" className="aboutSection">
       <div className="aboutCard">
         <h2 className="aboutTitle">About Me</h2>
         {/* Decorative divider/element */}
@@ -38,6 +39,6 @@ const About = React.forwardRef((props, ref) => {
       </div>
     </section>
   );
-});
+};
 
 export default About;

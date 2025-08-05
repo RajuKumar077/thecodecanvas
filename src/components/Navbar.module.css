@@ -1,29 +1,29 @@
-/* Define custom properties for a premium platinum glass theme */
+/* Define custom properties for a premium platinum glass theme with neon blue */
 :root {
   --accent-color: #E8E8E8; /* Premium Platinum Silver */
   --accent-glow: #FFFFFF; /* Pure White for glow effects */
   --accent-secondary: #B8B8B8; /* Darker silver for depth */
-  --accent-blue: #4A90E2; /* Elegant Blue accent */
-  --accent-blue-glow: #6BB6FF; /* Brighter Blue for glow */
+  --accent-blue: #00A0FF; /* Vibrant Electric Blue for main accent */
+  --accent-blue-glow: #00FFFF; /* Bright Cyan for the most intense glow */
   --glass-bg: #0A0A0A; /* Deep Pure Black for main container */
   --inner-bg: rgba(15, 15, 15, 0.95); /* Ultra-dark inner background */
   --tab-bg: rgba(25, 25, 25, 0.9); /* Premium dark charcoal for tabs */
   --tab-hover-bg: rgba(45, 45, 45, 0.95); /* Enhanced hover background */
-  --tab-active-bg: linear-gradient(135deg, 
-    rgba(74, 144, 226, 0.4) 0%, 
-    rgba(107, 182, 255, 0.5) 50%,
-    rgba(232, 232, 232, 0.3) 100%); /* Premium blue-silver gradient */
+  --tab-active-bg: linear-gradient(135deg,
+    rgba(0, 160, 255, 0.4) 0%,
+    rgba(0, 255, 255, 0.5) 50%,
+    rgba(232, 232, 232, 0.3) 100%); /* Neon blue-silver gradient for active tab */
   --border-color: rgba(232, 232, 232, 0.25); /* Platinum border */
-  --border-glow: rgba(107, 182, 255, 0.4); /* Blue glowing border on hover */
+  --border-glow: rgba(0, 255, 255, 0.4); /* Neon cyan glowing border on hover */
   --text-default: #F8F8F8; /* Premium off-white */
   --text-hover: #FFFFFF; /* Pure white for contrast */
   --text-muted: #C0C0C0; /* Subtle silver text */
   --shadow-primary: rgba(0, 0, 0, 0.9); /* Ultra-deep shadows */
   --shadow-secondary: rgba(0, 0, 0, 0.5); /* Medium shadows */
   --highlight-inner: rgba(255, 255, 255, 0.2); /* Premium inner highlights */
-  --premium-gradient: linear-gradient(135deg, 
+  --premium-gradient: linear-gradient(135deg,
     rgba(255, 255, 255, 0.12) 0%,
-    rgba(74, 144, 226, 0.08) 50%,
+    rgba(0, 160, 255, 0.08) 50%,
     rgba(0, 0, 0, 0.15) 100%);
 }
 
@@ -53,7 +53,7 @@
   border: 2px solid var(--border-color);
   border-radius: calc(1.5rem + 0.5vmin);
   padding: calc(0.6rem + 0.4vw);
-  box-shadow: 
+  box-shadow:
     0 calc(0.8rem + 0.4vmin) calc(2rem + 1vmin) var(--shadow-primary),
     0 calc(0.4rem + 0.2vmin) calc(1rem + 0.5vmin) var(--shadow-secondary),
     inset 0 1px calc(0.5rem + 0.2vmin) var(--highlight-inner),
@@ -72,10 +72,10 @@
 /* Premium hover effect for container */
 .navContainer:hover {
   border-color: var(--border-glow);
-  box-shadow: 
+  box-shadow:
     0 calc(1rem + 0.5vmin) calc(2.5rem + 1.2vmin) var(--shadow-primary),
     0 calc(0.5rem + 0.3vmin) calc(1.5rem + 0.7vmin) var(--shadow-secondary),
-    0 0 calc(1rem + 0.5vmin) rgba(107, 182, 255, 0.3),
+    0 0 calc(1rem + 0.5vmin) rgba(0, 255, 255, 0.3), /* Adjusted glow color */
     inset 0 1px calc(0.5rem + 0.2vmin) var(--highlight-inner),
     inset 0 0 0 1px rgba(255, 255, 255, 0.08);
   transform: translateY(-2px);
@@ -92,7 +92,7 @@
   align-items: center;
   gap: calc(0.5rem + 0.3vw);
   flex-wrap: nowrap;
-  box-shadow: 
+  box-shadow:
     inset 0 calc(0.2rem + 0.1vmin) calc(0.8rem + 0.3vmin) rgba(0, 0, 0, 0.6),
     inset 0 -1px calc(0.3rem + 0.1vmin) rgba(255, 255, 255, 0.08),
     inset 0 1px 0 rgba(255, 255, 255, 0.05);
@@ -131,9 +131,9 @@
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, 
-    transparent, 
-    rgba(255, 255, 255, 0.1), 
+  background: linear-gradient(90deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
     transparent);
   transition: left 0.8s ease;
   z-index: -1;
@@ -148,10 +148,10 @@
   color: var(--text-hover);
   transform: translateY(-4px) scale(1.05);
   background: var(--tab-hover-bg);
-  border-color: rgba(107, 182, 255, 0.4);
-  box-shadow: 
+  border-color: rgba(0, 255, 255, 0.4); /* Adjusted border glow on hover */
+  box-shadow:
     0 calc(0.6rem + 0.3vmin) calc(1.5rem + 0.7vmin) rgba(0, 0, 0, 0.4),
-    0 0 calc(1.2rem + 0.5vmin) rgba(107, 182, 255, 0.4),
+    0 0 calc(1.2rem + 0.5vmin) rgba(0, 255, 255, 0.4), /* Adjusted glow color */
     inset 0 1px calc(0.4rem + 0.2vmin) rgba(255, 255, 255, 0.15),
     inset 0 0 0 1px rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(calc(15px + 0.5vmin)) saturate(160%);
@@ -159,18 +159,18 @@
 
 /* Active tab styling with premium effects */
 .navTab.active {
-  color: var(--accent-color);
+  color: var(--accent-blue-glow); /* Brighter neon cyan text for active tab */
   font-weight: 600;
   background: var(--tab-active-bg);
   border-color: var(--accent-blue);
-  box-shadow: 
+  box-shadow:
     0 calc(0.8rem + 0.4vmin) calc(2rem + 0.8vmin) rgba(0, 0, 0, 0.5),
-    0 0 calc(1.5rem + 0.7vmin) var(--accent-blue-glow),
-    0 0 calc(0.8rem + 0.3vmin) rgba(74, 144, 226, 0.5),
+    0 0 calc(1.5rem + 0.7vmin) var(--accent-blue-glow), /* Stronger neon glow */
+    0 0 calc(0.8rem + 0.3vmin) rgba(0, 160, 255, 0.5), /* Softer neon glow */
     inset 0 1px calc(0.5rem + 0.2vmin) rgba(255, 255, 255, 0.2),
     inset 0 0 0 1px rgba(255, 255, 255, 0.1);
   transform: translateY(-2px);
-  text-shadow: 0 0 calc(0.5rem + 0.2vmin) rgba(107, 182, 255, 0.6);
+  text-shadow: 0 0 calc(0.5rem + 0.2vmin) rgba(0, 255, 255, 0.6); /* Neon text shadow */
 }
 
 /* Text within tabs with enhanced transitions */
@@ -196,21 +196,21 @@
   height: calc(100% - (0.8rem + 0.4vw));
   background: linear-gradient(
     135deg,
-    rgba(107, 182, 255, 0.5) 0%,   /* Premium Blue */
-    rgba(147, 197, 253, 0.6) 25%,  /* Light Blue */
-    rgba(232, 232, 232, 0.4) 50%,  /* Platinum Silver */
-    rgba(196, 224, 255, 0.5) 75%,  /* Soft Blue */
-    rgba(107, 182, 255, 0.5) 100%  /* Back to Premium Blue */
+    rgba(0, 255, 255, 0.5) 0%, /* Start with bright cyan */
+    rgba(0, 160, 255, 0.6) 25%, /* Transition to electric blue */
+    rgba(232, 232, 232, 0.4) 50%, /* Platinum highlight in the middle */
+    rgba(0, 160, 255, 0.5) 75%, /* Transition back to electric blue */
+    rgba(0, 255, 255, 0.5) 100% /* End with bright cyan */
   );
   background-size: 300% 300%;
   animation: premium-glass-flow 25s ease-in-out infinite;
-  backdrop-filter: blur(calc(20px + 0.8vmin)) saturate(200%) brightness(1.2);
+  backdrop-filter: blur(calc(20px + 0.8vmin)) saturate(200%) brightness(1.5); /* Increased brightness for neon effect */
   border-radius: calc(1rem + 0.3vmin);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(0, 255, 255, 0.25); /* Neon border */
   transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
-  box-shadow: 
-    0 0 calc(1.2rem + 0.5vmin) rgba(107, 182, 255, 0.5),
-    0 0 calc(0.8rem + 0.3vmin) rgba(255, 255, 255, 0.3),
+  box-shadow:
+    0 0 calc(1.2rem + 0.5vmin) rgba(0, 255, 255, 0.5), /* Neon glow */
+    0 0 calc(0.8rem + 0.3vmin) rgba(255, 255, 255, 0.3), /* White secondary glow */
     inset 0 1px calc(0.6rem + 0.3vmin) rgba(255, 255, 255, 0.3),
     inset 0 0 0 1px rgba(255, 255, 255, 0.15);
   z-index: 5;
@@ -273,7 +273,7 @@
     max-width: 90%;
     border-radius: calc(1.2rem + 0.4vmin);
     padding: calc(0.5rem + 0.3vw);
-    box-shadow: 
+    box-shadow:
       0 calc(0.6rem + 0.3vmin) calc(1.5rem + 0.7vmin) var(--shadow-primary),
       0 calc(0.3rem + 0.15vmin) calc(0.8rem + 0.4vmin) var(--shadow-secondary),
       inset 0 1px calc(0.4rem + 0.2vmin) var(--highlight-inner);
@@ -351,11 +351,11 @@
     transition-duration: 0.2s;
     animation-duration: 0.5s;
   }
-  
+
   .navGlass {
     animation: none;
   }
-  
+
   .navTab::before,
   .navGlass::before {
     animation: none;
@@ -366,8 +366,8 @@
 .navTab:focus-visible {
   outline: 2px solid var(--accent-blue);
   outline-offset: 2px;
-  box-shadow: 
-    0 0 0 4px rgba(107, 182, 255, 0.4),
+  box-shadow:
+    0 0 0 4px rgba(0, 255, 255, 0.4), /* Adjusted focus glow */
     0 calc(0.6rem + 0.3vmin) calc(1.5rem + 0.7vmin) rgba(0, 0, 0, 0.4);
 }
 

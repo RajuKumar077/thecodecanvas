@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import styles from './Navbar.module.css'; // Import CSS modules correctly
+import styles from './Navbar.module.css';
 
 const icons = [
     { id: 'home', emoji: '🏠', text: 'Home' },
@@ -11,102 +11,109 @@ const icons = [
 
 const NavbarIcons = ({ sectionIds }) => {
     const [active, setActive] = useState('home');
-    const [sliderStyles, setSliderStyles] = useState({ opacity: 0 }); // Initialize with opacity 0
+    const [sliderStyles, setSliderStyles] = useState({ opacity: 0 });
     const navTabsContainerRef = useRef(null);
-    const tabRefs = useRef({}); // Object to store refs for each tab
+    const tabRefs = useRef({});
 
-    // Effect to update slider position when active tab changes or on mount/resize
     useEffect(() => {
         const updateSlider = () => {
             const activeTabElement = tabRefs.current[active];
             const container = navTabsContainerRef.current;
-
             if (activeTabElement && container) {
                 const containerRect = container.getBoundingClientRect();
                 const tabRect = activeTabElement.getBoundingClientRect();
-
                 setSliderStyles({
                     width: `${tabRect.width}px`,
                     left: `${tabRect.left - containerRect.left}px`,
-                    opacity: 1, // Show slider when positioned
+                    opacity: 1,
                 });
             } else {
-                setSliderStyles({ opacity: 0 }); // Hide slider if no active tab
+                setSliderStyles({ opacity: 0 });
             }
         };
 
-        // Run initially and on resize
         updateSlider();
         window.addEventListener('resize', updateSlider);
         return () => window.removeEventListener('resize', updateSlider);
     }, [active]);
 
-    // Effect to set up IntersectionObserver for scroll tracking
     useEffect(() => {
         const observers = [];
         const observerOptions = {
-            root: null, // viewport
-            rootMargin: '-20% 0px -20% 0px', // Adjusted to be less strict
-            threshold: 0, // Trigger as soon as any part of the section is visible
+            root: null,
+            rootMargin: '-50% 0px -50% 0px',
+            threshold: 0,
         };
+
+        const observerCallback = (entries) => {
+            const intersectingEntry = entries.find(entry => entry.isIntersecting);
+            if (intersectingEntry && active !== intersectingEntry.target.id) {
+                setActive(intersectingEntry.target.id);
+            }
+        };
+        
+        const observer = new IntersectionObserver(observerCallback, observerOptions);
 
         sectionIds.forEach((id) => {
             const sectionElement = document.getElementById(id);
             if (sectionElement) {
-                console.log(`Navbar OBSERVER: Observing section: #${id}`);
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach((entry) => {
-                        if (entry.isIntersecting) {
-                            // Only update if the intersecting section is not already active
-                            if (active !== entry.target.id) {
-                                setActive(entry.target.id);
-                                console.log(`Navbar OBSERVER: Active section changed to: ${entry.target.id}`);
-                            }
-                        }
-                    });
-                }, observerOptions);
                 observer.observe(sectionElement);
                 observers.push(observer);
-            } else {
-                console.warn(`Navbar OBSERVER: Section with ID '${id}' not found for IntersectionObserver.`);
             }
         });
 
-        // Cleanup function: disconnect all observers when component unmounts
-        return () => {
-            observers.forEach((observer) => observer.disconnect());
-            console.log('Navbar OBSERVER: All IntersectionObservers disconnected.');
-        };
+        return () => observers.forEach(obs => obs.disconnect());
     }, [sectionIds, active]);
+    
+    // --- Manual Scrolling Function ---
+    const scrollToSection = (targetId, duration = 800) => {
+        const targetElement = document.getElementById(targetId);
+        if (!targetElement) {
+            console.error(`Navbar CLICK: Element with ID '${targetId}' NOT FOUND for scrolling.`);
+            return;
+        }
+
+        const startPosition = window.pageYOffset;
+        const targetPosition = targetElement.getBoundingClientRect().top + startPosition;
+        const distance = targetPosition - startPosition;
+        let startTime = null;
+
+        const animation = (currentTime) => {
+            if (startTime === null) startTime = currentTime;
+            const timeElapsed = currentTime - startTime;
+            const run = ease(timeElapsed, startPosition, distance, duration);
+            window.scrollTo(0, run);
+            if (timeElapsed < duration) requestAnimationFrame(animation);
+        };
+
+        const ease = (t, b, c, d) => {
+            t /= d / 2;
+            if (t < 1) return c / 2 * t * t + b;
+            t--;
+            return -c / 2 * (t * (t - 2) - 1) + b;
+        };
+
+        requestAnimationFrame(animation);
+    };
 
     const handleScrollTo = (id) => {
         setActive(id);
-        const target = document.getElementById(id);
-        console.log(`Navbar CLICK: Attempting to scroll to ID: ${id}`); // Log the ID being clicked
-        if (target) {
-            console.log(`Navbar CLICK: Target element found:`, target); // Log the actual DOM element found
-            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            console.log(`Navbar CLICK: scrollIntoView called for ID: ${id}`); // Confirm scroll method is called
-        } else {
-            console.error(`Navbar CLICK: Element with ID '${id}' NOT FOUND for scrolling.`); // Error if not found
-        }
+        scrollToSection(id);
     };
 
     return (
         <div className={styles.fixed}>
             <nav className={styles.navContainer}>
                 <div ref={navTabsContainerRef} className={styles.navTabs}>
-                    {/* The Glass Slider */}
                     <div
                         className={styles.navGlass}
                         style={sliderStyles}
                     ></div>
-
                     {icons.map((item) => (
                         <button
                             key={item.id}
                             id={`nav-tab-${item.id}`}
-                            ref={(el) => (tabRefs.current[item.id] = el)} // Store ref by ID
+                            ref={(el) => (tabRefs.current[item.id] = el)}
                             onClick={() => handleScrollTo(item.id)}
                             className={`${styles.navTab} ${active === item.id ? styles.active : ''}`}
                         >

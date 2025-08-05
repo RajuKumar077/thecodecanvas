@@ -69,6 +69,41 @@ const certificates = [
     title: 'UpGrad Data Science Bootcamp',
     pdfLink: upGradCertificatePdf,
   },
+   {
+    id: 6,
+    src: fallbackImage, // Placeholder thumbnail for PDF
+    alt: 'UpGrad Data Science Bootcamp Certificate',
+    title: 'UpGrad Data Science Bootcamp',
+    pdfLink: upGradCertificatePdf,
+  },
+   {
+    id: 6,
+    src: fallbackImage, // Placeholder thumbnail for PDF
+    alt: 'UpGrad Data Science Bootcamp Certificate',
+    title: 'UpGrad Data Science Bootcamp',
+    pdfLink: upGradCertificatePdf,
+  },
+   {
+    id: 6,
+    src: fallbackImage, // Placeholder thumbnail for PDF
+    alt: 'UpGrad Data Science Bootcamp Certificate',
+    title: 'UpGrad Data Science Bootcamp',
+    pdfLink: upGradCertificatePdf,
+  },
+   {
+    id: 6,
+    src: fallbackImage, // Placeholder thumbnail for PDF
+    alt: 'UpGrad Data Science Bootcamp Certificate',
+    title: 'UpGrad Data Science Bootcamp',
+    pdfLink: upGradCertificatePdf,
+  },
+   {
+    id: 6,
+    src: fallbackImage, // Placeholder thumbnail for PDF
+    alt: 'UpGrad Data Science Bootcamp Certificate',
+    title: 'UpGrad Data Science Bootcamp',
+    pdfLink: upGradCertificatePdf,
+  },
 ];
 
 // Framer Motion variants for staggered animation of the certificate grid.
