@@ -74,9 +74,9 @@ function App() {
         <Home ref={addToSectionRefs} />
         <About ref={addToSectionRefs} />
         <Projects ref={addToSectionRefs} />
-        <section id="skills" ref={addToSectionRefs} className="section">
-          <Skills />
-        </section>
+        
+        <Skills ref={addToSectionRefs} />
+        
         <Contact ref={addToSectionRefs} />
       </div>
     </div>

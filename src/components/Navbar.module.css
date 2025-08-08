@@ -4,7 +4,7 @@
   --accent-glow: #FFFFFF; /* Pure White for glow effects */
   --accent-secondary: #B8B8B8; /* Darker silver for depth */
   --accent-blue: #00A0FF; /* Vibrant Electric Blue for main accent */
-  --accent-blue-glow: #00FFFF; /* Bright Cyan for the most intense glow */
+  --accent-blue-glow: #ffffff; /* Bright Cyan for the most intense glow */
   --glass-bg: #0A0A0A; /* Deep Pure Black for main container */
   --inner-bg: rgba(15, 15, 15, 0.95); /* Ultra-dark inner background */
   --tab-bg: rgba(25, 25, 25, 0.9); /* Premium dark charcoal for tabs */
@@ -36,7 +36,7 @@
   z-index: 50;
   display: flex;
   justify-content: center;
-  padding: calc(0.75rem + 0.5vw) 0;
+  padding: calc(0.6rem + 0.4vw) 0; /* Reduced padding */
   pointer-events: none;
   background: transparent;
 }
@@ -51,12 +51,12 @@
   background: var(--glass-bg);
   backdrop-filter: blur(calc(25px + 0.8vmin)) saturate(180%) brightness(1.1);
   border: 2px solid var(--border-color);
-  border-radius: calc(1.5rem + 0.5vmin);
-  padding: calc(0.6rem + 0.4vw);
+  border-radius: calc(1.2rem + 0.4vmin); /* Reduced border radius */
+  padding: calc(0.5rem + 0.3vw); /* Reduced padding */
   box-shadow:
-    0 calc(0.8rem + 0.4vmin) calc(2rem + 1vmin) var(--shadow-primary),
-    0 calc(0.4rem + 0.2vmin) calc(1rem + 0.5vmin) var(--shadow-secondary),
-    inset 0 1px calc(0.5rem + 0.2vmin) var(--highlight-inner),
+    0 calc(0.7rem + 0.3vmin) calc(1.8rem + 0.8vmin) var(--shadow-primary),
+    0 calc(0.3rem + 0.15vmin) calc(0.9rem + 0.4vmin) var(--shadow-secondary),
+    inset 0 1px calc(0.4rem + 0.2vmin) var(--highlight-inner),
     inset 0 0 0 1px rgba(255, 255, 255, 0.05);
   position: relative;
   z-index: 1000;
@@ -73,10 +73,10 @@
 .navContainer:hover {
   border-color: var(--border-glow);
   box-shadow:
-    0 calc(1rem + 0.5vmin) calc(2.5rem + 1.2vmin) var(--shadow-primary),
-    0 calc(0.5rem + 0.3vmin) calc(1.5rem + 0.7vmin) var(--shadow-secondary),
-    0 0 calc(1rem + 0.5vmin) rgba(0, 255, 255, 0.3), /* Adjusted glow color */
-    inset 0 1px calc(0.5rem + 0.2vmin) var(--highlight-inner),
+    0 calc(0.9rem + 0.4vmin) calc(2.2rem + 1.1vmin) var(--shadow-primary),
+    0 calc(0.4rem + 0.2vmin) calc(1.2rem + 0.6vmin) var(--shadow-secondary),
+    0 0 calc(0.9rem + 0.4vmin) rgba(0, 255, 255, 0.3), /* Adjusted glow color */
+    inset 0 1px calc(0.4rem + 0.2vmin) var(--highlight-inner),
     inset 0 0 0 1px rgba(255, 255, 255, 0.08);
   transform: translateY(-2px);
 }
@@ -84,13 +84,13 @@
 /* Inner track for tabs with enhanced depth */
 .navTabs {
   background: var(--inner-bg);
-  border-radius: calc(1.2rem + 0.3vmin);
-  padding: calc(0.4rem + 0.2vw);
+  border-radius: calc(1rem + 0.3vmin); /* Reduced border radius */
+  padding: calc(0.3rem + 0.15vw); /* Reduced padding */
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: calc(0.5rem + 0.3vw);
+  gap: calc(0.4rem + 0.2vw); /* Reduced gap */
   flex-wrap: nowrap;
   box-shadow:
     inset 0 calc(0.2rem + 0.1vmin) calc(0.8rem + 0.3vmin) rgba(0, 0, 0, 0.6),
@@ -101,9 +101,9 @@
 
 /* Individual tab styling with premium effects */
 .navTab {
-  padding: calc(0.6rem + 0.3vw) calc(1rem + 0.5vw);
+  padding: calc(0.5rem + 0.2vw) calc(0.8rem + 0.4vw); /* Reduced padding */
   color: var(--text-default);
-  font-size: calc(0.9rem + 0.15vmin);
+  font-size: calc(0.85rem + 0.1vmin); /* Reduced font size */
   font-weight: 500;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   letter-spacing: 0.025em;
@@ -112,11 +112,11 @@
   z-index: 10;
   background: var(--tab-bg);
   backdrop-filter: blur(calc(12px + 0.4vmin)) saturate(150%);
-  border-radius: calc(1rem + 0.3vmin);
+  border-radius: calc(0.8rem + 0.2vmin); /* Reduced border radius */
   border: 1px solid rgba(255, 255, 255, 0.05);
   display: flex;
   align-items: center;
-  gap: calc(0.3rem + 0.15vw);
+  gap: calc(0.2rem + 0.1vw); /* Reduced gap */
   white-space: nowrap;
   transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
   background-image: var(--premium-gradient);
@@ -146,12 +146,12 @@
 /* Enhanced Hover Effect for navTab */
 .navTab:hover {
   color: var(--text-hover);
-  transform: translateY(-4px) scale(1.05);
+  transform: translateY(-3px) scale(1.03); /* Reduced transform */
   background: var(--tab-hover-bg);
   border-color: rgba(0, 255, 255, 0.4); /* Adjusted border glow on hover */
   box-shadow:
-    0 calc(0.6rem + 0.3vmin) calc(1.5rem + 0.7vmin) rgba(0, 0, 0, 0.4),
-    0 0 calc(1.2rem + 0.5vmin) rgba(0, 255, 255, 0.4), /* Adjusted glow color */
+    0 calc(0.5rem + 0.2vmin) calc(1.2rem + 0.6vmin) rgba(0, 0, 0, 0.4),
+    0 0 calc(1rem + 0.4vmin) rgba(0, 255, 255, 0.4), /* Adjusted glow color */
     inset 0 1px calc(0.4rem + 0.2vmin) rgba(255, 255, 255, 0.15),
     inset 0 0 0 1px rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(calc(15px + 0.5vmin)) saturate(160%);
@@ -164,13 +164,13 @@
   background: var(--tab-active-bg);
   border-color: var(--accent-blue);
   box-shadow:
-    0 calc(0.8rem + 0.4vmin) calc(2rem + 0.8vmin) rgba(0, 0, 0, 0.5),
-    0 0 calc(1.5rem + 0.7vmin) var(--accent-blue-glow), /* Stronger neon glow */
-    0 0 calc(0.8rem + 0.3vmin) rgba(0, 160, 255, 0.5), /* Softer neon glow */
+    0 calc(0.7rem + 0.3vmin) calc(1.8rem + 0.8vmin) rgba(0, 0, 0, 0.5),
+    0 0 calc(1.3rem + 0.6vmin) var(--accent-blue-glow), /* Stronger neon glow */
+    0 0 calc(0.7rem + 0.3vmin) rgba(0, 160, 255, 0.5), /* Softer neon glow */
     inset 0 1px calc(0.5rem + 0.2vmin) rgba(255, 255, 255, 0.2),
     inset 0 0 0 1px rgba(255, 255, 255, 0.1);
   transform: translateY(-2px);
-  text-shadow: 0 0 calc(0.5rem + 0.2vmin) rgba(0, 255, 255, 0.6); /* Neon text shadow */
+  text-shadow: 0 0 calc(0.4rem + 0.2vmin) rgba(0, 255, 255, 0.6); /* Neon text shadow */
 }
 
 /* Text within tabs with enhanced transitions */
@@ -181,19 +181,19 @@
 }
 
 .navTab:hover .tabText {
-  transform: scale(1.08);
+  transform: scale(1.06); /* Reduced transform */
   text-shadow: 0 0 calc(0.3rem + 0.1vmin) rgba(255, 255, 255, 0.3);
 }
 
 .navTab.active .tabText {
-  transform: scale(1.05);
+  transform: scale(1.04); /* Reduced transform */
 }
 
 /* Premium sliding glass highlight with enhanced effects */
 .navGlass {
   position: absolute;
-  top: calc(0.4rem + 0.2vw);
-  height: calc(100% - (0.8rem + 0.4vw));
+  top: calc(0.3rem + 0.15vw); /* Reduced top position */
+  height: calc(100% - (0.6rem + 0.3vw)); /* Reduced height */
   background: linear-gradient(
     135deg,
     rgba(0, 255, 255, 0.5) 0%, /* Start with bright cyan */
@@ -205,13 +205,13 @@
   background-size: 300% 300%;
   animation: premium-glass-flow 25s ease-in-out infinite;
   backdrop-filter: blur(calc(20px + 0.8vmin)) saturate(200%) brightness(1.5); /* Increased brightness for neon effect */
-  border-radius: calc(1rem + 0.3vmin);
+  border-radius: calc(0.8rem + 0.2vmin); /* Reduced border radius */
   border: 1px solid rgba(0, 255, 255, 0.25); /* Neon border */
   transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
   box-shadow:
-    0 0 calc(1.2rem + 0.5vmin) rgba(0, 255, 255, 0.5), /* Neon glow */
-    0 0 calc(0.8rem + 0.3vmin) rgba(255, 255, 255, 0.3), /* White secondary glow */
-    inset 0 1px calc(0.6rem + 0.3vmin) rgba(255, 255, 255, 0.3),
+    0 0 calc(1rem + 0.4vmin) rgba(0, 255, 255, 0.5), /* Neon glow */
+    0 0 calc(0.7rem + 0.3vmin) rgba(255, 255, 255, 0.3), /* White secondary glow */
+    inset 0 1px calc(0.5rem + 0.2vmin) rgba(255, 255, 255, 0.3),
     inset 0 0 0 1px rgba(255, 255, 255, 0.15);
   z-index: 5;
   opacity: 0;
@@ -267,42 +267,42 @@
 /* Premium responsive design with enhanced scaling */
 @media (max-width: 1024px) {
   .fixed {
-    padding: calc(0.6rem + 0.4vw) 0;
+    padding: calc(0.5rem + 0.3vw) 0; /* Reduced padding */
   }
   .navContainer {
     max-width: 90%;
-    border-radius: calc(1.2rem + 0.4vmin);
-    padding: calc(0.5rem + 0.3vw);
+    border-radius: calc(1rem + 0.3vmin); /* Reduced border radius */
+    padding: calc(0.4rem + 0.2vw); /* Reduced padding */
     box-shadow:
-      0 calc(0.6rem + 0.3vmin) calc(1.5rem + 0.7vmin) var(--shadow-primary),
-      0 calc(0.3rem + 0.15vmin) calc(0.8rem + 0.4vmin) var(--shadow-secondary),
-      inset 0 1px calc(0.4rem + 0.2vmin) var(--highlight-inner);
+      0 calc(0.5rem + 0.2vmin) calc(1.2rem + 0.6vmin) var(--shadow-primary),
+      0 calc(0.25rem + 0.1vmin) calc(0.6rem + 0.3vmin) var(--shadow-secondary),
+      inset 0 1px calc(0.3rem + 0.15vmin) var(--highlight-inner);
   }
   .navTabs {
-    gap: calc(0.4rem + 0.2vw);
-    padding: calc(0.3rem + 0.15vw);
+    gap: calc(0.3rem + 0.15vw); /* Reduced gap */
+    padding: calc(0.2rem + 0.1vw); /* Reduced padding */
   }
   .navTab {
-    padding: calc(0.5rem + 0.2vw) calc(0.8rem + 0.4vw);
-    font-size: calc(0.85rem + 0.12vmin);
-    border-radius: calc(0.8rem + 0.2vmin);
+    padding: calc(0.4rem + 0.15vw) calc(0.7rem + 0.3vw); /* Reduced padding */
+    font-size: calc(0.8rem + 0.08vmin); /* Reduced font size */
+    border-radius: calc(0.7rem + 0.15vmin); /* Reduced border radius */
   }
 }
 
 @media (max-width: 768px) {
   .navContainer {
     max-width: 95%;
-    border-radius: calc(1rem + 0.3vmin);
-    padding: calc(0.4rem + 0.2vw);
+    border-radius: calc(0.8rem + 0.2vmin); /* Reduced border radius */
+    padding: calc(0.3rem + 0.15vw); /* Reduced padding */
   }
   .navTabs {
     flex-wrap: wrap;
-    gap: calc(0.3rem + 0.15vw);
+    gap: calc(0.2rem + 0.1vw); /* Reduced gap */
   }
   .navTab {
-    padding: calc(0.4rem + 0.15vw) calc(0.6rem + 0.3vw);
-    font-size: calc(0.8rem + 0.1vmin);
-    border-radius: calc(0.7rem + 0.15vmin);
+    padding: calc(0.3rem + 0.1vw) calc(0.5rem + 0.2vw); /* Reduced padding */
+    font-size: calc(0.7rem + 0.08vmin); /* Reduced font size */
+    border-radius: calc(0.6rem + 0.1vmin); /* Reduced border radius */
   }
   .navTab:hover {
     transform: translateY(-2px) scale(1.03);
@@ -313,16 +313,16 @@
   .navContainer {
     max-width: 98%;
     border: 1px solid var(--border-color);
-    padding: calc(0.3rem + 0.15vw);
+    padding: calc(0.2rem + 0.1vw); /* Reduced padding */
   }
   .navTabs {
     flex-wrap: wrap;
-    gap: calc(0.2rem + 0.1vw);
+    gap: calc(0.1rem + 0.05vw); /* Reduced gap */
   }
   .navTab {
-    padding: calc(0.3rem + 0.1vw) calc(0.5rem + 0.2vw);
-    font-size: calc(0.75rem + 0.1vmin);
-    border-radius: calc(0.6rem + 0.1vmin);
+    padding: calc(0.25rem + 0.1vw) calc(0.4rem + 0.15vw); /* Reduced padding */
+    font-size: calc(0.7rem + 0.05vmin); /* Reduced font size */
+    border-radius: calc(0.5rem + 0.08vmin); /* Reduced border radius */
   }
 }
 
@@ -330,15 +330,15 @@
 @media (min-width: 1440px) {
   .navContainer {
     max-width: 75%;
-    border-radius: calc(1.8rem + 0.6vmin);
-    padding: calc(0.8rem + 0.5vw);
+    border-radius: calc(1.5rem + 0.5vmin); /* Reduced border radius */
+    padding: calc(0.7rem + 0.4vw); /* Reduced padding */
   }
   .navTab {
-    padding: calc(0.8rem + 0.4vw) calc(1.2rem + 0.6vw);
-    font-size: calc(1rem + 0.18vmin);
+    padding: calc(0.7rem + 0.3vw) calc(1rem + 0.5vw); /* Reduced padding */
+    font-size: calc(0.9rem + 0.15vmin); /* Reduced font size */
   }
   .navGlass {
-    border-radius: calc(1.2rem + 0.4vmin);
+    border-radius: calc(1rem + 0.3vmin); /* Reduced border radius */
   }
 }
 

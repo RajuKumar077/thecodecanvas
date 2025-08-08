@@ -6,7 +6,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
+  background: linear-gradient(135deg, #0f0f0f, #000000);
   color: white;
   padding: 2rem;
   overflow: hidden;
@@ -33,7 +33,9 @@
   grid-template-columns: 1fr 1fr;
   gap: 3rem;
   align-items: center;
-  padding: 0 2rem;
+  padding-left: 1rem;  /* Reduced from 2rem to bring content left */
+  padding-right: 2rem;
+  justify-content: start; /* Align entire grid to start (left) */
   animation: fadeInUp 1s ease-out forwards;
 }
 

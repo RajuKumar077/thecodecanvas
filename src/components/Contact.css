@@ -1,268 +1,146 @@
-/* Import Google Fonts - Inter and Poppins for a premium, modern aesthetic */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=Poppins:wght@300;500;700&display=swap');
-
-/* Define a premium color palette (same as projects.css) */
-:root {
-    --primary-bg-start: #0f172a; /* Deep, rich gradient start */
-    --primary-bg-end: #1e293b;   /* Deep, rich gradient end */
-    --glass-bg-base: rgba(255, 255, 255, 0.08);
-    --glass-backdrop-blur: 20px;
-    --glass-backdrop-saturate: 180%;
-    --glass-border-color: rgba(255, 255, 255, 0.1);
-    --glass-shadow-dark: rgba(0, 0, 0, 0.4);
-    --glass-shadow-inset: rgba(255, 255, 255, 0.06);
-    --glass-border-radius: 20px;
-    --accent-color: #00C4FF; /* Vibrant blue for accents */
-    --accent-glow: #00E1FF; /* Brighter glow for hover */
-    --text-light: #e2e8f0; /* Light gray for primary text */
-    --text-muted: #B0B0B0; /* Muted gray for secondary text */
-    --tag-bg: rgba(0, 196, 255, 0.2);
-    --gradient-blue: #3b82f6;
-    --gradient-purple: #a855f7;
-    --gradient-pink: #ec4899;
-}
-
-/* Section Styling */
+/* ===== Contact Section ===== */
 .contactSection {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    width: 100%;
-    background: linear-gradient(145deg, var(--primary-bg-start), var(--primary-bg-end));
-    font-family: 'Inter', sans-serif;
-    padding: clamp(2rem, 4vw, 3.5rem) clamp(1.5rem, 3vw, 2.5rem);
-    box-sizing: border-box;
-    position: relative;
-    z-index: 2;
-    overflow: hidden;
-    max-width: 1400px;
-    margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 6rem 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  min-height: 80vh; /* Ensures it takes up a good portion of the screen */
 }
 
-/* Animated particle layer (same as projects.css) */
-.contactSection::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: -1;
-    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10"><circle cx="5" cy="5" r="2" fill="rgba(255,255,255,0.1)"/></svg>') repeat;
-    animation: particleDrift 30s infinite linear;
-    opacity: 0.25;
-}
-
-/* Keyframes for particle drift animation */
-@keyframes particleDrift {
-    0% { transform: translate(0, 0); }
-    100% { transform: translate(-20px, -20px); }
-}
-
-/* Contact Card Styling */
+/* Replicating the 'glass' card style */
 .contactCard {
-    background: var(--glass-bg-base);
-    backdrop-filter: blur(var(--glass-backdrop-blur)) saturate(var(--glass-backdrop-saturate));
-    -webkit-backdrop-filter: blur(var(--glass-backdrop-blur)) saturate(var(--glass-backdrop-saturate));
-    border: 1px solid var(--glass-border-color);
-    border-radius: var(--glass-border-radius);
-    box-shadow: 0 10px 30px var(--glass-shadow-dark), inset 0 0 10px var(--glass-shadow-inset);
-    padding: clamp(2rem, 3vw, 2.5rem);
-    max-width: 800px;
-    width: 100%;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-    transition: all 0.4s ease;
+  width: 100%;
+  max-width: 700px;
+  padding: 3rem 2rem;
+  border-radius: 1.5rem;
+  background: rgba(255, 255, 255, 0.05); /* Lighter glass effect */
+  border: 1px solid rgba(255, 255, 255, 0.15); /* Subtle border */
+  backdrop-filter: blur(20px); /* Glassy blur effect */
+  text-align: center;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
 }
 
-/* Simplified hover effect */
-.contactCard:hover {
-    background: rgba(255, 255, 255, 0.1);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), inset 0 0 15px rgba(255, 255, 255, 0.08);
-    border-color: rgba(255, 255, 255, 0.2);
-}
-
-/* Title Styling */
 .contactTitle {
-    font-family: 'Poppins', sans-serif;
-    font-size: clamp(2.5rem, 5vw, 3.5rem);
-    font-weight: 700;
-    color: var(--text-light);
-    margin-bottom: clamp(1rem, 2vw, 1.5rem);
-    letter-spacing: -0.015em;
-    background: linear-gradient(90deg, var(--gradient-blue), var(--gradient-purple), var(--gradient-pink));
-    background-size: 200%;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
-    animation: gradientFlow 5s ease-in-out infinite, fadeInDown 1s ease-out forwards;
-    opacity: 0;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  background: linear-gradient(90deg, #00c6ff, #0072ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-/* Keyframes for animations */
-@keyframes gradientFlow {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-
-@keyframes fadeInDown {
-    from {
-        opacity: 0;
-        transform: translateY(-30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Text Styling */
 .contactText {
-    font-family: 'Inter', sans-serif;
-    font-size: clamp(1rem, 1.8vw, 1.2rem);
-    color: var(--text-muted);
-    line-height: 1.5;
-    margin-bottom: clamp(2rem, 3vw, 2.5rem);
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #ddd;
+  margin-bottom: 3rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-/* Contact Links Container */
+/* ===== Contact Links Grid ===== */
 .contactLinks {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: clamp(1rem, 1.5vw, 1.5rem);
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  width: 100%;
 }
 
-/* Individual Contact Link Item */
+/* Replicating the project/skill card style for links */
 .contactLinkItem {
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    background: var(--tag-bg);
-    border: 1px solid rgba(0, 196, 255, 0.25);
-    border-radius: 10px;
-    padding: clamp(0.7rem, 1vw, 0.9rem) clamp(1.2rem, 1.5vw, 1.5rem);
-    color: var(--accent-color);
-    font-family: 'Inter', sans-serif;
-    font-size: clamp(0.95rem, 1.3vw, 1.05rem);
-    font-weight: 600;
-    position: relative;
-    overflow: hidden;
-    transition: all 0.3s ease;
-    box-shadow: 0 3px 10px rgba(0, 196, 255, 0.3);
-}
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1rem 1.5rem;
+  border-radius: 1rem;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #fff;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  
+  /* Glass effect for each item */
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px);
 
-/* Simplified hover effect */
-.contactLinkItem::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle at center, rgba(0, 196, 255, 0.3) 0%, transparent 70%);
-    opacity: 0;
-    z-index: -1;
-    transition: opacity 0.3s ease;
+  /* Hover gradient effect (mouse tracking) */
+  background-image: radial-gradient(
+    circle at var(--cursor-x, 50%) var(--cursor-y, 50%),
+    rgba(0, 198, 255, 0.25),
+    transparent 80%
+  );
 }
 
 .contactLinkItem:hover {
-    background: rgba(0, 196, 255, 0.3);
-    transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(0, 196, 255, 0.5);
-    border-color: rgba(0, 196, 255, 0.5);
-    color: var(--accent-glow);
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 0 8px 20px rgba(0, 198, 255, 0.2);
 }
 
-.contactLinkItem:hover::before {
-    opacity: 1;
-}
-
-/* Contact Icon */
 .contactIcon {
-    font-size: clamp(1rem, 1.5vw, 1.2rem);
-    margin-right: clamp(0.5rem, 0.8vw, 0.8rem);
-    line-height: 1;
+  font-size: 2rem;
+  line-height: 1; /* Aligns the icon nicely */
+  display: inline-flex; /* Ensures it's centered if it's a single character */
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
 }
 
-/* Contact Link Text */
+.contactLinkItem:hover .contactIcon {
+  transform: scale(1.1);
+}
+
 .contactLinkText {
-    white-space: nowrap;
+  flex-grow: 1; /* Pushes the icon to the left */
+  text-align: left;
 }
 
-/* Responsive Adjustments */
-@media (max-width: 1200px) {
-    .contactSection {
-        padding: clamp(1.8rem, 3vw, 3rem) clamp(1.2rem, 2vw, 2rem);
-    }
-    .contactTitle {
-        font-size: clamp(2rem, 4vw, 3rem);
-    }
-    .contactText {
-        font-size: clamp(0.95rem, 1.6vw, 1.1rem);
-    }
-    .contactCard {
-        padding: clamp(1.5rem, 2.5vw, 2rem);
-    }
-    .contactLinkItem {
-        padding: clamp(0.6rem, 0.9vw, 0.8rem) clamp(1rem, 1.3vw, 1.3rem);
-        font-size: clamp(0.9rem, 1.2vw, 1rem);
-    }
-}
 
+/* --- Media Queries for Responsiveness --- */
 @media (max-width: 768px) {
-    .contactSection {
-        padding: clamp(1.5rem, 2.5vw, 2.5rem) clamp(1rem, 1.5vw, 1.5rem);
-    }
-    .contactTitle {
-        font-size: clamp(1.8rem, 3.5vw, 2.5rem);
-    }
-    .contactText {
-        font-size: clamp(0.9rem, 1.4vw, 1rem);
-    }
-    .contactCard {
-        padding: clamp(1.2rem, 2vw, 1.5rem);
-        margin: 0 clamp(0.8rem, 1.2vw, 1rem);
-    }
-    .contactLinkItem {
-        padding: clamp(0.5rem, 0.8vw, 0.7rem) clamp(0.8rem, 1.2vw, 1.2rem);
-        font-size: clamp(0.85rem, 1.1vw, 0.95rem);
-    }
-    .contactIcon {
-        font-size: clamp(0.9rem, 1.3vw, 1.1rem);
-        margin-right: clamp(0.4rem, 0.6vw, 0.6rem);
-    }
+  .contactSection {
+    padding: 4rem 1rem;
+  }
+
+  .contactTitle {
+    font-size: 2rem;
+  }
+
+  .contactText {
+    font-size: 1rem;
+  }
+
+  .contactCard {
+    padding: 2rem 1rem;
+  }
+
+  .contactLinkItem {
+    padding: 0.8rem 1rem;
+    font-size: 1rem;
+    gap: 1rem;
+  }
 }
 
-@media (max-width: 480px) {
-    .contactSection {
-        padding: clamp(1.2rem, 2vw, 2rem) clamp(0.8rem, 1.2vw, 1.2rem);
-    }
-    .contactTitle {
-        font-size: clamp(1.6rem, 3vw, 2rem);
-    }
-    .contactText {
-        font-size: clamp(0.85rem, 1.3vw, 0.95rem);
-    }
-    .contactCard {
-        padding: clamp(1rem, 1.5vw, 1.2rem);
-    }
-    .contactLinks {
-        flex-direction: column;
-        align-items: center;
-        gap: clamp(0.8rem, 1.2vw, 1rem);
-    }
-    .contactLinkItem {
-        width: 90%;
-        justify-content: center;
-        padding: clamp(0.5rem, 0.8vw, 0.7rem) clamp(0.8rem, 1.2vw, 1.2rem);
-        font-size: clamp(0.9rem, 1.2vw, 1rem);
-    }
+/* --- Optional: 3D-like icons for a modern look --- */
+.contactIcon.linkedin {
+  color: #0077b5; /* LinkedIn blue */
+  text-shadow: 0 0 10px #0077b5, 0 0 20px rgba(0, 119, 181, 0.5);
+}
+
+.contactIcon.github {
+  color: #333; /* GitHub dark color */
+  text-shadow: 0 0 10px #333, 0 0 20px rgba(51, 51, 51, 0.5);
+}
+
+.contactIcon.email {
+  color: #c71610; /* Gmail red */
+  text-shadow: 0 0 10px #c71610, 0 0 20px rgba(199, 22, 16, 0.5);
+}
+
+.contactIcon.twitter {
+  color: #1da1f2; /* Twitter blue */
+  text-shadow: 0 0 10px #1da1f2, 0 0 20px rgba(29, 161, 242, 0.5);
 }

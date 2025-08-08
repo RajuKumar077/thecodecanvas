@@ -1,381 +1,223 @@
-/* Import Google Fonts - Inter and Poppins for a premium, modern aesthetic */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=Poppins:wght@300;500;700&display=swap');
-
-/* Base styles for the body - luxurious dark gradient with subtle texture */
 body {
-    background: linear-gradient(145deg, #0f172a, #1e293b); /* Deep, rich gradient */
-    font-family: 'Inter', sans-serif;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    color: #e2e8f0;
-    overflow-x: hidden;
-    position: relative;
+  background-color: #000;
+  color: #fff;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
-/* Animated particle layer for a premium, dynamic effect */
-.particle-layer {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: -1;
-    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"><circle cx="6" cy="6" r="3" fill="rgba(255,255,255,0.15)"/></svg>') repeat;
-    animation: particleDrift 25s infinite linear;
-    opacity: 0.4;
+/* ===== Skills Section ===== */
+.skillsSection {
+  padding: 6rem 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
-@keyframes particleDrift {
-    0% { transform: translate(0, 0); }
-    50% { transform: translate(-15px, -15px); }
-    100% { transform: translate(0, 0); }
+.skillsTitle {
+  font-size: 2.5rem;
+  text-align: center;
+  font-weight: 700;
+  margin-bottom: 4rem;
+  background: linear-gradient(90deg, #00c6ff, #0072ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-/* Main container for the Skills section with premium glassmorphism */
-.skills-glass-section {
-    background: rgba(255, 255, 255, 0.06);
-    backdrop-filter: blur(30px) saturate(200%);
-    -webkit-backdrop-filter: blur(30px) saturate(200%);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 40px;
-    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(255, 255, 255, 0.05);
-    padding: 5rem 4rem;
-    margin: 5rem auto;
-    max-width: 6500px;
-    width: 92%;
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    z-index: 1;
-    transform: translateZ(0);
-    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-/* Subtle inner glow with dynamic gradient */
-.skills-glass-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    border-radius: 40px;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.04), rgba(59, 130, 246, 0.1));
-    z-index: -1;
-    pointer-events: none;
-    animation: gradientShift 10s ease-in-out infinite;
-}
-
-@keyframes gradientShift {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-
-/* Title styling with luxurious gradient and animation */
-.skills-title {
-    font-family: 'Poppins', sans-serif;
-    font-size: 4.8rem;
-    font-weight: 900;
-    color: #ffffff;
-    text-align: center;
-    margin-bottom: 4rem;
-    text-shadow: 0 0 40px rgba(255, 255, 255, 0.7), 0 0 60px rgba(59, 130, 246, 0.5);
-    letter-spacing: -0.05em;
-    background: linear-gradient(90deg, #3b82f6, #a855f7, #ec4899);
-    background-size: 200%;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: gradientFlow 6s ease-in-out infinite, pulseGlow 3s infinite alternate;
-}
-
-@keyframes gradientFlow {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-
-@keyframes pulseGlow {
-    from { text-shadow: 0 0 20px rgba(255, 255, 255, 0.5), 0 0 40px rgba(59, 130, 246, 0.4); }
-    to { text-shadow: 0 0 30px rgba(255, 255, 255, 0.7), 0 0 60px rgba(168, 85, 247, 0.6); }
-}
-
-/* No certificates message with subtle animation */
-.no-certificates-message {
-    color: rgba(255, 255, 255, 0.75);
-    font-size: 1.4rem;
-    font-family: 'Inter', sans-serif;
-    font-weight: 500;
-    text-align: center;
-    padding: 2.5rem;
-    opacity: 0;
-    animation: fadeIn 1s ease-in forwards 0.5s;
-}
-
-@keyframes fadeIn {
-    to { opacity: 1; }
-}
-
-/* Certificate grid container with dynamic layout */
+/* ===== Certificate Grid ===== */
 .certificate-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 4rem;
-    width: 100%;
-    justify-content: center;
-    align-items: stretch;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
 }
 
-/* Individual certificate frame with premium glassmorphism and cursor-responsive gradient */
+/* ===== Certificate Card (Re-styled to match Projects) ===== */
 .certificate-glass-frame {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 30px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), inset 0 0 15px rgba(255, 255, 255, 0.05);
-    padding: 2.5rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-    position: relative;
-    transform: translateZ(0);
-    overflow: hidden;
+  position: relative;
+  padding: 1.5rem;
+  border-radius: 1.25rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+
+  /* Hover gradient effect (mouse tracking) */
+  background-image: radial-gradient(
+    circle at var(--cursor-x, 50%) var(--cursor-y, 50%),
+    rgba(7, 175, 221, 0.464),
+    transparent 80%
+  );
 }
 
-/* Cursor-responsive gradient effect for certificate cards */
-.certificate-glass-frame::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle at var(--cursor-x, 50%) var(--cursor-y, 50%), 
-                              rgba(59, 130, 246, 0.3) 0%, 
-                              rgba(168, 85, 247, 0.2) 20%, 
-                              transparent 60%);
-    opacity: 0.4;
-    z-index: -1;
-    transform: translate(-25%, -25%);
-    transition: background 0.3s ease;
-}
-
-/* Hover effects for certificate cards */
 .certificate-glass-frame:hover {
-    background: rgba(255, 255, 255, 0.2);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-    transform: translateY(-15px) scale(1.05);
-    border-color: rgba(255, 255, 255, 0.4);
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 12px 30px rgba(0, 198, 255, 0.25);
 }
 
-.certificate-glass-frame:hover::after {
-    opacity: 1;
+/* ===== Certificate Content ===== */
+.certificate-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
-/* Dynamic gradient border for certificate cards */
-.certificate-glass-frame::after {
-    content: '';
-    position: absolute;
-    top: -3px;
-    left: -3px;
-    right: -3px;
-    bottom: -3px;
-    border-radius: 30px;
-    background: linear-gradient(45deg, #3b82f6, #a855f7, #ec4899);
-    background-size: 200%;
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    z-index: -1;
-    opacity: 0;
-    transition: opacity 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-    animation: gradientFlow 8s ease-in-out infinite;
+.certificate-image-container {
+  overflow: hidden;
+  border-radius: 0.75rem;
 }
 
-/* Certificate image styling with subtle hover effect */
-.certificate-glass-frame img {
-    width: 220px;
-    height: 220px;
-    object-fit: contain;
-    margin-bottom: 2rem;
-    border-radius: 25px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
-    transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
+.certificate-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 0.4s ease;
 }
 
-.certificate-glass-frame img:hover {
-    transform: scale(1.08);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+.certificate-glass-frame:hover .certificate-image {
+  transform: scale(1.05);
 }
 
-/* Certificate title styling with premium typography */
-.certificate-title {
-    font-family: 'Inter', sans-serif;
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: #f1f5f9;
-    line-height: 1.5;
-    margin-top: auto;
-    letter-spacing: -0.02em;
-}
-
-/* PDF display wrapper with enhanced depth */
 .pdf-display-wrapper {
-    width: 100%;
-    height: 280px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 2rem;
-    overflow: hidden;
-    border-radius: 25px;
-    background: rgba(0, 0, 0, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.4);
-    position: relative;
-    transition: transform 0.4s ease-in-out;
+  position: relative;
+  width: 100%;
+  height: auto;
+  cursor: pointer;
+  overflow: hidden;
+  border-radius: 0.75rem;
+  transition: transform 0.4s ease;
 }
 
 .pdf-display-wrapper:hover {
-    transform: scale(1.03);
+  transform: scale(1.05);
 }
 
-/* Styling for react-pdf components */
-.react-pdf__Document {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.pdf-display-wrapper canvas {
+  display: block;
+  border-radius: 0.75rem;
 }
 
-.react-pdf__Page {
-    max-width: 100%;
-    height: auto;
-    box-shadow: 0 0 25px rgba(0, 0, 0, 0.4);
-    border-radius: 15px;
-}
-
-/* View Full PDF link with premium styling */
 .view-full-pdf-link {
-    margin-top: 15px;
-    font-size: 1.1rem;
-    font-family: 'Inter', sans-serif;
-    font-weight: 600;
-    color: #a855f7;
-    text-decoration: none;
-    transition: all 0.3s ease-in-out;
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  font-weight: 600;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  font-size: 1rem;
 }
 
-.view-full-pdf-link:hover {
-    color: #ffffff;
-    text-decoration: underline;
-    transform: translateY(-3px);
+.pdf-display-wrapper:hover .view-full-pdf-link {
+  opacity: 1;
+  pointer-events: auto;
 }
 
-/* Responsive adjustments for premium feel across devices */
-@media (max-width: 1300px) {
-    .skills-glass-section {
-        padding: 4rem 3.5rem;
-        max-width: 1300px;
-    }
-    .skills-title {
-        font-size: 4.2rem;
-    }
-    .certificate-grid {
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 3.5rem;
-    }
-    .certificate-glass-frame img,
-    .pdf-display-wrapper {
-        width: 200px;
-        height: 240px;
-    }
-    .react-pdf__Page {
-        width: 200px;
-    }
+.certificate-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #fff;
 }
 
-@media (max-width: 1024px) {
-    .skills-glass-section {
-        padding: 3rem 2.5rem;
-        max-width: 1100px;
-    }
-    .skills-title {
-        font-size: 3.8rem;
-    }
-    .certificate-grid {
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 3rem;
-    }
-    .certificate-glass-frame img,
-    .pdf-display-wrapper {
-        width: 180px;
-        height: 220px;
-    }
-    .react-pdf__Page {
-        width: 180px;
-    }
+/* Fullscreen PDF viewer overlay and controls remain the same */
+.fullscreen-pdf-viewer {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-@media (max-width: 968px) {
-    .skills-glass-section {
-        padding: 2.5rem 2rem;
-        margin: 2rem auto;
-        width: 95%;
-    }
-    .skills-title {
-        font-size: 3rem;
-        margin-bottom: 3rem;
-    }
-    .certificate-grid {
-        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-        gap: 2.5rem;
-    }
-    .certificate-glass-frame img,
-    .pdf-display-wrapper {
-        width: 160px;
-        height: 180px;
-    }
-    .react-pdf__Page {
-        width: 160px;
-    }
+.viewer-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(4px);
 }
 
-@media (max-width: 480px) {
-    .skills-glass-section {
-        padding: 2rem 1.5rem;
-        margin: 1.5rem auto;
-    }
-    .skills-title {
-        font-size: 2.5rem;
-        margin-bottom: 2rem;
-        letter-spacing: -0.03em;
-    }
-    .certificate-grid {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-    }
-    .certificate-glass-frame img,
-    .pdf-display-wrapper {
-        width: 100%;
-        height: 200px;
-    }
-    .react-pdf__Page {
-        width: 100%;
-    }
-    .certificate-title {
-        font-size: 1.2rem;
-    }
+.pdf-modal {
+  position: relative;
+  background: rgba(20, 20, 20, 0.85);
+  backdrop-filter: blur(10px);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  z-index: 1000;
+  max-width: 90%;
+  max-height: 90%;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.close-pdf-btn {
+  position: absolute;
+  top: 0.8rem;
+  right: 0.8rem;
+  background: transparent;
+  color: #fff;
+  font-size: 1.4rem;
+  border: none;
+  cursor: pointer;
+}
+
+.pdf-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.left-controls,
+.right-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.pdf-nav-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 0.4rem;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.pdf-nav-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.pdf-page-counter,
+.pdf-scale {
+  font-size: 0.9rem;
+  color: #ddd;
+}
+
+.download-btn {
+  background: rgba(0, 132, 255, 0.2);
+  border: 1px solid rgba(0, 132, 255, 0.4);
+  padding: 0.4rem 0.8rem;
+  border-radius: 0.4rem;
+  color: #9bd4ff;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: background 0.2s ease;
+}
+
+.download-btn:hover {
+  background: rgba(0, 0, 0, 0.35);
+}
+
+.pdf-viewer-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
 }
