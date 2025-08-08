@@ -1,53 +1,54 @@
 import React, { useEffect, useRef, useCallback, forwardRef } from 'react';
 import './Home.css';
 
-// Class to represent a single particle in the network
+// The updated Particle class for a more premium effect
 class Particle {
-  constructor(ctx, x, y, radius, color) {
+  constructor(ctx, x, y) {
     this.ctx = ctx;
-    this.baseX = x; // Original position
+    this.baseX = x;
     this.baseY = y;
     this.x = x;
     this.y = y;
-    this.radius = radius;
-    this.color = color;
-    this.targetX = x;
-    this.targetY = y;
-    this.easeFactor = 0.08;
-  }
-
-  update(mouse) {
-    let dx = mouse.x - this.x;
-    let dy = mouse.y - this.y;
-    let distance = Math.sqrt(dx * dx + dy * dy);
-    const maxDistance = 150;
-
-    if (mouse.x !== null && mouse.y !== null && distance < maxDistance) {
-      let forceFactor = (maxDistance - distance) / maxDistance;
-      this.targetX = this.baseX + (dx / distance) * -forceFactor * 30;
-      this.targetY = this.baseY + (dy / distance) * -forceFactor * 30;
-    } else {
-      this.targetX = this.baseX;
-      this.targetY = this.baseY;
-    }
-
-    this.x += (this.targetX - this.x) * this.easeFactor;
-    this.y += (this.targetY - this.y) * this.easeFactor;
-
-    const stopThreshold = 0.1;
-    if (Math.abs(this.x - this.targetX) < stopThreshold) {
-      this.x = this.targetX;
-    }
-    if (Math.abs(this.y - this.targetY) < stopThreshold) {
-      this.y = this.targetY;
-    }
+    this.radius = Math.random() * 1.5 + 0.5; // Varied particle sizes for depth
+    this.color = { r: 0, g: 160, b: 255 }; // Consistent Neon Blue
+    this.opacity = 0; // Starts invisible
+    this.velocity = { x: 0, y: 0 };
+    this.friction = 0.95; // More friction for a smoother feel
+    this.spring = 0.03; // Slightly softer spring effect
   }
 
   draw() {
     this.ctx.beginPath();
     this.ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-    this.ctx.fillStyle = this.color;
+    this.ctx.fillStyle = `rgba(${this.color.r}, ${this.color.g}, ${this.color.b}, ${this.opacity})`;
     this.ctx.fill();
+  }
+
+  update(mouse) {
+    const dx = mouse.x - this.x;
+    const dy = mouse.y - this.y;
+    const distance = Math.sqrt(dx * dx + dy * dy);
+    const influenceRadius = 200; // Increased influence radius
+
+    if (distance < influenceRadius) {
+      const force = (influenceRadius - distance) / influenceRadius;
+      this.velocity.x += -dx * force * 0.15;
+      this.velocity.y += -dy * force * 0.15;
+      this.opacity = Math.min(1, this.opacity + 0.05); // Smooth opacity increase
+    } else {
+      const returnForceX = (this.baseX - this.x) * this.spring;
+      const returnForceY = (this.baseY - this.y) * this.spring;
+      this.velocity.x += returnForceX;
+      this.velocity.y += returnForceY;
+      this.opacity = Math.max(0, this.opacity - 0.02); // Smooth opacity decrease
+    }
+
+    this.x += this.velocity.x;
+    this.y += this.velocity.y;
+    this.velocity.x *= this.friction;
+    this.velocity.y *= this.friction;
+
+    this.draw();
   }
 }
 
@@ -58,28 +59,17 @@ const Home = forwardRef((props, ref) => {
   const particlesArray = useRef([]);
   const mouse = useRef({ x: null, y: null });
 
-  const colors = [
-    'rgba(74, 144, 226, 0.7)',
-    'rgba(80, 200, 120, 0.7)',
-    'rgba(150, 100, 200, 0.7)',
-    'rgba(0, 191, 191, 0.7)',
-    'rgba(255, 165, 0, 0.7)',
-    'rgba(255, 99, 71, 0.7)',
-    'rgba(255, 206, 86, 0.7)',
-  ];
-
   const initParticles = useCallback(() => {
     particlesArray.current = [];
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const numberOfParticles = (canvas.width * canvas.height) / 9000;
-    for (let i = 0; i < numberOfParticles; i++) {
-      let radius = Math.random() * 2 + 1;
-      let x = Math.random() * (canvas.width - radius * 2) + radius;
-      let y = Math.random() * (canvas.height - radius * 2) + radius;
-      const color = colors[Math.floor(Math.random() * colors.length)];
-      particlesArray.current.push(new Particle(canvas.getContext('2d'), x, y, radius, color));
+    // Optimized: Increased gap to reduce particle count for performance
+    const gap = 40; 
+    for (let y = 0; y < canvas.height; y += gap) {
+      for (let x = 0; x < canvas.width; x += gap) {
+        particlesArray.current.push(new Particle(canvas.getContext('2d'), x, y));
+      }
     }
   }, []);
 
@@ -88,11 +78,14 @@ const Home = forwardRef((props, ref) => {
     const ctx = canvas?.getContext('2d');
     if (!ctx) return;
 
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.15)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    for (let i = 0; i < particlesArray.current.length; i++) {
-      particlesArray.current[i].update(mouse.current);
-      particlesArray.current[i].draw();
+    ctx.shadowBlur = 20;
+    ctx.shadowColor = '#000000ff';
+
+    for (const particle of particlesArray.current) {
+      particle.update(mouse.current);
     }
 
     connectParticles(ctx);
@@ -102,39 +95,32 @@ const Home = forwardRef((props, ref) => {
 
   const connectParticles = useCallback((ctx) => {
     const maxLineDistance = 100;
-    const mouseInfluenceLineDistance = 200;
+    const particles = particlesArray.current;
+    
+    // Optimized: Only loop a fixed number of particles to check for connections
+    for (let a = 0; a < particles.length; a++) {
+      if (particles[a].opacity <= 0.1) continue;
 
-    for (let a = 0; a < particlesArray.current.length; a++) {
-      for (let b = a; b < particlesArray.current.length; b++) {
-        const particleA = particlesArray.current[a];
-        const particleB = particlesArray.current[b];
+      for (let b = a + 1; b < Math.min(a + 50, particles.length); b++) {
+        if (particles[b].opacity <= 0.1) continue;
 
-        let distance = Math.sqrt(
+        const particleA = particles[a];
+        const particleB = particles[b];
+
+        const distance = Math.sqrt(
           (particleA.x - particleB.x) ** 2 +
           (particleA.y - particleB.y) ** 2
         );
 
         if (distance < maxLineDistance) {
-          let mouseLineDistanceA = mouse.current.x !== null ? Math.sqrt((mouse.current.x - particleA.x)**2 + (mouse.current.y - particleA.y)**2) : Infinity;
-          let mouseLineDistanceB = mouse.current.x !== null ? Math.sqrt((mouse.current.x - particleB.x)**2 + (mouse.current.y - particleB.y)**2) : Infinity;
-          let minMouseDistance = Math.min(mouseLineDistanceA, mouseLineDistanceB);
+          const lineOpacity = (1 - (distance / maxLineDistance)) * Math.max(particleA.opacity, particleB.opacity);
 
-          let lineOpacity = 0;
-          if (minMouseDistance < mouseInfluenceLineDistance) {
-            lineOpacity = 1 - (minMouseDistance / mouseInfluenceLineDistance);
-            lineOpacity = Math.max(0.1, lineOpacity);
-          } else {
-            lineOpacity = 0.05;
-          }
+          const gradient = ctx.createLinearGradient(particleA.x, particleA.y, particleB.x, particleB.y);
+          gradient.addColorStop(0, `rgba(0, 160, 255, ${lineOpacity})`);
+          gradient.addColorStop(1, `rgba(100, 200, 255, ${lineOpacity * 0.7})`);
 
-          const colorMatch = particleA.color.match(/rgba\((\d+),\s*(\d+),\s*(\d+)/);
-          if (colorMatch) {
-            ctx.strokeStyle = `rgba(${colorMatch[1]}, ${colorMatch[2]}, ${colorMatch[3]}, ${lineOpacity})`;
-          } else {
-            ctx.strokeStyle = `rgba(255, 255, 255, ${lineOpacity})`;
-          }
-
-          ctx.lineWidth = 1;
+          ctx.strokeStyle = gradient;
+          ctx.lineWidth = 1.5;
           ctx.beginPath();
           ctx.moveTo(particleA.x, particleA.y);
           ctx.lineTo(particleB.x, particleB.y);
@@ -188,10 +174,7 @@ const Home = forwardRef((props, ref) => {
 
   return (
     <section id="home" className="home-section" ref={ref}>
-      {/* The canvas is absolutely positioned to be the background */}
       <canvas ref={canvasRef} className="home-canvas"></canvas>
-
-      {/* The main content, positioned on top of the canvas */}
       <div className="home-content">
         <h1>RAJU KUMAR</h1>
         <p>The Analyst</p>
