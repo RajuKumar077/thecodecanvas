@@ -10,11 +10,11 @@ import './Contact.css'; // Import the dedicated CSS for the Contact page
 // Define contact details for rendering the links
 const contactDetails = [
   // You can use a single emoji for a simple icon
-  { id: 'email', icon: '📧', text: 'your.email@example.com', link: 'mailto:your.email@example.com' },
+  { id: 'email', icon: '📧', text: 'your.email@example.com', link: 'rajukumardalimss@gmail.com' },
   // Or, you can use Font Awesome or SVG icons for better customization
-  { id: 'github', icon: '💻', text: 'GitHub Profile', link: 'https://github.com/yourusername' },
-  { id: 'linkedin', icon: '👔', text: 'LinkedIn Profile', link: 'https://linkedin.com/in/yourprofile' },
-  { id: 'twitter', icon: '🐦', text: 'Twitter', link: 'https://twitter.com/yourhandle' },
+  { id: 'github', icon: '💻', text: 'GitHub Profile', link: 'https://github.com/RajuKumar077' },
+  { id: 'linkedin', icon: '👔', text: 'LinkedIn Profile', link: 'https://www.linkedin.com/in/raju-kumar7388/' },
+  { id: 'twitter', icon: '🐦', text: 'Twitter', link: 'https://x.com/Rajukumar2580' },
   // Add more contact methods as needed
 ];
 
