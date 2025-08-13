@@ -10,15 +10,15 @@
   text-align: center;
   font-weight: 700;
   margin-bottom: 4rem;
-  background: linear-gradient(90deg, #59ff00, #0072ff);
+  background: linear-gradient(90deg, #00ffff, #0072ff);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-/* ===== Project Grid ===== */
+/* ===== Project Grid (One per row) ===== */
 .projectGridContainer {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: 1fr; /* Always one card per row */
   gap: 2rem;
 }
 

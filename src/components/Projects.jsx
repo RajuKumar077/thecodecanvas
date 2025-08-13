@@ -41,6 +41,18 @@ const projectsData = [
     ],
     codeEmbed: '', // No specific code embed for this one
   },
+{
+  id: 4,
+  title: 'Employee Performance & Workforce Trends',
+  description: 'Developed an interactive Tableau dashboard to analyze workforce metrics, including total performance scores, employee count, average sick days, and overtime trends. The dashboard provides insights into performance over time, gender distribution, job title breakdown, salary comparisons by education level, department-wise performance, and overtime patterns, helping organizations make informed HR and operational decisions.',
+  image: 'https://public.tableau.com/static/images/Em/EmployeePerformanceAndWorkforceTrends/EmployeePerformanceDashboard1/1_rss.png', // Tableau's preview image
+  tags: ['Tableau', 'Data Visualization', 'Workforce Analytics', 'Interactive Dashboard'],
+  links: [
+    { type: 'Live Demo', url: 'https://public.tableau.com/views/EmployeePerformanceAndWorkforceTrends/EmployeePerformanceDashboard1?:language=en-US&:display_count=n&:origin=viz_share_link', icon: '🔗' }
+  ],
+  codeEmbed: '', // No code embed for Tableau
+},
+
 ];
 
 // Framer Motion variants for staggered animation of the project grid.
