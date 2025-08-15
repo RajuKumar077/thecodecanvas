@@ -1,40 +1,51 @@
 import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import Lottie from 'lottie-react'; // Import the Lottie player
+import Lottie from 'lottie-react';
 
-// Register GSAP plugins (important: do this only once in your app, e.g., in App.jsx)
 gsap.registerPlugin(ScrollTrigger);
 
-import './Contact.css'; // Import the dedicated CSS for the Contact page
-
+import './Contact.css';
 
 // Import your downloaded Lottie animation JSON files
 import emailAnimation from '../assets/lotties/email.json';
 import githubAnimation from '../assets/lotties/github.json';
 import linkedinAnimation from '../assets/lotties/linkedin.json';
 import twitterAnimation from '../assets/lotties/x.json';
-// NOTE: Make sure the file paths and names match your project structure.
 
-// Define contact details for rendering the links
 const contactDetails = [
-  // The 'icon' property now holds the imported Lottie animation data
   { id: 'email', icon: emailAnimation, text: 'your.email@example.com', link: 'rajukumardalimss@gmail.com' },
   { id: 'github', icon: githubAnimation, text: 'GitHub Profile', link: 'https://github.com/RajuKumar077' },
   { id: 'linkedin', icon: linkedinAnimation, text: 'LinkedIn Profile', link: 'https://www.linkedin.com/in/raju-kumar7388/' },
   { id: 'twitter', icon: twitterAnimation, text: 'Twitter', link: 'https://x.com/Rajukumar2580' },
-  // Add more contact methods as needed
 ];
 
-// Contact component now handles its own GSAP animations and relies on the global background
 const Contact = React.forwardRef((props, ref) => {
-  // Effect for setting up GSAP animations for Contact section content
+  const rootRef = useRef(ref); // Use a new ref to hold the forwarded ref
+
+  // Create a separate ref for each Lottie instance
+  const emailLottieRef = useRef(null);
+  const githubLottieRef = useRef(null);
+  const linkedinLottieRef = useRef(null);
+  const twitterLottieRef = useRef(null);
+
+  // Map each contact item to its dedicated ref
+  const lottieRefs = {
+    email: emailLottieRef,
+    github: githubLottieRef,
+    linkedin: linkedinLottieRef,
+    twitter: twitterLottieRef,
+  };
+
+  // Effect for GSAP animations (unchanged)
   useEffect(() => {
-    if (!ref.current) return;
+    // Check if the ref has been assigned before using it
+    const currentRef = rootRef.current.current;
+    if (!currentRef) return;
 
     const tl = gsap.timeline({
       scrollTrigger: {
-        trigger: ref.current,
+        trigger: currentRef,
         start: 'top 80%',
         toggleActions: 'play none none reverse',
       },
@@ -46,19 +57,14 @@ const Contact = React.forwardRef((props, ref) => {
       },
     });
 
-    tl.from(ref.current.querySelector('.contactTitle'), {});
-
-    tl.from(ref.current.querySelector('.contactText'), {
-      delay: 0.2,
-    }, "<0.2");
-
-    tl.from(ref.current.querySelectorAll('.contactLinkItem'), {
+    tl.from(currentRef.querySelector('.contactTitle'), {});
+    tl.from(currentRef.querySelector('.contactText'), { delay: 0.2 }, "<0.2");
+    tl.from(currentRef.querySelectorAll('.contactLinkItem'), {
       y: 20,
       stagger: 0.15,
       duration: 0.6,
     }, "<0.3");
 
-    // Cursor tracking for gradient move effect on contact link items
     const handleMouseMove = (e) => {
       const linkItems = document.querySelectorAll('.contactLinkItem');
       linkItems.forEach((item) => {
@@ -80,7 +86,7 @@ const Contact = React.forwardRef((props, ref) => {
       }
       document.removeEventListener('mousemove', handleMouseMove);
     };
-  }, [ref]);
+  }, [rootRef]); // Depend on the rootRef
 
   return (
     <section className="contactSection" id="contact" ref={ref}>
@@ -91,26 +97,47 @@ const Contact = React.forwardRef((props, ref) => {
           Feel free to reach out through any of the channels below!
         </p>
         <div className="contactLinks">
-          {contactDetails.map((item) => (
-            <a
-              key={item.id}
-              href={item.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="contactLinkItem"
-            >
-              {/* This is the key change: rendering the Lottie animation */}
-              <div className="contactIcon">
-                <Lottie
-                  animationData={item.icon}
-                  loop={true}
-                  autoplay={true}
-                  style={{ width: 40, height: 40 }} // Adjust size as needed
-                />
-              </div>
-              <span className="contactLinkText">{item.text}</span>
-            </a>
-          ))}
+          {contactDetails.map((item) => {
+            const lottieRef = lottieRefs[item.id]; // Get the correct ref for the current item
+
+            const handleMouseEnter = () => {
+              if (lottieRef.current) {
+                lottieRef.current.setDirection(1);
+                lottieRef.current.play();
+              }
+            };
+
+            const handleMouseLeave = () => {
+              if (lottieRef.current) {
+                lottieRef.current.setDirection(-1);
+                lottieRef.current.play();
+              }
+            };
+
+            return (
+              <a
+                key={item.id}
+                href={item.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="contactLinkItem"
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+              >
+                <div className="contactIcon">
+                  <Lottie
+                    lottieRef={lottieRef} // Assign the unique ref
+                    animationData={item.icon}
+                    loop={false}
+                    autoplay={false}
+                    style={{ width: 70, height: 70 }}
+                    speed={0.5}
+                  />
+                </div>
+                <span className="contactLinkText">{item.text}</span>
+              </a>
+            );
+          })}
         </div>
       </div>
     </section>
