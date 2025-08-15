@@ -123,7 +123,16 @@
     gap: 1rem;
   }
 }
-
+/* Update the .contactIcon styles */
+.contactLinkItem .contactIcon {
+  display: flex; /* Use flexbox to center the Lottie animation */
+  align-items: center;
+  justify-content: center;
+  width: 40px; /* Set a fixed size for the icon container */
+  height: 40px;
+  /* You can add a margin if needed */
+  margin-right: 15px;
+}
 /* --- Optional: 3D-like icons for a modern look --- */
 .contactIcon.linkedin {
   color: #0077b5; /* LinkedIn blue */

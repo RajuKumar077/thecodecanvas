@@ -1,61 +1,62 @@
 import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import Lottie from 'lottie-react'; // Import the Lottie player
 
 // Register GSAP plugins (important: do this only once in your app, e.g., in App.jsx)
 gsap.registerPlugin(ScrollTrigger);
 
 import './Contact.css'; // Import the dedicated CSS for the Contact page
 
+
+// Import your downloaded Lottie animation JSON files
+import emailAnimation from '../assets/lotties/email.json';
+import githubAnimation from '../assets/lotties/github.json';
+import linkedinAnimation from '../assets/lotties/linkedin.json';
+import twitterAnimation from '../assets/lotties/x.json';
+// NOTE: Make sure the file paths and names match your project structure.
+
 // Define contact details for rendering the links
 const contactDetails = [
-  // You can use a single emoji for a simple icon
-  { id: 'email', icon: '📧', text: 'your.email@example.com', link: 'rajukumardalimss@gmail.com' },
-  // Or, you can use Font Awesome or SVG icons for better customization
-  { id: 'github', icon: '💻', text: 'GitHub Profile', link: 'https://github.com/RajuKumar077' },
-  { id: 'linkedin', icon: '👔', text: 'LinkedIn Profile', link: 'https://www.linkedin.com/in/raju-kumar7388/' },
-  { id: 'twitter', icon: '🐦', text: 'Twitter', link: 'https://x.com/Rajukumar2580' },
+  // The 'icon' property now holds the imported Lottie animation data
+  { id: 'email', icon: emailAnimation, text: 'your.email@example.com', link: 'rajukumardalimss@gmail.com' },
+  { id: 'github', icon: githubAnimation, text: 'GitHub Profile', link: 'https://github.com/RajuKumar077' },
+  { id: 'linkedin', icon: linkedinAnimation, text: 'LinkedIn Profile', link: 'https://www.linkedin.com/in/raju-kumar7388/' },
+  { id: 'twitter', icon: twitterAnimation, text: 'Twitter', link: 'https://x.com/Rajukumar2580' },
   // Add more contact methods as needed
 ];
 
 // Contact component now handles its own GSAP animations and relies on the global background
-const Contact = React.forwardRef((props, ref) => { // Accepts ref from App.jsx
-
+const Contact = React.forwardRef((props, ref) => {
   // Effect for setting up GSAP animations for Contact section content
   useEffect(() => {
-    // Ensure GSAP and ScrollTrigger are ready and the ref is attached
-    if (!ref.current) return; // Use the passed ref directly
+    if (!ref.current) return;
 
-    // Create a GSAP Timeline for the contact section content animations
     const tl = gsap.timeline({
       scrollTrigger: {
-        trigger: ref.current, // Use the passed ref as the trigger
-        start: 'top 80%', // When the top of the section is 80% from the top of the viewport
-        toggleActions: 'play none none reverse', // Play on scroll down, reverse on scroll up
-        // markers: true, // Uncomment for debugging ScrollTrigger
+        trigger: ref.current,
+        start: 'top 80%',
+        toggleActions: 'play none none reverse',
       },
       defaults: {
         opacity: 0,
         y: 30,
         ease: 'power2.out',
         duration: 0.8,
-      }
+      },
     });
 
-    // Animate the title
     tl.from(ref.current.querySelector('.contactTitle'), {});
 
-    // Animate the main text description
     tl.from(ref.current.querySelector('.contactText'), {
-      delay: 0.2, // Slight delay after title
-    }, "<0.2"); // Start 0.2 seconds after the previous animation ends
+      delay: 0.2,
+    }, "<0.2");
 
-    // Animate each contact link item with a stagger
     tl.from(ref.current.querySelectorAll('.contactLinkItem'), {
-      y: 20, // Move slightly less for individual items
-      stagger: 0.15, // Stagger effect for each link
+      y: 20,
+      stagger: 0.15,
       duration: 0.6,
-    }, "<0.3"); // Start 0.3 seconds after the previous animation ends
+    }, "<0.3");
 
     // Cursor tracking for gradient move effect on contact link items
     const handleMouseMove = (e) => {
@@ -71,24 +72,19 @@ const Contact = React.forwardRef((props, ref) => { // Accepts ref from App.jsx
       });
     };
 
-    // Add the event listener when the component mounts
     document.addEventListener('mousemove', handleMouseMove);
 
-    // Cleanup function for ScrollTrigger and event listener
     return () => {
       if (tl.scrollTrigger) {
-        tl.scrollTrigger.kill(); // Clean up GSAP ScrollTrigger
+        tl.scrollTrigger.kill();
       }
-      document.removeEventListener('mousemove', handleMouseMove); // Clean up mousemove listener
+      document.removeEventListener('mousemove', handleMouseMove);
     };
-  }, [ref]); // Dependency on ref ensures effect re-runs if ref changes (unlikely for a section)
+  }, [ref]);
 
   return (
-    <section className="contactSection" id="contact" ref={ref}> {/* Use the passed ref here */}
-      {/* The particle-layer is assumed to be a global element, not local to this section */}
-
-      {/* Content for the contact section, layered above the global canvas */}
-      <div className="contactCard"> {/* The z-index is handled by CSS */}
+    <section className="contactSection" id="contact" ref={ref}>
+      <div className="contactCard">
         <h2 className="contactTitle">Get In Touch</h2>
         <p className="contactText">
           I'm always open to new opportunities, collaborations, and interesting discussions.
@@ -103,8 +99,15 @@ const Contact = React.forwardRef((props, ref) => { // Accepts ref from App.jsx
               rel="noopener noreferrer"
               className="contactLinkItem"
             >
-              {/* This is the key change: adding a dynamic class based on the item's ID */}
-              <span className={`contactIcon ${item.id}`}>{item.icon}</span>
+              {/* This is the key change: rendering the Lottie animation */}
+              <div className="contactIcon">
+                <Lottie
+                  animationData={item.icon}
+                  loop={true}
+                  autoplay={true}
+                  style={{ width: 40, height: 40 }} // Adjust size as needed
+                />
+              </div>
               <span className="contactLinkText">{item.text}</span>
             </a>
           ))}
