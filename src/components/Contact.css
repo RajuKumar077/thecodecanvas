@@ -12,7 +12,7 @@
 /* Redesigned 'glass' card with a bit more punch */
 .contactCard {
   width: 100%;
-  max-width: 700px;
+  max-width: 1000px;
   padding: 3rem 2rem;
   border-radius: 1.5rem;
   background: rgba(255, 255, 255, 0.03); /* Slightly more subtle glass effect */
@@ -44,7 +44,8 @@
 /* ===== Contact Links Grid ===== */
 .contactLinks {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(3, 1fr); /* Creates three equal-width columns */
+  justify-content: center; /* Centers the grid items horizontally */
   gap: 1.5rem;
   width: 100%;
 }
@@ -144,6 +145,6 @@
     font-size: 1rem;
   }
   .contactLinks {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr; /* Stack cards on smaller screens */
   }
 }

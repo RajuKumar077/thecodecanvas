@@ -11,12 +11,14 @@ import emailAnimation from '../assets/lotties/email.json';
 import githubAnimation from '../assets/lotties/github.json';
 import linkedinAnimation from '../assets/lotties/linkedin.json';
 import twitterAnimation from '../assets/lotties/x.json';
+import mediumAnimation from '../assets/lotties/medium.json';
 
 const contactDetails = [
   { id: 'email', icon: emailAnimation, text: 'rajukumardalimss@gmail.com', link: 'rajukumardalimss@gmail.com' },
   { id: 'github', icon: githubAnimation, text: 'GitHub Profile', link: 'https://github.com/RajuKumar077' },
   { id: 'linkedin', icon: linkedinAnimation, text: 'LinkedIn Profile', link: 'https://www.linkedin.com/in/raju-kumar7388/' },
   { id: 'twitter', icon: twitterAnimation, text: 'Twitter', link: 'https://x.com/Rajukumar2580' },
+  { id: 'medium', icon: mediumAnimation, text: 'Medium', link: 'https://medium.com/@rajukumardalimss' },
 ];
 
 const Contact = React.forwardRef((props, ref) => {
