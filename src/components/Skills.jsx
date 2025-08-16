@@ -1,9 +1,10 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Document, Page, pdfjs } from 'react-pdf';
+import { isMobile } from 'react-device-detect';
 import './Skills.css';
 
-// Assets (keeps your same imports — update paths if necessary)
+// Assets
 import pythonEssentials1Image from '../assets/certificates/python-essentials-1.1.png';
 import fallbackImage from '../assets/certificates/fallback.png';
 import oracleGenerativeAiPdf from '../assets/certificates/Oracle Cloud Infrastructure 2025 Certified Generative AI Professional.pdf';
@@ -21,105 +22,32 @@ import worksoftCertifyPdf from '../assets/certificates/Worksoft Certify for Mode
 import mlEssentialsPdf from '../assets/certificates/Machine Learning Essentials for Business and Technical Decision Makers.pdf';
 import uiPathPdf from '../assets/certificates/UiPath.pdf';
 
-
-
-
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
     'pdfjs-dist/build/pdf.worker.min.mjs',
     import.meta.url
 ).toString();
 
-// Cleaned & deduped certificate list
 const certificates = [
     { id: 1, src: fallbackImage, alt: 'Google Cloud Digital Leader Certificate', title: 'Google Cloud Certified - Cloud Digital Leader', pdfLink: cloudDigitalLeaderPdf },
-    {
-        id: 2,
-        src: fallbackImage,
-        alt: 'Machine Learning Essentials for Business and Technical Decision Makers Certificate',
-        title: 'Machine Learning Essentials for Business and Technical Decision Makers',
-        pdfLink: mlEssentialsPdf
-    },
-
-    {
-        id: 3,
-        src: fallbackImage,
-        alt: 'Oracle Cloud Infrastructure 2025 Certified Generative AI Professional Certificate',
-        title: 'Oracle Cloud Infrastructure 2025 Certified – Generative AI Professional',
-        pdfLink: oracleGenerativeAiPdf
-    },
-    {
-        id: 4,
-        src: fallbackImage,
-        alt: 'UiPath – Explore Automation Development Certificate',
-        title: 'UiPath – Explore Automation Development',
-        pdfLink: uiPathPdf
-    },
-
-    {
-        id: 5,
-        src: fallbackImage,
-        alt: 'Oracle Cloud Infrastructure 2025 Certified AI Foundations Associate Certificate',
-        title: 'Oracle Cloud Infrastructure 2025 Certified – AI Foundations Associate',
-        pdfLink: oracleAiFoundationsPdf
-    },
-    { id: 6, src: fallbackImage, alt: 'UpGrad Data Science Bootcamp Certificate', title: 'UpGrad Data Science Bootcamp', pdfLink: upGradCertificatePdf },
-    {
-        id: 7,
-        src: vertexAiImage,
-        alt: 'Google Cloud Vertex AI Fundamentals Certificate',
-        title: 'Google Cloud – Vertex AI Fundamentals'
-    },
-    {
-        id: 8,
-        src: fallbackImage,
-        alt: 'ChatGPT & Prompt Engineering Masterclass Certificate',
-        title: 'ChatGPT & Prompt Engineering Masterclass',
-        pdfLink: chatgptPromptEngineeringPdf
-    },
-
+    { id: 2, src: fallbackImage, alt: 'Machine Learning Essentials Certificate', title: 'Machine Learning Essentials for Business and Technical Decision Makers', pdfLink: mlEssentialsPdf },
+    { id: 3, src: fallbackImage, alt: 'Oracle Cloud Generative AI Certificate', title: 'Oracle Cloud Infrastructure 2025 Certified – Generative AI Professional', pdfLink: oracleGenerativeAiPdf },
+    { id: 4, src: fallbackImage, alt: 'UiPath Certificate', title: 'UiPath – Explore Automation Development', pdfLink: uiPathPdf },
+    { id: 5, src: fallbackImage, alt: 'Oracle AI Foundations Certificate', title: 'Oracle Cloud Infrastructure 2025 Certified – AI Foundations Associate', pdfLink: oracleAiFoundationsPdf },
+    { id: 6, src: fallbackImage, alt: 'UpGrad Certificate', title: 'UpGrad Data Science Bootcamp', pdfLink: upGradCertificatePdf },
+    { id: 7, src: vertexAiImage, alt: 'Vertex AI Certificate', title: 'Google Cloud – Vertex AI Fundamentals' },
+    { id: 8, src: fallbackImage, alt: 'ChatGPT & Prompt Engineering Certificate', title: 'ChatGPT & Prompt Engineering Masterclass', pdfLink: chatgptPromptEngineeringPdf },
     { id: 9, src: pythonEssentials1Image, alt: 'Python Essentials 1 Certificate', title: 'Python Essentials 1' },
-    {
-        id: 10,
-        src: fallbackImage,
-        alt: 'Worksoft Certify for Modern Web Applications Certificate',
-        title: 'Worksoft Certify for Modern Web Applications',
-        pdfLink: worksoftCertifyPdf
-    },
-
+    { id: 10, src: fallbackImage, alt: 'Worksoft Certificate', title: 'Worksoft Certify for Modern Web Applications', pdfLink: worksoftCertifyPdf },
     { id: 11, src: fallbackImage, alt: 'SQL Intermediate Certificate', title: 'SQL Intermediate Certificate', pdfLink: sqlIntermediatePdf },
-    {
-        id: 12,
-        src: fallbackImage,
-        alt: 'Python for Data Science with Real Exercises Certificate',
-        title: 'Python for Data Science with Real Exercises',
-        pdfLink: pythonForDataSciencePdf
-    },
-
+    { id: 12, src: fallbackImage, alt: 'Python for Data Science Certificate', title: 'Python for Data Science with Real Exercises', pdfLink: pythonForDataSciencePdf },
     { id: 13, src: fallbackImage, alt: 'BCG Strategy Consulting Certificate', title: 'BCG Strategy Consulting', pdfLink: bcgCertificatePdf },
-    { id: 14, src: fallbackImage, alt: 'Cognizant Agile Methodology Certificate', title: 'Cognizant Agile Methodology', pdfLink: cognizantCertificatePdf },
-    { id: 15, src: fallbackImage, alt: 'Wells Fargo Software Engineering Certificate', title: 'Wells Fargo Software Engineering', pdfLink: wellsFargoCertificatePdf },
-
-
+    { id: 14, src: fallbackImage, alt: 'Cognizant Certificate', title: 'Cognizant Agile Methodology', pdfLink: cognizantCertificatePdf },
+    { id: 15, src: fallbackImage, alt: 'Wells Fargo Certificate', title: 'Wells Fargo Software Engineering', pdfLink: wellsFargoCertificatePdf },
 ];
 
 // Motion variants
-const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-        opacity: 1,
-        transition: { staggerChildren: 0.08, delayChildren: 0.15 },
-    },
-};
-const itemVariants = {
-    hidden: { y: 40, opacity: 0, scale: 0.9 },
-    visible: {
-        y: 0,
-        opacity: 1,
-        scale: 1,
-        transition: { type: 'spring', stiffness: 70, damping: 15, mass: 1 },
-    },
-};
-
+const containerVariants = { hidden: { opacity: 0 }, visible: { opacity: 1, transition: { staggerChildren: 0.08, delayChildren: 0.15 } } };
+const itemVariants = { hidden: { y: 40, opacity: 0, scale: 0.9 }, visible: { y: 0, opacity: 1, scale: 1, transition: { type: 'spring', stiffness: 70, damping: 15, mass: 1 } } };
 
 const Skills = React.forwardRef((props, ref) => {
     const [selectedPdf, setSelectedPdf] = useState(null);
@@ -129,31 +57,34 @@ const Skills = React.forwardRef((props, ref) => {
     const [viewerWidth, setViewerWidth] = useState(() => Math.min(window.innerWidth - 160, 1100));
     const viewerRef = useRef(null);
 
+    // Mouse tracking for hover gradient effect
+    useEffect(() => {
+        const handleMouseMove = (e) => {
+            const cards = document.querySelectorAll('.certificate-glass-frame');
+            cards.forEach(card => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--cursor-x', `${x}px`);
+                card.style.setProperty('--cursor-y', `${y}px`);
+            });
+        };
+
+        if (!isMobile) {
+            window.addEventListener('mousemove', handleMouseMove);
+        }
+
+        return () => {
+            window.removeEventListener('mousemove', handleMouseMove);
+        };
+    }, []);
+
     useEffect(() => {
         const handleResize = () => setViewerWidth(Math.min(window.innerWidth - 160, 1100));
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
-    // Track mouse to preserve your cursor-based gradient effect
-    useEffect(() => {
-        const handleMouseMove = (e) => {
-            const cards = document.querySelectorAll('.certificate-glass-frame');
-            cards.forEach((card) => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                const xPercent = (x / rect.width) * 100;
-                const yPercent = (y / rect.height) * 100;
-                card.style.setProperty('--cursor-x', `${xPercent}%`);
-                card.style.setProperty('--cursor-y', `${yPercent}%`);
-            });
-        };
-        document.addEventListener('mousemove', handleMouseMove);
-        return () => document.removeEventListener('mousemove', handleMouseMove);
-    }, []);
-
- 
     useEffect(() => {
         if (!selectedPdf) return;
         const onKey = (e) => {
@@ -167,18 +98,9 @@ const Skills = React.forwardRef((props, ref) => {
         return () => window.removeEventListener('keydown', onKey);
     }, [selectedPdf, numPages]);
 
-  
-    useEffect(() => {
-        document.body.style.overflow = selectedPdf ? 'hidden' : '';
-        return () => { document.body.style.overflow = ''; };
-    }, [selectedPdf]);
+    useEffect(() => { document.body.style.overflow = selectedPdf ? 'hidden' : ''; return () => { document.body.style.overflow = ''; }; }, [selectedPdf]);
 
-    const openPdf = (pdfLink) => {
-        setSelectedPdf(pdfLink);
-        setPageNumber(1);
-        setNumPages(null);
-        setScale(1.05);
-    };
+    const openPdf = (pdfLink) => { setSelectedPdf(pdfLink); setPageNumber(1); setNumPages(null); setScale(1.05); };
     const closePdf = () => setSelectedPdf(null);
 
     return (
@@ -187,35 +109,24 @@ const Skills = React.forwardRef((props, ref) => {
             {certificates.length === 0 ? (
                 <p className="no-certificates-message">No certificates available. Please add some!</p>
             ) : (
-                <motion.div
-                    className="certificate-grid"
-                    variants={containerVariants}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, amount: 0.18 }}
-                >
+                <motion.div className="certificate-grid" variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.18 }}>
                     {certificates.map((cert) => (
                         <motion.div key={cert.id} className="certificate-glass-frame" variants={itemVariants}>
                             <div className="certificate-content">
                                 {cert.pdfLink ? (
-                                    <div
-                                        className="pdf-display-wrapper"
-                                        role="button"
-                                        tabIndex={0}
-                                        onClick={() => openPdf(cert.pdfLink)}
-                                        onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') openPdf(cert.pdfLink); }}
-                                        aria-label={`Open ${cert.title} full PDF`}
-                                    >
-                                        <Document file={cert.pdfLink} loading={<div className="pdf-thumb-loading">Loading…</div>}>
-                                            <Page
-                                                pageNumber={1}
-                                                width={300} // Increased width for better preview
-                                                renderTextLayer={false}
-                                                renderAnnotationLayer={false}
-                                            />
-                                        </Document>
-                                        <div className="view-full-pdf-link">View Full PDF</div>
-                                    </div>
+                                    isMobile ? (
+                                        <a href={cert.pdfLink} target="_blank" rel="noopener noreferrer" className="mobile-pdf-link">
+                                            <img src={cert.src} alt={cert.alt} className="certificate-image" />
+                                            <div className="view-full-pdf-link">Open PDF</div>
+                                        </a>
+                                    ) : (
+                                        <div className="pdf-display-wrapper" onClick={() => openPdf(cert.pdfLink)}>
+                                            <Document file={cert.pdfLink} loading={<div className="pdf-thumb-loading">Loading…</div>}>
+                                                <Page pageNumber={1} width={300} renderTextLayer={false} renderAnnotationLayer={false} />
+                                            </Document>
+                                            <div className="view-full-pdf-link">View Full PDF</div>
+                                        </div>
+                                    )
                                 ) : (
                                     <div className="certificate-image-container">
                                         <img src={cert.src} alt={cert.alt} className="certificate-image" onError={(e) => { e.target.src = fallbackImage; }} />
@@ -228,9 +139,8 @@ const Skills = React.forwardRef((props, ref) => {
                 </motion.div>
             )}
 
-            {/* Fullscreen PDF viewer overlay (animated) */}
             <AnimatePresence>
-                {selectedPdf && (
+                {selectedPdf && !isMobile && (
                     <motion.div className="fullscreen-pdf-viewer" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
                         <div className="viewer-backdrop" onClick={closePdf} aria-hidden="true" />
                         <motion.div className="pdf-modal" initial={{ y: 30, scale: 0.99 }} animate={{ y: 0, scale: 1 }} exit={{ y: 20, opacity: 0 }} transition={{ type: 'spring', stiffness: 120 }}>
@@ -251,7 +161,7 @@ const Skills = React.forwardRef((props, ref) => {
                                 </div>
                             </div>
                             <div className="pdf-viewer-container" ref={viewerRef}>
-                                <Document file={selectedPdf} loading={<div className="pdf-loading">Loading PDF…</div>} onLoadSuccess={({ numPages }) => { setNumPages(numPages); }}>
+                                <Document file={selectedPdf} loading={<div className="pdf-loading">Loading PDF…</div>} onLoadSuccess={({ numPages }) => setNumPages(numPages)}>
                                     <Page pageNumber={pageNumber} width={Math.floor(viewerWidth * scale)} />
                                 </Document>
                             </div>

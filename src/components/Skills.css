@@ -1,3 +1,4 @@
+/* ===== Global Styles ===== */
 body {
   background-color: #000;
   color: #fff;
@@ -30,7 +31,7 @@ body {
   gap: 2rem;
 }
 
-/* ===== Certificate Card (Re-styled to match Projects) ===== */
+/* ===== Certificate Card ===== */
 .certificate-glass-frame {
   position: relative;
   padding: 1.5rem;
@@ -41,7 +42,7 @@ body {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer;
 
-  /* Hover gradient effect (mouse tracking) */
+  /* Mouse-tracking hover gradient effect */
   background-image: radial-gradient(
     circle at var(--cursor-x, 50%) var(--cursor-y, 50%),
     rgba(7, 175, 221, 0.464),
@@ -59,6 +60,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  align-items: center;
 }
 
 .certificate-image-container {
@@ -120,9 +122,10 @@ body {
   font-size: 1.25rem;
   font-weight: 600;
   color: #fff;
+  text-align: center;
 }
 
-/* Fullscreen PDF viewer overlay and controls remain the same */
+/* ===== Fullscreen PDF viewer overlay ===== */
 .fullscreen-pdf-viewer {
   position: fixed;
   inset: 0;
@@ -220,6 +223,46 @@ body {
   display: flex;
   justify-content: center;
   align-items: flex-start;
-
 }
 
+/* ===== Mobile Adjustments ===== */
+@media (max-width: 768px) {
+  .certificate-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.2rem;
+  }
+
+  .certificate-glass-frame {
+    padding: 1rem;
+    border-radius: 1rem;
+  }
+
+  .certificate-title {
+    font-size: 1rem;
+  }
+
+  .pdf-display-wrapper,
+  .certificate-image {
+    width: 100%;
+    height: auto;
+  }
+
+  .view-full-pdf-link {
+    font-size: 0.85rem;
+  }
+}
+
+/* ===== Extra Small Screens ===== */
+@media (max-width: 480px) {
+  .pdf-modal {
+    max-width: 95%;
+    max-height: 95%;
+    padding: 1rem;
+  }
+
+  .pdf-controls {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.4rem;
+  }
+}

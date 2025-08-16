@@ -7,29 +7,26 @@ gsap.registerPlugin(ScrollTrigger);
 
 import './Contact.css';
 
-// Import your downloaded Lottie animation JSON files
 import emailAnimation from '../assets/lotties/email.json';
 import githubAnimation from '../assets/lotties/github.json';
 import linkedinAnimation from '../assets/lotties/linkedin.json';
 import twitterAnimation from '../assets/lotties/x.json';
 
 const contactDetails = [
-  { id: 'email', icon: emailAnimation, text: 'your.email@example.com', link: 'rajukumardalimss@gmail.com' },
+  { id: 'email', icon: emailAnimation, text: 'rajukumardalimss@gmail.com', link: 'rajukumardalimss@gmail.com' },
   { id: 'github', icon: githubAnimation, text: 'GitHub Profile', link: 'https://github.com/RajuKumar077' },
   { id: 'linkedin', icon: linkedinAnimation, text: 'LinkedIn Profile', link: 'https://www.linkedin.com/in/raju-kumar7388/' },
   { id: 'twitter', icon: twitterAnimation, text: 'Twitter', link: 'https://x.com/Rajukumar2580' },
 ];
 
 const Contact = React.forwardRef((props, ref) => {
-  const rootRef = useRef(ref); // Use a new ref to hold the forwarded ref
+  const rootRef = useRef(ref);
 
-  // Create a separate ref for each Lottie instance
   const emailLottieRef = useRef(null);
   const githubLottieRef = useRef(null);
   const linkedinLottieRef = useRef(null);
   const twitterLottieRef = useRef(null);
 
-  // Map each contact item to its dedicated ref
   const lottieRefs = {
     email: emailLottieRef,
     github: githubLottieRef,
@@ -37,9 +34,7 @@ const Contact = React.forwardRef((props, ref) => {
     twitter: twitterLottieRef,
   };
 
-  // Effect for GSAP animations (unchanged)
   useEffect(() => {
-    // Check if the ref has been assigned before using it
     const currentRef = rootRef.current.current;
     if (!currentRef) return;
 
@@ -65,6 +60,7 @@ const Contact = React.forwardRef((props, ref) => {
       duration: 0.6,
     }, "<0.3");
 
+    // Mouse-tracking effect for contact cards
     const handleMouseMove = (e) => {
       const linkItems = document.querySelectorAll('.contactLinkItem');
       linkItems.forEach((item) => {
@@ -81,12 +77,10 @@ const Contact = React.forwardRef((props, ref) => {
     document.addEventListener('mousemove', handleMouseMove);
 
     return () => {
-      if (tl.scrollTrigger) {
-        tl.scrollTrigger.kill();
-      }
+      if (tl.scrollTrigger) tl.scrollTrigger.kill();
       document.removeEventListener('mousemove', handleMouseMove);
     };
-  }, [rootRef]); // Depend on the rootRef
+  }, [rootRef]);
 
   return (
     <section className="contactSection" id="contact" ref={ref}>
@@ -98,7 +92,7 @@ const Contact = React.forwardRef((props, ref) => {
         </p>
         <div className="contactLinks">
           {contactDetails.map((item) => {
-            const lottieRef = lottieRefs[item.id]; // Get the correct ref for the current item
+            const lottieRef = lottieRefs[item.id];
 
             const handleMouseEnter = () => {
               if (lottieRef.current) {
@@ -126,7 +120,7 @@ const Contact = React.forwardRef((props, ref) => {
               >
                 <div className="contactIcon">
                   <Lottie
-                    lottieRef={lottieRef} // Assign the unique ref
+                    lottieRef={lottieRef}
                     animationData={item.icon}
                     loop={false}
                     autoplay={false}
