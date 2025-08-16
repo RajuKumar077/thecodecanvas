@@ -4,24 +4,25 @@ import { motion } from 'framer-motion'; // Import motion from framer-motion
 
 // Dummy project data
 const projectsData = [
-  {
-    id: 1,
-    title: 'Interactive Portfolio Website',
-    description: 'A modern, responsive portfolio built with React and styled with a sleek glassmorphism UI. Features smooth scroll animations and dynamic navigation.',
-    image: 'https://placehold.co/600x400/2d3748/e7e7e8?text=Portfolio+Website', // Dummy image
-    tags: ['React', 'GSAP', 'CSS Modules', 'Responsive Design'],
-    links: [
-      { type: 'Live Demo', url: '#', icon: '🔗' },
-      { type: 'GitHub', url: '#', icon: '💻' },
-    ],
-    // Placeholder for "Colab notebook" or "tabule project" code
-    codeEmbed: 'This project includes a custom data visualization module. See the [Google Colab Notebook](https://colab.research.google.com/drive/your-notebook-id) for the data processing logic.',
-  },
+{
+  id: 2,
+  title: 'Northwind Insights: Business Intelligence with SQL',
+  description: 'A comprehensive business intelligence project using the classic Northwind database. Analyzes sales trends, customer behavior, and inventory patterns through advanced SQL queries and optimized data insights.',
+  image: 'https://placehold.co/600x400/1e293b/e7e7e8?text=Northwind+Insights', // You can replace this with a real screenshot
+  tags: ['SQL', 'DBeaver', 'Business Intelligence', 'Data Analysis'],
+  links: [
+    { type: 'Live Demo', url: '#', icon: '🔗' }, // Optional if you host visuals/charts
+    { type: 'GitHub', url: 'https://github.com/RajuKumar077/Northwind-Insights-Unlocking-Business-Intelligence-with-SQL', icon: '💻' },
+    { type: 'Presentation', url: '#', icon: '📊' } // Link to your PPT if hosted online
+  ],
+  codeEmbed: 'This project includes multiple SQL scripts for creating the Northwind database and solving real-world business queries. View the [Business Queries SQL](https://github.com/RajuKumar077/Northwind-Insights-Unlocking-Business-Intelligence-with-SQL/blob/main/Business_Queries_Solved.sql) for details.',
+},
+
   {
     id: 2,
     title: 'AI Chatbot Integration',
     description: 'Developed a conversational AI chatbot using a large language model API, integrated into a web interface for seamless user interaction. Focus on natural language understanding and response generation.',
-    image: 'https://placehold.co/600x400/2d3748/e7e7e8?text=AI+Chatbot', // Dummy image
+    image: 'https://github.com/RajuKumar077/Northwind-Insights-Unlocking-Business-Intelligence-with-SQL', // Dummy image
     tags: ['Python', 'Flask', 'LLM API', 'JavaScript', 'REST API'],
     links: [
       { type: 'Live Demo', url: '#', icon: '🔗' },
@@ -50,7 +51,7 @@ const projectsData = [
   links: [
     { type: 'Live Demo', url: 'https://public.tableau.com/views/EmployeePerformanceAndWorkforceTrends/EmployeePerformanceDashboard1?:language=en-US&:display_count=n&:origin=viz_share_link', icon: '🔗' }
   ],
-  codeEmbed: '', // No code embed for Tableau
+  codeEmbed: '', 
 },
 
 ];
