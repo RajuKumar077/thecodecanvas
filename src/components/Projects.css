@@ -51,20 +51,24 @@
 /* ===== Project Image ===== */
 .projectImageContainer {
   flex: 0 0 400px; /* Fixed width for image */
-  height: 140px; /* Shorter height */
+  height: auto; /* Let height adjust naturally */
   overflow: hidden;
   border-radius: 0.75rem;
+  background: #111;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .projectImage {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: auto;
+  object-fit: contain; /* Show full image */
   transition: transform 0.4s ease;
 }
 
 .projectCard:hover .projectImage {
-  transform: scale(1.05);
+  transform: scale(1.02);
 }
 
 /* ===== Project Content (Right side) ===== */
@@ -75,16 +79,19 @@
   gap: 0.75rem;
 }
 
+
 .projectTitle {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: #fff;
+  font-size: 1.75rem;   /* Bigger */
+  font-weight: 700;     /* Bold */
+  color: #37addb;       /* Google Red */
+  line-height: 1.4;
+  margin-bottom: 0.5rem;
 }
 
 .projectText {
-  font-size: 0.95rem;
+  font-size: 1rem;  /* Slightly larger */
   color: rgba(255, 255, 255, 0.85);
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
 /* ===== Tags ===== */
@@ -95,8 +102,8 @@
 }
 
 .projectTag {
-  font-size: 0.8rem;
-  padding: 0.35rem 0.75rem;
+  font-size: 0.85rem;
+  padding: 0.4rem 0.85rem;
   border-radius: 9999px;
   background: linear-gradient(90deg, #00c6ff, #0072ff);
   color: white;
@@ -112,8 +119,8 @@
 }
 
 .projectLink {
-  font-size: 0.85rem;
-  padding: 0.4rem 0.9rem;
+  font-size: 0.9rem;
+  padding: 0.45rem 1rem;
   border-radius: 0.75rem;
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.15);
@@ -143,4 +150,13 @@
     width: 100%;
     height: auto;
   }
+
+  .projectTitle {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #DB4437;  /* Google Red */
+  line-height: 1.4;
+  margin-bottom: 0.5rem;
+}
+
 }

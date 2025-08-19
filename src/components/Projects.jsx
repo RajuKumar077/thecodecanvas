@@ -4,32 +4,21 @@ import { motion } from 'framer-motion'; // Import motion from framer-motion
 
 // Dummy project data
 const projectsData = [
-{
-  id: 2,
-  title: 'Northwind Insights: Business Intelligence with SQL',
-  description: 'A comprehensive business intelligence project using the classic Northwind database. Analyzes sales trends, customer behavior, and inventory patterns through advanced SQL queries and optimized data insights.',
-  image: 'https://placehold.co/600x400/1e293b/e7e7e8?text=Northwind+Insights', // You can replace this with a real screenshot
-  tags: ['SQL', 'DBeaver', 'Business Intelligence', 'Data Analysis'],
-  links: [
-    { type: 'Live Demo', url: '#', icon: '🔗' }, // Optional if you host visuals/charts
-    { type: 'GitHub', url: 'https://github.com/RajuKumar077/Northwind-Insights-Unlocking-Business-Intelligence-with-SQL', icon: '💻' },
-    { type: 'Presentation', url: '#', icon: '📊' } // Link to your PPT if hosted online
-  ],
-  codeEmbed: 'This project includes multiple SQL scripts for creating the Northwind database and solving real-world business queries. View the [Business Queries SQL](https://github.com/RajuKumar077/Northwind-Insights-Unlocking-Business-Intelligence-with-SQL/blob/main/Business_Queries_Solved.sql) for details.',
-},
-
   {
-    id: 2,
-    title: 'AI Chatbot Integration',
-    description: 'Developed a conversational AI chatbot using a large language model API, integrated into a web interface for seamless user interaction. Focus on natural language understanding and response generation.',
-    image: 'https://github.com/RajuKumar077/Northwind-Insights-Unlocking-Business-Intelligence-with-SQL', // Dummy image
-    tags: ['Python', 'Flask', 'LLM API', 'JavaScript', 'REST API'],
+    id: 1,
+    title: 'Northwind Insights: Business Intelligence with SQL',
+    description: 'A comprehensive business intelligence project using the classic Northwind database. Analyzes sales trends, customer behavior, and inventory patterns through advanced SQL queries and optimized data insights.',
+    image: 'src/assets/documents/DBsql.png', // Updated image location
+    tags: ['SQL', 'DBeaver', 'Business Intelligence', 'Data Analysis'],
     links: [
-      { type: 'Live Demo', url: '#', icon: '🔗' },
-      { type: 'GitHub', url: '#', icon: '💻' },
+
+      { type: 'GitHub', url: 'https://github.com/RajuKumar077/Northwind-Insights-Unlocking-Business-Intelligence-with-SQL', icon: '💻' },
+      { type: 'Presentation', url: 'src/assets/documents/SQL.pdf', icon: '📊' } // Updated PPT location
     ],
-    codeEmbed: 'The core AI logic is implemented in a Python backend. Explore the [Tabular Data Processing Script](https://github.com/your-repo/your-script.py) for details.',
+    codeEmbed: '',
   },
+
+
   {
     id: 3,
     title: 'E-commerce Product Page',
@@ -42,17 +31,17 @@ const projectsData = [
     ],
     codeEmbed: '', // No specific code embed for this one
   },
-{
-  id: 4,
-  title: 'Employee Performance & Workforce Trends',
-  description: 'Developed an interactive Tableau dashboard to analyze workforce metrics, including total performance scores, employee count, average sick days, and overtime trends. The dashboard provides insights into performance over time, gender distribution, job title breakdown, salary comparisons by education level, department-wise performance, and overtime patterns, helping organizations make informed HR and operational decisions.',
-  image: 'https://public.tableau.com/static/images/Em/EmployeePerformanceAndWorkforceTrends/EmployeePerformanceDashboard1/1_rss.png', // Tableau's preview image
-  tags: ['Tableau', 'Data Visualization', 'Workforce Analytics', 'Interactive Dashboard'],
-  links: [
-    { type: 'Live Demo', url: 'https://public.tableau.com/views/EmployeePerformanceAndWorkforceTrends/EmployeePerformanceDashboard1?:language=en-US&:display_count=n&:origin=viz_share_link', icon: '🔗' }
-  ],
-  codeEmbed: '', 
-},
+  {
+    id: 4,
+    title: 'Employee Performance & Workforce Trends',
+    description: 'Developed an interactive Tableau dashboard to analyze workforce metrics, including total performance scores, employee count, average sick days, and overtime trends. The dashboard provides insights into performance over time, gender distribution, job title breakdown, salary comparisons by education level, department-wise performance, and overtime patterns, helping organizations make informed HR and operational decisions.',
+    image: 'https://public.tableau.com/static/images/Em/EmployeePerformanceAndWorkforceTrends/EmployeePerformanceDashboard1/1_rss.png', // Tableau's preview image
+    tags: ['Tableau', 'Data Visualization', 'Workforce Analytics', 'Interactive Dashboard'],
+    links: [
+      { type: 'Live Demo', url: 'https://public.tableau.com/views/EmployeePerformanceAndWorkforceTrends/EmployeePerformanceDashboard1?:language=en-US&:display_count=n&:origin=viz_share_link', icon: '🔗' }
+    ],
+    codeEmbed: '',
+  },
 
 ];
 
@@ -134,8 +123,8 @@ const Projects = React.forwardRef((props, ref) => {
             key={project.id}
             className="projectCard"
             variants={itemVariants} // Apply individual item animation variants
-            // The inline style for animationDelay is now handled by staggerChildren in containerVariants
-            // ref={el => (projectCardRefs.current[index] = el)} // No longer needed with Framer Motion
+          // The inline style for animationDelay is now handled by staggerChildren in containerVariants
+          // ref={el => (projectCardRefs.current[index] = el)} // No longer needed with Framer Motion
           >
             <div className="projectContent">
               <div className="projectImageContainer">
