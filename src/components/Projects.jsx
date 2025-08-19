@@ -19,23 +19,25 @@ const projectsData = [
   },
 
 
+{
+  id: 4,
+  title: 'SecurePay: Real-Time Credit Card Fraud Detection',
+  description: 'An advanced machine learning project designed to detect fraudulent credit card transactions in real-time. Built with imbalanced dataset handling, feature engineering, and state-of-the-art classification models to safeguard customers and financial institutions from unauthorized transactions.',
+  image: 'https://colab.research.google.com/img/colab_favicon_256px.png', // Default Colab logo (replace with custom screenshot if available)
+  tags: ['Python', 'Machine Learning', 'Imbalanced Data', 'Fraud Detection', 'LightGBM'],
+  links: [
+    { type: 'Colab Notebook', url: 'https://colab.research.google.com/drive/1D_Y43yJOFKaNsvGXs1KA5BLAspxbpKWX?usp=sharing', icon: '📓' },
+    { type: 'Dataset', url: 'https://drive.google.com/file/d/14QQsG3Z96dXMxg3bl0SdgF9_Bs6gBXrk/view?usp=sharing', icon: '📊' },
+    { type: 'Google Drive', url: 'https://drive.google.com/drive/folders/1fkipZr5DINvCx3uOkmDJ4j01V0FbSscT', icon: '🔗' } // Replace with your Drive folder link if public
+  ],
+  codeEmbed: 'The project applies advanced ML techniques such as Logistic Regression, Random Forest, Gradient Boosting, and LightGBM with hyperparameter tuning. Evaluation emphasizes Recall, Precision, F1-Score, and AUC to ensure accurate fraud detection on a highly imbalanced dataset.',
+},
+
   {
-    id: 3,
-    title: 'E-commerce Product Page',
-    description: 'Designed and implemented a dynamic product display page for an e-commerce platform, featuring interactive image galleries, product variations, and add-to-cart functionality.',
-    image: 'https://placehold.co/600x400/2d3748/e7e7e8?text=E-commerce+Page', // Dummy image
-    tags: ['Next.js', 'Tailwind CSS', 'State Management', 'API Integration'],
-    links: [
-      { type: 'Live Demo', url: '#', icon: '🔗' },
-      { type: 'GitHub', url: '#', icon: '💻' },
-    ],
-    codeEmbed: '', // No specific code embed for this one
-  },
-  {
-    id: 4,
+    id: 5,
     title: 'Employee Performance & Workforce Trends',
     description: 'Developed an interactive Tableau dashboard to analyze workforce metrics, including total performance scores, employee count, average sick days, and overtime trends. The dashboard provides insights into performance over time, gender distribution, job title breakdown, salary comparisons by education level, department-wise performance, and overtime patterns, helping organizations make informed HR and operational decisions.',
-    image: 'https://public.tableau.com/static/images/Em/EmployeePerformanceAndWorkforceTrends/EmployeePerformanceDashboard1/1_rss.png', // Tableau's preview image
+    image: 'https://public.tableau.com/static/images/Em/EmployeePerformanceAndWorkforceTrends/EmployeePerformanceDashboard1/1_rss.png', 
     tags: ['Tableau', 'Data Visualization', 'Workforce Analytics', 'Interactive Dashboard'],
     links: [
       { type: 'Live Demo', url: 'https://public.tableau.com/views/EmployeePerformanceAndWorkforceTrends/EmployeePerformanceDashboard1?:language=en-US&:display_count=n&:origin=viz_share_link', icon: '🔗' }
