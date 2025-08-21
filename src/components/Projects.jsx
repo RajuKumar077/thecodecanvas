@@ -8,12 +8,12 @@ const projectsData = [
     id: 1,
     title: 'Northwind Insights: Business Intelligence with SQL',
     description: 'A comprehensive business intelligence project using the classic Northwind database. Analyzes sales trends, customer behavior, and inventory patterns through advanced SQL queries and optimized data insights.',
-    image: 'src/assets/DBsql.png', // Updated image location
+    image: '/DBsql.png', // Updated image location
     tags: ['SQL', 'DBeaver', 'Business Intelligence', 'Data Analysis'],
     links: [
 
       { type: 'GitHub', url: 'https://github.com/RajuKumar077/Northwind-Insights-Unlocking-Business-Intelligence-with-SQL', icon: '💻' },
-      { type: 'Presentation', url: '/public/SQL.pdf', icon: '📊' } // Updated PPT location
+      { type: 'Presentation', url: '/SQL.pdf', icon: '📊' } // Updated PPT location
     ],
     codeEmbed: '',
   },
