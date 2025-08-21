@@ -13,7 +13,7 @@ const projectsData = [
     links: [
 
       { type: 'GitHub', url: 'https://github.com/RajuKumar077/Northwind-Insights-Unlocking-Business-Intelligence-with-SQL', icon: '💻' },
-      { type: 'Presentation', url: 'src/assets/SQL.pdf', icon: '📊' } // Updated PPT location
+      { type: 'Presentation', url: '/public/SQL.pdf', icon: '📊' } // Updated PPT location
     ],
     codeEmbed: '',
   },
