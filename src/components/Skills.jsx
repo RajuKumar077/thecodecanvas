@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { Document, Page, pdfjs } from 'react-pdf';
 import { isMobile } from 'react-device-detect';
 import './Skills.css';
@@ -44,10 +43,6 @@ const certificates = [
     { id: 14, src: fallbackImage, alt: 'Cognizant Certificate', title: 'Cognizant Agile Methodology', pdfLink: cognizantCertificatePdf },
     { id: 15, src: fallbackImage, alt: 'Wells Fargo Certificate', title: 'Wells Fargo Software Engineering', pdfLink: wellsFargoCertificatePdf },
 ];
-
-// Motion variants
-const containerVariants = { hidden: { opacity: 0 }, visible: { opacity: 1, transition: { staggerChildren: 0.08, delayChildren: 0.15 } } };
-const itemVariants = { hidden: { y: 40, opacity: 0, scale: 0.9 }, visible: { y: 0, opacity: 1, scale: 1, transition: { type: 'spring', stiffness: 70, damping: 15, mass: 1 } } };
 
 const Skills = React.forwardRef((props, ref) => {
     const [selectedPdf, setSelectedPdf] = useState(null);
@@ -98,7 +93,10 @@ const Skills = React.forwardRef((props, ref) => {
         return () => window.removeEventListener('keydown', onKey);
     }, [selectedPdf, numPages]);
 
-    useEffect(() => { document.body.style.overflow = selectedPdf ? 'hidden' : ''; return () => { document.body.style.overflow = ''; }; }, [selectedPdf]);
+    useEffect(() => { 
+        document.body.style.overflow = selectedPdf ? 'hidden' : ''; 
+        return () => { document.body.style.overflow = ''; }; 
+    }, [selectedPdf]);
 
     const openPdf = (pdfLink) => { setSelectedPdf(pdfLink); setPageNumber(1); setNumPages(null); setScale(1.05); };
     const closePdf = () => setSelectedPdf(null);
@@ -109,9 +107,9 @@ const Skills = React.forwardRef((props, ref) => {
             {certificates.length === 0 ? (
                 <p className="no-certificates-message">No certificates available. Please add some!</p>
             ) : (
-                <motion.div className="certificate-grid" variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.18 }}>
+                <div className="certificate-grid">
                     {certificates.map((cert) => (
-                        <motion.div key={cert.id} className="certificate-glass-frame" variants={itemVariants}>
+                        <div key={cert.id} className="certificate-glass-frame">
                             <div className="certificate-content">
                                 {cert.pdfLink ? (
                                     isMobile ? (
@@ -134,41 +132,39 @@ const Skills = React.forwardRef((props, ref) => {
                                 )}
                                 <h3 className="certificate-title">{cert.title}</h3>
                             </div>
-                        </motion.div>
+                        </div>
                     ))}
-                </motion.div>
+                </div>
             )}
 
-            <AnimatePresence>
-                {selectedPdf && !isMobile && (
-                    <motion.div className="fullscreen-pdf-viewer" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                        <div className="viewer-backdrop" onClick={closePdf} aria-hidden="true" />
-                        <motion.div className="pdf-modal" initial={{ y: 30, scale: 0.99 }} animate={{ y: 0, scale: 1 }} exit={{ y: 20, opacity: 0 }} transition={{ type: 'spring', stiffness: 120 }}>
-                            <button className="close-pdf-btn" onClick={closePdf} aria-label="Close PDF">✕</button>
-                            <div className="pdf-controls">
-                                <div className="left-controls">
-                                    <button className="pdf-nav-btn" onClick={() => setPageNumber((p) => Math.max(1, p - 1))} disabled={pageNumber <= 1} aria-label="Previous page">◀</button>
-                                    <span className="pdf-page-counter">{pageNumber} / {numPages || '—'}</span>
-                                    <button className="pdf-nav-btn" onClick={() => setPageNumber((p) => Math.min(numPages || p + 1, p + 1))} disabled={numPages ? pageNumber >= numPages : false} aria-label="Next page">▶</button>
-                                </div>
-                                <div className="right-controls">
-                                    <div className="scale-controls">
-                                        <button className="pdf-nav-btn" onClick={() => setScale((s) => Math.max(0.5, +(s - 0.2).toFixed(2)))} aria-label="Zoom out">−</button>
-                                        <span className="pdf-scale">{Math.round(scale * 100)}%</span>
-                                        <button className="pdf-nav-btn" onClick={() => setScale((s) => Math.min(3, +(s + 0.2).toFixed(2)))} aria-label="Zoom in">+</button>
-                                    </div>
-                                    <a className="download-btn" href={selectedPdf} target="_blank" rel="noopener noreferrer" download>Download</a>
-                                </div>
+            {selectedPdf && !isMobile && (
+                <div className="fullscreen-pdf-viewer">
+                    <div className="viewer-backdrop" onClick={closePdf} aria-hidden="true" />
+                    <div className="pdf-modal">
+                        <button className="close-pdf-btn" onClick={closePdf} aria-label="Close PDF">✕</button>
+                        <div className="pdf-controls">
+                            <div className="left-controls">
+                                <button className="pdf-nav-btn" onClick={() => setPageNumber((p) => Math.max(1, p - 1))} disabled={pageNumber <= 1} aria-label="Previous page">◀</button>
+                                <span className="pdf-page-counter">{pageNumber} / {numPages || '—'}</span>
+                                <button className="pdf-nav-btn" onClick={() => setPageNumber((p) => Math.min(numPages || p + 1, p + 1))} disabled={numPages ? pageNumber >= numPages : false} aria-label="Next page">▶</button>
                             </div>
-                            <div className="pdf-viewer-container" ref={viewerRef}>
-                                <Document file={selectedPdf} loading={<div className="pdf-loading">Loading PDF…</div>} onLoadSuccess={({ numPages }) => setNumPages(numPages)}>
-                                    <Page pageNumber={pageNumber} width={Math.floor(viewerWidth * scale)} />
-                                </Document>
+                            <div className="right-controls">
+                                <div className="scale-controls">
+                                    <button className="pdf-nav-btn" onClick={() => setScale((s) => Math.max(0.5, +(s - 0.2).toFixed(2)))} aria-label="Zoom out">−</button>
+                                    <span className="pdf-scale">{Math.round(scale * 100)}%</span>
+                                    <button className="pdf-nav-btn" onClick={() => setScale((s) => Math.min(3, +(s + 0.2).toFixed(2)))} aria-label="Zoom in">+</button>
+                                </div>
+                                <a className="download-btn" href={selectedPdf} target="_blank" rel="noopener noreferrer" download>Download</a>
                             </div>
-                        </motion.div>
-                    </motion.div>
-                )}
-            </AnimatePresence>
+                        </div>
+                        <div className="pdf-viewer-container" ref={viewerRef}>
+                            <Document file={selectedPdf} loading={<div className="pdf-loading">Loading PDF…</div>} onLoadSuccess={({ numPages }) => setNumPages(numPages)}>
+                                <Page pageNumber={pageNumber} width={Math.floor(viewerWidth * scale)} />
+                            </Document>
+                        </div>
+                    </div>
+                </div>
+            )}
         </section>
     );
 });

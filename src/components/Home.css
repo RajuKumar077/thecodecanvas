@@ -1,13 +1,14 @@
 .home-section {
   position: relative;
   width: 100%;
-  min-height: 100vh;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  /* This is the key line to set the background color */
-  background-color: #000; 
+  color: #fff;
+  background-color: #000;
+  text-align: center;
 }
 
 .home-canvas {
@@ -16,30 +17,127 @@
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 0;
+  z-index: 1;
 }
 
 .home-content {
   position: relative;
-  z-index: 1;
-  text-align: center;
-  text-transform: uppercase;
+  z-index: 2;
+  padding: 20px;
 }
 
-.home-content h1 {
-  font-size: clamp(3rem, 10vw, 8rem);
-  font-weight: 900;
-  margin: 0;
-  background: linear-gradient(90deg, #00c6ff, #0072ff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-shadow: 0 0 10px rgba(0, 198, 255, 0.6), 0 0 20px rgba(0, 198, 255, 0.4);
+.home-intro {
+  animation: fadeIn 2s ease-out;
 }
 
-.home-content p {
-  font-size: clamp(1.2rem, 3vw, 2.5rem);
+.tagline {
+  font-family: 'Montserrat', sans-serif;
   font-weight: 300;
-  margin-top: 1rem;
-  color: #E8E8E8;
-  text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+  font-size: 1.2rem;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+  color: #a0a0a0;
+}
+
+h1 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 4rem;
+  font-weight: 700;
+  margin: 0;
+  color: #fff;
+}
+
+.role {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin-top: 5px;
+  color: #88a4e8;
+}
+
+.cta-button {
+  display: inline-block;
+  margin-top: 30px;
+  padding: 12px 24px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+  background-color: #5a76e0;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.cta-button:hover {
+  background-color: #4a63c9;
+  transform: translateY(-2px);
+}
+
+#pin-windmill-wrap {
+  position: absolute;
+  bottom: 50px;
+  right: 50px;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#pin-windmill {
+  width: 70px;
+  height: 70px;
+  color: #5a76e0;
+}
+
+#pin-windmill-svg {
+  width: 100%;
+  height: 100%;
+  transform-origin: 50% 50%;
+  stroke: currentColor;
+  stroke-width: 5;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 3rem;
+  }
+
+  .role {
+    font-size: 1.2rem;
+  }
+  
+  .tagline {
+    font-size: 1rem;
+  }
+  
+  #pin-windmill-wrap {
+    bottom: 20px;
+    right: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 2.5rem;
+  }
+
+  .role {
+    font-size: 1rem;
+  }
+
+  .cta-button {
+    padding: 10px 20px;
+  }
 }
