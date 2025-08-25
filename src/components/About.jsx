@@ -99,7 +99,7 @@ const About = () => {
                         <h2 className="about-title">About Me</h2>
                         <p className="about-description">
                             Hello! I am a dedicated professional with a passion for transforming data into actionable insights. 
-                            My work is centered on <strong>Data Analytics</strong> and building expertise in **Generative AI**.
+                            My work is centered on <strong>Data Analytics</strong> and building expertise in <strong>Generative AI</strong>.
                         </p>
                         <p className="about-description">
                             I am driven to become a leader in cloud technologies and a key contributor in the field of 
