@@ -1,130 +1,164 @@
-import React, { useEffect, useRef, useCallback, forwardRef, useLayoutEffect } from 'react';
+import React, { useEffect, useRef, useState, forwardRef, useLayoutEffect } from 'react';
 import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { TextPlugin } from 'gsap/TextPlugin';
 import './Home.css';
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(TextPlugin);
 
-// Particle background
-class Particle {
-  constructor(ctx, x, y, canvas) {
-    this.ctx = ctx;
-    this.canvas = canvas;
-    this.x = x || Math.random() * canvas.width;
-    this.y = y || Math.random() * canvas.height;
-    this.radius = Math.random() * 2 + 1;
-    this.velocity = {
-      x: (Math.random() - 0.5) * 0.5,
-      y: (Math.random() - 0.5) * 0.5,
-    };
-    this.opacity = 1;
-    this.color = {
-      r: Math.random() * 150,
-      g: Math.random() * 150 + 50,
-      b: 255,
-    };
-  }
-
-  draw() {
-    this.ctx.beginPath();
-    this.ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-    this.ctx.fillStyle = `rgba(${this.color.r}, ${this.color.g}, ${this.color.b}, ${this.opacity})`;
-    this.ctx.fill();
-  }
-
-  update(mouse) {
-    if (this.x + this.radius > this.canvas.width || this.x - this.radius < 0) this.velocity.x *= -1;
-    if (this.y + this.radius > this.canvas.height || this.y - this.radius < 0) this.velocity.y *= -1;
-
-    if (mouse.x && mouse.y) {
-      const dx = mouse.x - this.x;
-      const dy = mouse.y - this.y;
-      const dist = Math.sqrt(dx * dx + dy * dy);
-      if (dist < 120) {
-        const angle = Math.atan2(dy, dx);
-        this.velocity.x -= Math.cos(angle) * 0.3;
-        this.velocity.y -= Math.sin(angle) * 0.3;
-      }
-    }
-
-    this.x += this.velocity.x;
-    this.y += this.velocity.y;
-    this.draw();
-  }
-}
+// Importing the resume PDF. You will need to make sure this path is correct.
+const myResume = '/certificates/resume.pdf'; 
 
 const Home = forwardRef((props, ref) => {
-  const canvasRef = useRef(null);
-  const animationId = useRef(null);
-  const particles = useRef([]);
-  const mouse = useRef({ x: null, y: null });
-  const particleCount = 120;
+    const homeRef = useRef(null);
+    const gridRef = useRef(null);
+    const [gridCells, setGridCells] = useState([]);
+    const cellCount = 300; // Number of cells in the grid
 
-  const initParticles = useCallback(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    particles.current = [];
-    for (let i = 0; i < particleCount; i++) {
-      particles.current.push(new Particle(ctx, null, null, canvas));
-    }
-  }, []);
+    const widgetRef = useRef(null);
+    const searchBarRef = useRef(null);
+    const resultsRef = useRef(null);
+    const titleRef = useRef(null);
+    const roleRef = useRef(null);
+    const ctaButtonsRef = useRef(null);
+    const cursorRef = useRef(null);
 
-  const animate = useCallback(() => {
-    const canvas = canvasRef.current;
-    const ctx = canvas?.getContext('2d');
-    if (!ctx) return;
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const [showResume, setShowResume] = useState(false);
 
-    particles.current.forEach((p) => p.update(mouse.current));
-    animationId.current = requestAnimationFrame(animate);
-  }, []);
+    useEffect(() => {
+        // Create grid cells for the background
+        const cells = Array.from({ length: cellCount }, (_, i) => ({ id: i }));
+        setGridCells(cells);
+    }, []);
 
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    initParticles();
+    // Effect for the interactive grid background animation
+    useEffect(() => {
+        const handleMouseMove = (e) => {
+            if (!gridRef.current) return;
+            const rect = gridRef.current.getBoundingClientRect();
+            const mouseX = e.clientX - rect.left;
+            const mouseY = e.clientY - rect.top;
 
-    const handleResize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      initParticles();
+            const cells = Array.from(gridRef.current.children);
+            
+            cells.forEach((cell) => {
+                const cellRect = cell.getBoundingClientRect();
+                const cellX = cellRect.left + cellRect.width / 2;
+                const cellY = cellRect.top + cellRect.height / 2;
+                const dist = Math.sqrt(Math.pow(e.clientX - cellX, 2) + Math.pow(e.clientY - cellY, 2));
+                const glowStrength = Math.max(0, 1 - dist / 200);
+                
+                gsap.to(cell, {
+                    backgroundColor: `rgba(0, 198, 255, ${glowStrength * 0.25})`,
+                    boxShadow: `0 0 ${glowStrength * 15}px rgba(0, 198, 255, ${glowStrength * 0.6})`,
+                    duration: 0.2,
+                    ease: "power1.out"
+                });
+            });
+        };
+
+        const currentGridRef = gridRef.current;
+        if (currentGridRef) {
+            currentGridRef.addEventListener('mousemove', handleMouseMove);
+        }
+
+        return () => {
+            if (currentGridRef) {
+                currentGridRef.removeEventListener('mousemove', handleMouseMove);
+            }
+        };
+    }, [gridCells]);
+
+    // Effect for the widget typing and fade-in animation
+    useLayoutEffect(() => {
+        const tl = gsap.timeline({
+            defaults: { ease: "power2.inOut", duration: 0.5 },
+            delay: 0.5
+        });
+
+        // Set initial state of elements
+        gsap.set(titleRef.current, { autoAlpha: 0, y: 10 });
+        gsap.set(roleRef.current, { autoAlpha: 0, y: 10 });
+        gsap.set(ctaButtonsRef.current, { autoAlpha: 0, scale: 0.9 });
+        gsap.set(resultsRef.current, { height: 0 });
+
+        // Animation sequence
+        tl.to(searchBarRef.current, { width: "100%", duration: 1.5, ease: "power3.inOut" })
+          .to(cursorRef.current, { opacity: 1, duration: 0.1, repeat: 10, yoyo: true }, "<")
+          .to(searchBarRef.current, {
+              text: "Raju Kumar",
+              duration: 1.5,
+              ease: "none",
+          })
+          .to(cursorRef.current, { opacity: 0, duration: 0.1 }, "<+=1.5")
+          .to(resultsRef.current, { height: "auto", duration: 0.5 })
+          .to(titleRef.current, { autoAlpha: 1, y: 0, duration: 0.8 }, "-=0.2")
+          .to(roleRef.current, { autoAlpha: 1, y: 0, duration: 0.8 }, "-=0.6")
+          .to(ctaButtonsRef.current, { autoAlpha: 1, scale: 1, duration: 0.8 }, "-=0.4");
+    }, []);
+
+    const handleViewResume = () => {
+        setShowResume(true);
     };
-    const handleMouseMove = (e) => { mouse.current.x = e.clientX; mouse.current.y = e.clientY; };
-    const handleMouseLeave = () => { mouse.current.x = null; mouse.current.y = null; };
 
-    window.addEventListener('resize', handleResize);
-    window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('mouseleave', handleMouseLeave);
+    return (
+        <section id="home" className="home-section" ref={(el) => {
+            homeRef.current = el;
+            if (ref) {
+                ref.current = el;
+            }
+        }}>
+            {/* The Interactive Grid Background */}
+            <div className="home-grid-bg" ref={gridRef}>
+                {gridCells.map((cell) => (
+                    <div key={cell.id} className="grid-cell"></div>
+                ))}
+            </div>
+            
+            {/* The Google-style Widget */}
+            <div className="google-widget-container" ref={widgetRef}>
+                <div className="search-bar-wrapper">
+                    <div className="google-search-bar" ref={searchBarRef}>
+                        <span ref={cursorRef} className="cursor">|</span>
+                    </div>
+                </div>
+                
+                <div className="search-results-wrapper" ref={resultsRef}>
+                    <div className="search-result-item" ref={titleRef}>
+                        <h1 className="result-title">Raju Kumar</h1>
+                        <p className="result-url">https://therajukumar.vercel.app/</p>
+                        <p className="result-snippet">
+                            <span className="bold">Data Analyst</span> | <span className="bold">BI Developer</span> | <span className="bold">ML Enthusiast</span>
+                            <br/> I turn complex datasets into clear, actionable insights.
+                        </p>
+                    </div>
+                    <div className="search-result-item" ref={roleRef}>
+                        <p className="result-snippet">
+                            Passionate about data-driven problem-solving and building robust Business Intelligence solutions.
+                        </p>
+                    </div>
+                </div>
 
-    animationId.current = requestAnimationFrame(animate);
+                <div className="cta-buttons" ref={ctaButtonsRef}>
+                    <a href="#projects" className="cta-button google-style">
+                        Explore My Work
+                    </a>
+                    <button onClick={handleViewResume} className="cta-button google-style secondary">
+                        View Resume
+                    </button>
+                </div>
+            </div>
 
-    return () => {
-      cancelAnimationFrame(animationId.current);
-      window.removeEventListener('resize', handleResize);
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('mouseleave', handleMouseLeave);
-    };
-  }, [animate, initParticles]);
-
-
-
-  return (
-    <section id="home" className="home-section" ref={ref}>
-      <canvas ref={canvasRef} className="home-canvas"></canvas>
-      <div className="home-content">
-        <div className="home-intro">
-          <p className="tagline">I turn complex datasets into clear, actionable insights</p>
-          <h1>Raju Kumar</h1>
-          <p className="role">Data Analyst | BI Developer | ML Enthusiast</p>
-          <a href="#projects" className="cta-button">🚀 View My Work</a>
-        </div>
-      </div>
-
-
-    </section>
-  );
+            {/* Resume Modal */}
+            {showResume && (
+                <div className="resume-modal-overlay" onClick={() => setShowResume(false)}>
+                    <div className="resume-modal-content" onClick={(e) => e.stopPropagation()}>
+                        <button className="close-modal-btn" onClick={() => setShowResume(false)}>&times;</button>
+                        <iframe src={myResume} title="My Resume" className="resume-iframe"></iframe>
+                    </div>
+                </div>
+            )}
+        </section>
+    );
 });
 
 export default Home;
