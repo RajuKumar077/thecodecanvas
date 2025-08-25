@@ -3,23 +3,23 @@ import { Document, Page, pdfjs } from 'react-pdf';
 import { isMobile } from 'react-device-detect';
 import './Skills.css';
 
-// Assets
-import pythonEssentials1Image from '../assets/certificates/python-essentials-1.1.png';
-import fallbackImage from '../assets/certificates/fallback.png';
-import oracleGenerativeAiPdf from '../assets/certificates/Oracle Cloud Infrastructure 2025 Certified Generative AI Professional.pdf';
-import oracleAiFoundationsPdf from '../assets/certificates/eCertificate.pdf';
-import sqlIntermediatePdf from '../assets/certificates/sql_intermediate certificate.pdf';
-import bcgCertificatePdf from '../assets/certificates/_BCG_completion_certificate.pdf';
-import cognizantCertificatePdf from '../assets/certificates/Cognizant_certificate.pdf';
-import wellsFargoCertificatePdf from '../assets/certificates/Wells Fargo_completion_certificate.pdf';
-import upGradCertificatePdf from '../assets/certificates/UpGrad.pdf';
-import cloudDigitalLeaderPdf from '../assets/certificates/CloudDigitalLeader20250717-26-2kh72s.pdf';
-import vertexAiImage from '/Vertex AI.jpg';
-import chatgptPromptEngineeringPdf from '../assets/certificates/ChatGPT & Prompt Engineering Masterclass.pdf';
-import pythonForDataSciencePdf from '../assets/certificates/Python For Data Science With Real Exercises.pdf';
-import worksoftCertifyPdf from '../assets/certificates/Worksoft Certify for Modern Web Applications.pdf';
-import mlEssentialsPdf from '../assets/certificates/Machine Learning Essentials for Business and Technical Decision Makers.pdf';
-import uiPathPdf from '../assets/certificates/UiPath.pdf';
+// The new way to reference assets from the public folder.
+const pythonEssentials1Image = '/certificates/python-essentials-1.1.png';
+const fallbackImage = '/certificates/fallback.png';
+const oracleGenerativeAiPdf = '/certificates/Oracle Cloud Infrastructure 2025 Certified Generative AI Professional.pdf';
+const oracleAiFoundationsPdf = '/certificates/eCertificate.pdf';
+const sqlIntermediatePdf = '/certificates/sql_intermediate certificate.pdf';
+const bcgCertificatePdf = '/certificates/_BCG_completion_certificate.pdf';
+const cognizantCertificatePdf = '/certificates/Cognizant_certificate.pdf';
+const wellsFargoCertificatePdf = '/certificates/Wells Fargo_completion_certificate.pdf';
+const upGradCertificatePdf = '/certificates/UpGrad.pdf';
+const cloudDigitalLeaderPdf = '/certificates/CloudDigitalLeader20250717-26-2kh72s.pdf';
+const vertexAiImage = '/certificates/Vertex AI.jpg';
+const chatgptPromptEngineeringPdf = '/certificates/ChatGPT & Prompt Engineering Masterclass.pdf';
+const pythonForDataSciencePdf = '/certificates/Python For Data Science With Real Exercises.pdf';
+const worksoftCertifyPdf = '/certificates/Worksoft Certify for Modern Web Applications.pdf';
+const mlEssentialsPdf = '/certificates/Machine Learning Essentials for Business and Technical Decision Makers.pdf';
+const uiPathPdf = '/certificates/UiPath.pdf';
 
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
     'pdfjs-dist/build/pdf.worker.min.mjs',
@@ -33,7 +33,7 @@ const certificates = [
     { id: 4, src: fallbackImage, alt: 'UiPath Certificate', title: 'UiPath – Explore Automation Development', pdfLink: uiPathPdf },
     { id: 5, src: fallbackImage, alt: 'Oracle AI Foundations Certificate', title: 'Oracle Cloud Infrastructure 2025 Certified – AI Foundations Associate', pdfLink: oracleAiFoundationsPdf },
     { id: 6, src: fallbackImage, alt: 'UpGrad Certificate', title: 'UpGrad Data Science Bootcamp', pdfLink: upGradCertificatePdf },
-    { id: 7, src: vertexAiImage, alt: 'Vertex AI Certificate', title: 'Google Cloud – Vertex AI Fundamentals' },
+    { id: 7, src: vertexAiImage, alt: 'Vertex AI Certificate', title: 'Google Cloud – Vertex AI Fundamentals' }, // Removed pdfLink
     { id: 8, src: fallbackImage, alt: 'ChatGPT & Prompt Engineering Certificate', title: 'ChatGPT & Prompt Engineering Masterclass', pdfLink: chatgptPromptEngineeringPdf },
     { id: 9, src: pythonEssentials1Image, alt: 'Python Essentials 1 Certificate', title: 'Python Essentials 1' },
     { id: 10, src: fallbackImage, alt: 'Worksoft Certificate', title: 'Worksoft Certify for Modern Web Applications', pdfLink: worksoftCertifyPdf },
@@ -93,9 +93,9 @@ const Skills = React.forwardRef((props, ref) => {
         return () => window.removeEventListener('keydown', onKey);
     }, [selectedPdf, numPages]);
 
-    useEffect(() => { 
-        document.body.style.overflow = selectedPdf ? 'hidden' : ''; 
-        return () => { document.body.style.overflow = ''; }; 
+    useEffect(() => {
+        document.body.style.overflow = selectedPdf ? 'hidden' : '';
+        return () => { document.body.style.overflow = ''; };
     }, [selectedPdf]);
 
     const openPdf = (pdfLink) => { setSelectedPdf(pdfLink); setPageNumber(1); setNumPages(null); setScale(1.05); };
