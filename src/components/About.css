@@ -1,161 +1,142 @@
-/* ===== About Section ===== */
-.aboutSection {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 6rem 2rem;
-  min-height: 100vh;
+/* Google Fonts Import */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&family=Roboto:wght@300;400;500&display=swap');
+
+/* Main Section */
+.about-section {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    background: #000000;
+    font-family: 'Roboto', sans-serif;
+    color: #e0e0e0;
 }
 
-/* Replicating the 'glass' card style for the about section */
-.aboutCard {
-  width: 100%;
-  max-width: 800px;
-  padding: 3.5rem 3rem;
-  border-radius: 2rem;
-  background: rgba(255, 255, 255, 0.05); /* Light translucent background */
-  border: 1px solid rgba(255, 255, 255, 0.15); /* Subtle border */
-  backdrop-filter: blur(20px) saturate(180%); /* Glassy blur effect */
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); /* Deep, soft shadow */
-  transition: all 0.5s ease;
-  transform: translateY(0);
-
-  /* New: Gradient effect that tracks mouse position */
-  background-image: radial-gradient(
-    circle at var(--cursor-x, 50%) var(--cursor-y, 50%),
-    rgba(0, 198, 255, 0.2), /* Soft blue glow */
-    transparent 80%
-  );
-  overflow: hidden; /* Prevents glow from spilling out */
+/* Glassmorphism Card Container */
+.about-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 20px;
+    padding: 2.5rem;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+    max-width: 1000px;
+    width: 100%;
+    margin: 2rem 0;
 }
 
-.aboutCard:hover {
-  transform: translateY(-5px); /* Subtle lift effect on hover */
-  /* New: Enhanced box-shadow with a neon glow */
-  box-shadow: 
-    0 15px 40px rgba(0, 0, 0, 0.3),
-    0 0 20px rgba(0, 198, 255, 0.3); /* The new neon glow */
+/* Flexbox for Two Columns */
+.about-content-wrapper {
+    display: flex;
+    flex-wrap: wrap; /* Allows columns to stack on mobile */
+    gap: 3rem;
+    align-items: flex-start;
 }
 
-.aboutTitle {
-  font-size: 3rem;
-  font-weight: 700;
-  text-align: center;
-  margin-bottom: 2rem;
-  background: linear-gradient(90deg, #00c6ff, #0072ff); /* Neon blue gradient */
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-shadow: 0 0 10px rgba(0, 198, 255, 0.4);
-}
-
-.aboutDivider {
-  width: 80px;
-  height: 4px;
-  background: linear-gradient(90deg, #00c6ff, #0072ff);
-  margin: 0 auto 3rem auto;
-  border-radius: 2px;
-  box-shadow: 0 0 10px rgba(0, 198, 255, 0.6);
-}
-
-.aboutDescription {
-  font-size: 1.15rem;
-  line-height: 1.8;
-  color: #d8d8d8;
-  margin-bottom: 1.5rem;
-  text-align: justify;
-}
-
-/* --- Highlight Box --- */
-.aboutHighlight {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin: 3rem 0;
-  padding: 1.5rem 2rem;
-  border-radius: 1.5rem;
-  background: rgba(255, 255, 255, 0.03); /* Lighter glass effect for the highlight */
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: inset 0 0 15px rgba(0, 255, 255, 0.1);
-}
-
-.highlightIcon {
-  font-size: 2.5rem;
-  filter: drop-shadow(0 0 10px rgba(0, 255, 255, 0.6)); /* Neon glow for the icon */
-  transition: transform 0.3s ease;
-}
-
-.aboutHighlight:hover .highlightIcon {
-  transform: scale(1.1) rotate(10deg);
-}
-
-.highlightText {
-  font-size: 1.25rem;
-  font-weight: 500;
-  color: #fff;
-  text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
-}
-
-
-/* --- Media Queries for Responsiveness --- */
-@media (max-width: 992px) {
-  .aboutSection {
-    padding: 4rem 1rem;
-  }
-
-  .aboutCard {
-    padding: 2.5rem 2rem;
-  }
-
-  .aboutTitle {
-    font-size: 2.5rem;
-  }
+/* Profile Column */
+.about-profile-column {
+    flex: 1;
+    min-width: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 1rem;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 @media (max-width: 768px) {
-  .aboutCard {
-    padding: 2rem 1.5rem;
-  }
-
-  .aboutTitle {
-    font-size: 2rem;
-  }
-
-  .aboutDescription {
-    font-size: 1rem;
-    line-height: 1.6;
-  }
-
-  .aboutHighlight {
-    flex-direction: column;
-    text-align: center;
-    gap: 0.5rem;
-    padding: 1rem;
-  }
-
-  .highlightText {
-    font-size: 1.1rem;
-  }
+    .about-profile-column {
+        border-right: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        padding-bottom: 2rem;
+        margin-bottom: 2rem;
+    }
 }
 
-@media (max-width: 480px) {
-  .aboutCard {
-    padding: 1.5rem 1rem;
-  }
+.profile-image-container {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+    background: rgba(0, 198, 255, 0.2);
+    box-shadow: 0 0 15px rgba(0, 198, 255, 0.5);
+    transition: transform 0.3s ease;
+}
 
-  .aboutTitle {
-    font-size: 1.75rem;
-  }
+.profile-image-container:hover {
+    transform: scale(1.05);
+}
 
-  .aboutDivider {
-    width: 60px;
-    margin: 0 auto 2rem auto;
-  }
+.profile-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
 
-  .aboutDescription {
+.profile-name {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-top: 1.5rem;
+    color: #fff;
+}
+
+.profile-title {
+    font-size: 1.1rem;
+    font-weight: 300;
+    color: #8ab4f8;
+    margin-bottom: 1rem;
+}
+
+.about-highlights-section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 1rem;
+}
+
+.highlight-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.highlight-icon {
+    font-size: 1.5rem;
+}
+
+.highlight-text {
     font-size: 0.95rem;
-  }
+    margin: 0;
+    color: #bdc1c6;
+}
 
-  .aboutHighlight {
-    padding: 0.8rem;
-  }
+/* About Text Column */
+.about-text-column {
+    flex: 2;
+}
+
+.about-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #8ab4f8;
+    margin-bottom: 1rem;
+}
+
+.about-description {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #e0e0e0;
+    margin-bottom: 1.5rem;
+}
+
+.about-description strong {
+    color: #fff;
+    font-weight: 500;
 }
