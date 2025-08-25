@@ -14,7 +14,7 @@ import cognizantCertificatePdf from '../assets/certificates/Cognizant_certificat
 import wellsFargoCertificatePdf from '../assets/certificates/Wells Fargo_completion_certificate.pdf';
 import upGradCertificatePdf from '../assets/certificates/UpGrad.pdf';
 import cloudDigitalLeaderPdf from '../assets/certificates/CloudDigitalLeader20250717-26-2kh72s.pdf';
-import vertexAiImage from '../assets/certificates/Vertex AI.jpg';
+import vertexAiImage from '/Vertex AI.jpg';
 import chatgptPromptEngineeringPdf from '../assets/certificates/ChatGPT & Prompt Engineering Masterclass.pdf';
 import pythonForDataSciencePdf from '../assets/certificates/Python For Data Science With Real Exercises.pdf';
 import worksoftCertifyPdf from '../assets/certificates/Worksoft Certify for Modern Web Applications.pdf';
