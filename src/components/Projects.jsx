@@ -39,6 +39,21 @@ const projectsData = [
     ],
     codeEmbed: '',
   },
+ {
+  id: 6,
+  title: 'FinGPT One: AI-Powered Financial Assistant',
+  description: 'FinGPT One is an intelligent, real-time financial assistant powered by advanced AI. It unifies market analysis, personalized insights, and smart decision-making tools into a single platform. From tracking live stock prices and forecasting trends to interpreting financial news and planning investments, FinGPT One empowers users to make informed, data-driven financial choices with confidence.',
+  image: '/FINGPT.png',
+  tags: ['Streamlit', 'LangChain', 'HuggingFace', 'Finance', 'Machine Learning', 'Visualization'],
+  links: [
+    { type: 'Live Demo', url: 'https://fingpt-one.streamlit.app/', icon: '🔗' },
+    { type: 'GitHub', url: 'https://github.com/RajuKumar077/FinGPT-One', icon: '💻' }
+  ],
+  codeEmbed: '',
+},
+
+
+
 ];
 
 const Projects = React.forwardRef((props, ref) => {
