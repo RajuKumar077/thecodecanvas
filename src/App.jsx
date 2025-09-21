@@ -22,7 +22,7 @@ import './App.css';
 
 // Define the section IDs here.
 // The list is updated to include the new 'experience' and 'education' sections.
-const sectionIds = ['home', 'about', 'experience', 'education', 'projects', 'skills', 'contact'];
+const sectionIds = ['home', 'about', 'experience',  'projects', 'skills','education', 'contact'];
 
 function App() {
   const sectionRefs = useRef([]);
@@ -76,14 +76,8 @@ function App() {
         {/* Main content sections */}
         {/* Components with their own internal GSAP animations don't need the 'ref' prop here. */}
         <Home ref={addToSectionRefs} />
-
-
         <About />
-
-
-        <Experience />
-        
-
+        <Experience /> 
         <Projects ref={addToSectionRefs} />
         <Skills ref={addToSectionRefs} />
         <Education />

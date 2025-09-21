@@ -5,10 +5,10 @@ import styles from './Navbar.module.css';
 const icons = [
     { id: 'home', emoji: '🏠', text: 'Home' },
     { id: 'about', emoji: '📁', text: 'About' },
-    { id: 'experience', emoji: '💼', text: 'Experience' }, // New line for Experience
-    { id: 'education', emoji: '📚', text: 'Education' },   // New line for Education
+    { id: 'experience', emoji: '💼', text: 'Experience' }, 
     { id: 'projects', emoji: '💻', text: 'Projects' },
     { id: 'skills', emoji: '📊', text: 'Skills' },
+     { id: 'education', emoji: '📚', text: 'Education' },   
     { id: 'contact', emoji: '✉️', text: 'Contact' },
 ];
 
