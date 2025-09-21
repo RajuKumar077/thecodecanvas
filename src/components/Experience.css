@@ -1,0 +1,162 @@
+/* ===== Experience Section ===== */
+.experienceSection {
+  padding: 6rem 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+  background: #0a0a0a; /* static dark background */
+}
+
+.experienceTitle {
+  font-size: 2.5rem;
+  font-weight: 700;
+    text-align: center;
+  margin-bottom: 4rem;
+  background: linear-gradient(90deg, #00ffff, #0072ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  position: relative;
+  z-index: 2;
+}
+
+/* Timeline Container */
+.timelineContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+  z-index: 2;
+  position: relative;
+}
+
+/* Timeline Item */
+.timelineItem {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Alternating Layout */
+.timelineItem.contentLeft .timelineContentWrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+}
+
+.timelineItem.contentRight .timelineContentWrapper {
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 2rem;
+}
+
+/* Timeline Content Card */
+.timelineContent {
+  flex: 1;
+  background: rgba(255,255,255,0.05);
+  border-radius: 1.25rem;
+  padding: 2rem;
+  border: 1px solid rgba(255,255,255,0.15);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.timelineContent:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 12px 30px rgba(0,198,255,0.5);
+}
+
+/* Info Row */
+.infoRow {
+  display: flex;
+  gap: 1.5rem;
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.7);
+  flex-wrap: wrap;
+}
+
+/* Timeline Image */
+.timelineImage {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.timelineImage img {
+  max-width: 150px;
+  border-radius: 12px;
+  object-fit: contain;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.timelineImage img:hover {
+  transform: scale(1.1);
+  box-shadow: 0 5px 25px rgba(0,198,255,0.5);
+}
+
+/* Text Styling */
+.jobTitle {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #37addb;
+}
+
+.company {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.9);
+}
+
+.descriptionList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  line-height: 1.6;
+}
+
+.descriptionList li {
+  position: relative;
+  padding-left: 1.8em;
+  margin-bottom: 0.7em;
+  color: rgba(255,255,255,0.85);
+  transition: color 0.3s ease;
+}
+
+.descriptionList li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-weight: bold;
+  background: linear-gradient(90deg, #00ffff, #0072ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .timelineItem.contentLeft .timelineContentWrapper,
+  .timelineItem.contentRight .timelineContentWrapper {
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: center;
+  }
+
+  .timelineContent {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .timelineImage img {
+    max-width: 120px;
+  }
+
+  .infoRow {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

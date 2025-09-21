@@ -1,10 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styles from './Navbar.module.css';
 
+// --- UPDATED `icons` ARRAY ---
 const icons = [
     { id: 'home', emoji: '🏠', text: 'Home' },
     { id: 'about', emoji: '📁', text: 'About' },
-    { id: 'projects', emoji: '💼', text: 'Projects' },
+    { id: 'experience', emoji: '💼', text: 'Experience' }, // New line for Experience
+    { id: 'education', emoji: '📚', text: 'Education' },   // New line for Education
+    { id: 'projects', emoji: '💻', text: 'Projects' },
     { id: 'skills', emoji: '📊', text: 'Skills' },
     { id: 'contact', emoji: '✉️', text: 'Contact' },
 ];
@@ -44,14 +47,12 @@ const NavbarIcons = ({ sectionIds }) => {
             rootMargin: '-50% 0px -50% 0px',
             threshold: 0,
         };
-
         const observerCallback = (entries) => {
             const intersectingEntry = entries.find(entry => entry.isIntersecting);
             if (intersectingEntry && active !== intersectingEntry.target.id) {
                 setActive(intersectingEntry.target.id);
             }
         };
-        
         const observer = new IntersectionObserver(observerCallback, observerOptions);
 
         sectionIds.forEach((id) => {
@@ -64,8 +65,8 @@ const NavbarIcons = ({ sectionIds }) => {
 
         return () => observers.forEach(obs => obs.disconnect());
     }, [sectionIds, active]);
-    
-    // --- Manual Scrolling Function ---
+
+    // --- Manual Scrolling Function (NO CHANGES NEEDED HERE) ---
     const scrollToSection = (targetId, duration = 800) => {
         const targetElement = document.getElementById(targetId);
         if (!targetElement) {

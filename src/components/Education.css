@@ -1,0 +1,116 @@
+/* ===== Education Section ===== */
+.educationSection {
+  padding: 6rem 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.educationTitle {
+  font-size: 2.5rem;
+  text-align: center;
+  font-weight: 700;
+  margin-bottom: 4rem;
+  background: linear-gradient(90deg, #00ffff, #0072ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ===== Card Grid Container ===== */
+.cardGridContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+}
+
+/* ===== Education Card ===== */
+.educationCard {
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+  border-radius: 1.25rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px);
+  transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+  transform-style: preserve-3d;
+  cursor: pointer;
+
+  /* The radial gradient for the mouse-move effect */
+  background-image: radial-gradient(
+    circle at var(--cursor-x, 50%) var(--cursor-y, 50%),
+    rgba(0, 198, 255, 0.25),
+    transparent 80%
+  );
+}
+
+.educationCard:hover {
+  transform: scale(1.02);
+  box-shadow: 0 12px 30px rgba(0, 198, 255, 0.25);
+  border-color: #0072ff;
+}
+
+/* ===== Card Content ===== */
+.cardContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  text-align: left;
+}
+
+.cardDegree {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #37addb;
+  line-height: 1.4;
+  margin-bottom: 0.5rem;
+}
+
+.cardInstitution {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.cardDuration {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 1rem;
+}
+
+.cardDescription {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.6;
+}
+
+/* ===== Card Image ===== */
+.cardImageContainer {
+  margin-top: 1.5rem;
+  height: 200px;
+  overflow: hidden;
+  border-radius: 0.75rem;
+  background: #111;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.cardImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.educationCard:hover .cardImage {
+  transform: scale(1.05);
+}
+
+/* ===== Responsive Design ===== */
+@media (max-width: 768px) {
+  .educationTitle {
+    font-size: 2rem;
+  }
+}

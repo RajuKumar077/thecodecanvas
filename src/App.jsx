@@ -13,13 +13,16 @@ import Projects from './components/Projects';
 import Contact from './components/Contact';
 import Home from './components/Home';
 
-// Removed the import for BackgroundCanvas
+// --- NEW IMPORTS FOR EXPERIENCE AND EDUCATION ---
+import Experience from './components/Experience';
+import Education from './components/Education';
 
 // Import your global CSS
 import './App.css';
 
 // Define the section IDs here.
-const sectionIds = ['home', 'about', 'projects', 'skills', 'contact'];
+// The list is updated to include the new 'experience' and 'education' sections.
+const sectionIds = ['home', 'about', 'experience', 'education', 'projects', 'skills', 'contact'];
 
 function App() {
   const sectionRefs = useRef([]);
@@ -35,6 +38,10 @@ function App() {
     ScrollTrigger.getAll().forEach(trigger => trigger.kill());
 
     const setupScrollAnimations = () => {
+      // This GSAP animation is a general fallback for sections without
+      // their own dedicated animation timelines (e.g., Home, Projects, Skills, Contact).
+      // The About, Experience, and Education components have their own internal
+      // GSAP timelines, so this effect will not run on them.
       sectionRefs.current.forEach((el, i) => {
         if (el) {
           gsap.from(el, {
@@ -63,20 +70,25 @@ function App() {
   }, []);
 
   return (
-    // The main app container. We'll set a background color here instead of the canvas.
     <div className="relative w-full h-full text-white bg-black">
-      {/* BackgroundCanvas component has been removed from here */}
       <div className="relative z-10 w-full">
         {/* Navigation Bar */}
+        {/* The Navbar now correctly lists and links to all sections */}
         <NavbarIcons sectionIds={sectionIds} />
 
         {/* Main content sections */}
+        {/* Components with their own internal GSAP animations don't need the 'ref' prop here. */}
         <Home ref={addToSectionRefs} />
-        <About ref={addToSectionRefs} />
+        
+       
+        <About />
+
+      
+        <Experience />
+        <Education />
+        
         <Projects ref={addToSectionRefs} />
-        
         <Skills ref={addToSectionRefs} />
-        
         <Contact ref={addToSectionRefs} />
       </div>
     </div>
