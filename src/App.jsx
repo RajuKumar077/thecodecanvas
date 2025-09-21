@@ -38,10 +38,7 @@ function App() {
     ScrollTrigger.getAll().forEach(trigger => trigger.kill());
 
     const setupScrollAnimations = () => {
-      // This GSAP animation is a general fallback for sections without
-      // their own dedicated animation timelines (e.g., Home, Projects, Skills, Contact).
-      // The About, Experience, and Education components have their own internal
-      // GSAP timelines, so this effect will not run on them.
+     
       sectionRefs.current.forEach((el, i) => {
         if (el) {
           gsap.from(el, {
@@ -79,16 +76,17 @@ function App() {
         {/* Main content sections */}
         {/* Components with their own internal GSAP animations don't need the 'ref' prop here. */}
         <Home ref={addToSectionRefs} />
-        
-       
+
+
         <About />
 
-      
+
         <Experience />
-        <Education />
         
+
         <Projects ref={addToSectionRefs} />
         <Skills ref={addToSectionRefs} />
+        <Education />
         <Contact ref={addToSectionRefs} />
       </div>
     </div>
