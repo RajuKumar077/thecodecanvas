@@ -2,18 +2,20 @@ import React from 'react';
 import './Experience.css';
 
 const experienceData = [
-  {
-    id: 1,
-    title: 'Project Engineer',
-    company: 'Wipro',
-    duration: 'Mar 2025 – Present',
-    location: 'Hyderabad (On-site)',
-    description: [
-      'Working in the Quality Engineering & Testing practice with exposure to automation, AI-driven solutions, and process optimization.',
-      'Collaborating with cross-functional teams to deliver high-quality software solutions.'
-    ],
-    imageUrl: './wipro.jpg'
-  },
+{
+  id: 1,
+  title: 'AI/ML Engineer',
+  company: 'Wipro · Client: Apple Inc.',
+  duration: 'Mar 2025 – Present',
+  location: 'Hyderabad (On-site)',
+  description: [
+    'Designing agentic AI systems using large language models and Model Context Protocol (MCP) to power an enterprise bot for incident-driven semantic search across siloed Apple platforms. ',
+    'Building context-aware RAG pipelines and semantic retrieval flows that deliver real-time incident insights, improving response accuracy and reducing time-to-resolution for SRE teams. ',
+    'Automating root-cause analysis and ticket intelligence with AI-driven NLG, cutting manual SOP lookups and freeing hundreds of engineering hours annually. ',
+    'Unifying cross-functional incident and operations data into a single search layer, boosting data accessibility and reducing manual validation and testing effort. '
+  ],
+  imageUrl: './wipro.jpg'
+},
   {
     id: 3,
     title: 'Intern',

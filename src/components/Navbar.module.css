@@ -1,30 +1,31 @@
-/* Define custom properties for a premium platinum glass theme with neon blue */
+/* Define custom properties for a liquid platinum–aqua glass theme */
 :root {
-  --accent-color: #E8E8E8; /* Premium Platinum Silver */
-  --accent-glow: #FFFFFF; /* Pure White for glow effects */
-  --accent-secondary: #B8B8B8; /* Darker silver for depth */
-  --accent-blue: #00A0FF; /* Vibrant Electric Blue for main accent */
-  --accent-blue-glow: #ffffff; /* Bright Cyan for the most intense glow */
-  --glass-bg: #0A0A0A; /* Deep Pure Black for main container */
-  --inner-bg: rgba(15, 15, 15, 0.95); /* Ultra-dark inner background */
-  --tab-bg: rgba(25, 25, 25, 0.9); /* Premium dark charcoal for tabs */
-  --tab-hover-bg: rgba(45, 45, 45, 0.95); /* Enhanced hover background */
-  --tab-active-bg: linear-gradient(135deg,
-    rgba(0, 160, 255, 0.4) 0%,
-    rgba(0, 255, 255, 0.5) 50%,
-    rgba(232, 232, 232, 0.3) 100%); /* Neon blue-silver gradient for active tab */
-  --border-color: rgba(232, 232, 232, 0.25); /* Platinum border */
-  --border-glow: rgba(0, 255, 255, 0.4); /* Neon cyan glowing border on hover */
-  --text-default: #F8F8F8; /* Premium off-white */
-  --text-hover: #FFFFFF; /* Pure white for contrast */
-  --text-muted: #C0C0C0; /* Subtle silver text */
-  --shadow-primary: rgba(0, 0, 0, 0.9); /* Ultra-deep shadows */
-  --shadow-secondary: rgba(0, 0, 0, 0.5); /* Medium shadows */
-  --highlight-inner: rgba(255, 255, 255, 0.2); /* Premium inner highlights */
-  --premium-gradient: linear-gradient(135deg,
-    rgba(255, 255, 255, 0.12) 0%,
-    rgba(0, 160, 255, 0.08) 50%,
-    rgba(0, 0, 0, 0.15) 100%);
+  --accent-color: #E8E8E8;              /* Platinum */
+  --accent-glow: #FFFFFF;
+  --accent-secondary: #B8B8B8;
+  --accent-blue: #00A0FF;               /* Electric blue */
+  --accent-blue-soft: #38bdf8;          /* Softer aqua */
+  --accent-aqua: #22d3ee;               /* Aqua accent */
+  --accent-blue-glow: #e0f2fe;
+  --glass-bg: rgba(4, 6, 12, 0.9);      /* Deeper, slightly tinted */
+  --inner-bg: rgba(10, 14, 25, 0.92);
+  --tab-bg: rgba(15, 23, 42, 0.8);
+  --tab-hover-bg: rgba(30, 64, 175, 0.85);
+  --border-color: rgba(236, 245, 255, 0.22);
+  --border-glow: rgba(56, 189, 248, 0.55);
+  --text-default: #F8FAFF;
+  --text-hover: #FFFFFF;
+  --text-muted: #C7D2FE;
+  --shadow-primary: rgba(0, 0, 0, 0.8);
+  --shadow-secondary: rgba(15, 23, 42, 0.6);
+  --highlight-inner: rgba(255, 255, 255, 0.22);
+
+  /* Soft, water-like gradient film */
+  --premium-gradient: radial-gradient(circle at 0% 0%,
+      rgba(148, 163, 253, 0.22) 0%,
+      rgba(56, 189, 248, 0.16) 25%,
+      rgba(15, 23, 42, 0.9) 60%,
+      rgba(15, 23, 42, 0.98) 100%);
 }
 
 /* Outer container for centering with enhanced backdrop */
@@ -36,7 +37,7 @@
   z-index: 50;
   display: flex;
   justify-content: center;
-  padding: calc(0.6rem + 0.4vw) 0; /* Reduced padding */
+  padding: calc(0.5rem + 0.3vw) 0;
   pointer-events: none;
   background: transparent;
 }
@@ -46,18 +47,17 @@
   pointer-events: auto;
 }
 
-/* Main navbar container with premium glassmorphism */
+/* Main navbar container with liquid glassmorphism */
 .navContainer {
   background: var(--glass-bg);
-  backdrop-filter: blur(calc(25px + 0.8vmin)) saturate(180%) brightness(1.1);
-  border: 2px solid var(--border-color);
-  border-radius: calc(1.2rem + 0.4vmin); /* Reduced border radius */
-  padding: calc(0.5rem + 0.3vw); /* Reduced padding */
+  backdrop-filter: blur(28px) saturate(190%) contrast(1.05);
+  border: 1.5px solid var(--border-color);
+  border-radius: calc(1.4rem + 0.5vmin);
+  padding: calc(0.5rem + 0.3vw);
   box-shadow:
-    0 calc(0.7rem + 0.3vmin) calc(1.8rem + 0.8vmin) var(--shadow-primary),
-    0 calc(0.3rem + 0.15vmin) calc(0.9rem + 0.4vmin) var(--shadow-secondary),
-    inset 0 1px calc(0.4rem + 0.2vmin) var(--highlight-inner),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+    0 calc(0.8rem + 0.4vmin) calc(2.1rem + 0.9vmin) var(--shadow-primary),
+    0 calc(0.3rem + 0.15vmin) calc(1rem + 0.45vmin) var(--shadow-secondary),
+    inset 0 1px calc(0.4rem + 0.2vmin) var(--highlight-inner);
   position: relative;
   z-index: 1000;
   max-width: 85%;
@@ -65,247 +65,272 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+  transition: all 0.7s cubic-bezier(0.24, 0.9, 0.33, 1);
   overflow: hidden;
+  /* subtle “pool of light” behind */
+  background-image: radial-gradient(circle at 10% -20%,
+      rgba(59, 130, 246, 0.35) 0%,
+      transparent 45%),
+    radial-gradient(circle at 90% 120%,
+      rgba(45, 212, 191, 0.28) 0%,
+      transparent 55%);
 }
 
-/* Premium hover effect for container */
+/* Soft inner highlight film for water feel */
+.navContainer::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(circle at 20% 0%,
+      rgba(255, 255, 255, 0.15) 0%,
+      transparent 45%),
+    radial-gradient(circle at 80% 100%,
+      rgba(59, 130, 246, 0.14) 0%,
+      transparent 40%);
+  mix-blend-mode: screen;
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+/* Liquid hover effect for container */
 .navContainer:hover {
   border-color: var(--border-glow);
   box-shadow:
-    0 calc(0.9rem + 0.4vmin) calc(2.2rem + 1.1vmin) var(--shadow-primary),
-    0 calc(0.4rem + 0.2vmin) calc(1.2rem + 0.6vmin) var(--shadow-secondary),
-    0 0 calc(0.9rem + 0.4vmin) rgba(0, 255, 255, 0.3), /* Adjusted glow color */
-    inset 0 1px calc(0.4rem + 0.2vmin) var(--highlight-inner),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.08);
-  transform: translateY(-2px);
+    0 calc(1rem + 0.45vmin) calc(2.4rem + 1.1vmin) var(--shadow-primary),
+    0 calc(0.4rem + 0.2vmin) calc(1.3rem + 0.6vmin) var(--shadow-secondary),
+    0 0 calc(1.2rem + 0.4vmin) rgba(56, 189, 248, 0.45);
+  transform: translateY(-1.5px);
 }
 
-/* Inner track for tabs with enhanced depth */
+/* Inner track for tabs with liquid gradient */
 .navTabs {
   background: var(--inner-bg);
-  border-radius: calc(1rem + 0.3vmin); /* Reduced border radius */
-  padding: calc(0.3rem + 0.15vw); /* Reduced padding */
+  border-radius: calc(1.2rem + 0.4vmin);
+  padding: calc(0.3rem + 0.15vw);
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: calc(0.4rem + 0.2vw); /* Reduced gap */
+  gap: calc(0.45rem + 0.2vw);
   flex-wrap: nowrap;
   box-shadow:
-    inset 0 calc(0.2rem + 0.1vmin) calc(0.8rem + 0.3vmin) rgba(0, 0, 0, 0.6),
-    inset 0 -1px calc(0.3rem + 0.1vmin) rgba(255, 255, 255, 0.08),
-    inset 0 1px 0 rgba(255, 255, 255, 0.05);
-  background-image: var(--premium-gradient);
-}
-
-/* Individual tab styling with premium effects */
-.navTab {
-  padding: calc(0.5rem + 0.2vw) calc(0.8rem + 0.4vw); /* Reduced padding */
-  color: var(--text-default);
-  font-size: calc(0.85rem + 0.1vmin); /* Reduced font size */
-  font-weight: 500;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  letter-spacing: 0.025em;
-  cursor: pointer;
-  position: relative;
-  z-index: 10;
-  background: var(--tab-bg);
-  backdrop-filter: blur(calc(12px + 0.4vmin)) saturate(150%);
-  border-radius: calc(0.8rem + 0.2vmin); /* Reduced border radius */
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  display: flex;
-  align-items: center;
-  gap: calc(0.2rem + 0.1vw); /* Reduced gap */
-  white-space: nowrap;
-  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    inset 0 calc(0.2rem + 0.1vmin) calc(0.8rem + 0.3vmin) rgba(0, 0, 0, 0.7),
+    inset 0 -1px calc(0.3rem + 0.1vmin) rgba(148, 163, 184, 0.2);
   background-image: var(--premium-gradient);
   overflow: hidden;
 }
 
-/* Pseudo-element for premium shimmer effect */
+/* Individual tab styling with liquid edges */
+.navTab {
+  padding: calc(0.45rem + 0.2vw) calc(0.9rem + 0.4vw);
+  color: var(--text-default);
+  font-size: calc(0.85rem + 0.1vmin);
+  font-weight: 500;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  position: relative;
+  z-index: 10;
+  background: var(--tab-bg);
+  backdrop-filter: blur(18px) saturate(160%);
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  display: flex;
+  align-items: center;
+  gap: calc(0.25rem + 0.1vw);
+  white-space: nowrap;
+  transition: all 0.45s cubic-bezier(0.23, 1, 0.32, 1);
+  background-image: linear-gradient(135deg,
+      rgba(15, 23, 42, 0.9),
+      rgba(30, 64, 175, 0.7));
+  overflow: hidden;
+}
+
+/* Pseudo-element for liquid shimmer */
 .navTab::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg,
-    transparent,
-    rgba(255, 255, 255, 0.1),
-    transparent);
-  transition: left 0.8s ease;
-  z-index: -1;
+  top: -50%;
+  left: -120%;
+  width: 80%;
+  height: 200%;
+  background: radial-gradient(circle at 10% 0%,
+      rgba(255, 255, 255, 0.25),
+      transparent 60%);
+  opacity: 0;
+  transition: opacity 0.5s ease, transform 0.8s ease;
+}
+
+/* Hover: slight lift, more aqua, soft glow */
+.navTab:hover {
+  color: var(--text-hover);
+  transform: translateY(-2px) scale(1.03);
+  background: linear-gradient(135deg,
+      rgba(30, 64, 175, 0.9),
+      rgba(56, 189, 248, 0.8));
+  border-color: rgba(125, 211, 252, 0.8);
+  box-shadow:
+    0 calc(0.5rem + 0.2vmin) calc(1.3rem + 0.6vmin) rgba(15, 23, 42, 0.8),
+    0 0 calc(0.8rem + 0.3vmin) rgba(56, 189, 248, 0.6);
 }
 
 .navTab:hover::before {
-  left: 100%;
+  opacity: 1;
+  transform: translateX(260%);
 }
 
-/* Enhanced Hover Effect for navTab */
-.navTab:hover {
-  color: var(--text-hover);
-  transform: translateY(-3px) scale(1.03); /* Reduced transform */
-  background: var(--tab-hover-bg);
-  border-color: rgba(0, 255, 255, 0.4); /* Adjusted border glow on hover */
-  box-shadow:
-    0 calc(0.5rem + 0.2vmin) calc(1.2rem + 0.6vmin) rgba(0, 0, 0, 0.4),
-    0 0 calc(1rem + 0.4vmin) rgba(0, 255, 255, 0.4), /* Adjusted glow color */
-    inset 0 1px calc(0.4rem + 0.2vmin) rgba(255, 255, 255, 0.15),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(calc(15px + 0.5vmin)) saturate(160%);
-}
-
-/* Active tab styling with premium effects */
+/* Active tab with stronger “water light” */
 .navTab.active {
-  color: var(--accent-blue-glow); /* Brighter neon cyan text for active tab */
+  color: var(--accent-blue-glow);
   font-weight: 600;
-  background: var(--tab-active-bg);
-  border-color: var(--accent-blue);
+  background: radial-gradient(circle at 20% 0%,
+      rgba(240, 249, 255, 0.25),
+      transparent 60%),
+    linear-gradient(135deg,
+      rgba(37, 99, 235, 0.95),
+      rgba(56, 189, 248, 0.95));
+  border-color: rgba(191, 219, 254, 0.9);
   box-shadow:
-    0 calc(0.7rem + 0.3vmin) calc(1.8rem + 0.8vmin) rgba(0, 0, 0, 0.5),
-    0 0 calc(1.3rem + 0.6vmin) var(--accent-blue-glow), /* Stronger neon glow */
-    0 0 calc(0.7rem + 0.3vmin) rgba(0, 160, 255, 0.5), /* Softer neon glow */
-    inset 0 1px calc(0.5rem + 0.2vmin) rgba(255, 255, 255, 0.2),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.1);
-  transform: translateY(-2px);
-  text-shadow: 0 0 calc(0.4rem + 0.2vmin) rgba(0, 255, 255, 0.6); /* Neon text shadow */
+    0 calc(0.75rem + 0.3vmin) calc(1.9rem + 0.8vmin) rgba(15, 23, 42, 0.9),
+    0 0 calc(1.2rem + 0.5vmin) rgba(56, 189, 248, 0.9),
+    0 0 calc(0.7rem + 0.3vmin) rgba(59, 130, 246, 0.7);
+  transform: translateY(-1px);
+  text-shadow: 0 0 calc(0.45rem + 0.2vmin) rgba(226, 232, 255, 0.8);
 }
 
-/* Text within tabs with enhanced transitions */
+/* Text within tabs */
 .tabText {
-  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
   position: relative;
   z-index: 1;
 }
 
 .navTab:hover .tabText {
-  transform: scale(1.06); /* Reduced transform */
-  text-shadow: 0 0 calc(0.3rem + 0.1vmin) rgba(255, 255, 255, 0.3);
+  transform: translateY(-0.5px);
 }
 
 .navTab.active .tabText {
-  transform: scale(1.04); /* Reduced transform */
+  transform: translateY(-0.5px) scale(1.02);
 }
 
-/* Premium sliding glass highlight with enhanced effects */
+/* Liquid sliding glass highlight */
 .navGlass {
   position: absolute;
-  top: calc(0.3rem + 0.15vw); /* Reduced top position */
-  height: calc(100% - (0.6rem + 0.3vw)); /* Reduced height */
-  background: linear-gradient(
-    135deg,
-    rgba(0, 255, 255, 0.5) 0%, /* Start with bright cyan */
-    rgba(0, 160, 255, 0.6) 25%, /* Transition to electric blue */
-    rgba(232, 232, 232, 0.4) 50%, /* Platinum highlight in the middle */
-    rgba(0, 160, 255, 0.5) 75%, /* Transition back to electric blue */
-    rgba(0, 255, 255, 0.5) 100% /* End with bright cyan */
-  );
-  background-size: 300% 300%;
-  animation: premium-glass-flow 25s ease-in-out infinite;
-  backdrop-filter: blur(calc(20px + 0.8vmin)) saturate(200%) brightness(1.5); /* Increased brightness for neon effect */
-  border-radius: calc(0.8rem + 0.2vmin); /* Reduced border radius */
-  border: 1px solid rgba(0, 255, 255, 0.25); /* Neon border */
-  transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+  top: calc(0.28rem + 0.15vw);
+  height: calc(100% - (0.56rem + 0.3vw));
+  background: radial-gradient(circle at 10% 0%,
+      rgba(191, 219, 254, 0.8),
+      rgba(56, 189, 248, 0.75),
+      rgba(15, 23, 42, 0.5));
+  background-size: 260% 260%;
+  animation: nav-liquid-flow 26s ease-in-out infinite;
+  backdrop-filter: blur(24px) saturate(210%) brightness(1.35);
+  border-radius: 999px;
+  border: 1px solid rgba(191, 219, 254, 0.65);
+  transition: all 0.7s cubic-bezier(0.23, 1, 0.32, 1);
   box-shadow:
-    0 0 calc(1rem + 0.4vmin) rgba(0, 255, 255, 0.5), /* Neon glow */
-    0 0 calc(0.7rem + 0.3vmin) rgba(255, 255, 255, 0.3), /* White secondary glow */
-    inset 0 1px calc(0.5rem + 0.2vmin) rgba(255, 255, 255, 0.3),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.15);
+    0 0 calc(1.1rem + 0.4vmin) rgba(56, 189, 248, 0.75),
+    0 0 calc(0.7rem + 0.3vmin) rgba(248, 250, 252, 0.45),
+    inset 0 1px calc(0.45rem + 0.2vmin) rgba(255, 255, 255, 0.35);
   z-index: 5;
   opacity: 0;
   overflow: hidden;
 }
 
-/* Premium keyframes for the enhanced glass animation */
-@keyframes premium-glass-flow {
-  0%, 100% {
-    background-position: 0% 50%;
-    filter: hue-rotate(0deg) brightness(1);
-  }
-  25% {
-    background-position: 100% 25%;
-    filter: hue-rotate(90deg) brightness(1.1);
-  }
-  50% {
-    background-position: 100% 75%;
-    filter: hue-rotate(180deg) brightness(1.2);
-  }
-  75% {
-    background-position: 0% 100%;
-    filter: hue-rotate(270deg) brightness(1.1);
-  }
-}
-
-/* Additional shimmer effect for the glass */
+/* Liquid inner shimmer */
 .navGlass::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg,
-    transparent,
-    rgba(255, 255, 255, 0.3),
-    transparent);
-  animation: glass-shimmer 3s ease-in-out infinite;
+  top: -30%;
+  left: -120%;
+  width: 70%;
+  height: 160%;
+  background: linear-gradient(120deg,
+      transparent,
+      rgba(248, 250, 252, 0.9),
+      transparent);
+  opacity: 0.4;
+  animation: nav-glass-shimmer 3.5s ease-in-out infinite;
 }
 
-@keyframes glass-shimmer {
-  0% { left: -100%; }
-  50% { left: 100%; }
-  100% { left: 100%; }
-}
-
-/* Ensure glass bar visibility when active */
+/* Show when controlled by inline style (JS) */
 .navGlass[style*="opacity: 1"] {
   opacity: 1;
 }
 
-/* Premium responsive design with enhanced scaling */
+/* Keyframes: flowing color film */
+@keyframes nav-liquid-flow {
+  0% {
+    background-position: 0% 50%;
+    filter: hue-rotate(0deg) saturate(1.05);
+  }
+  30% {
+    background-position: 100% 40%;
+    filter: hue-rotate(35deg) saturate(1.15);
+  }
+  60% {
+    background-position: 50% 100%;
+    filter: hue-rotate(80deg) saturate(1.2);
+  }
+  100% {
+    background-position: 0% 50%;
+    filter: hue-rotate(0deg) saturate(1.05);
+  }
+}
+
+/* Keyframes: soft shimmer line inside glass */
+@keyframes nav-glass-shimmer {
+  0% {
+    transform: translateX(0%);
+    opacity: 0.2;
+  }
+  50% {
+    transform: translateX(230%);
+    opacity: 0.55;
+  }
+  100% {
+    transform: translateX(230%);
+    opacity: 0.25;
+  }
+}
+
+/* Responsive design */
 @media (max-width: 1024px) {
   .fixed {
-    padding: calc(0.5rem + 0.3vw) 0; /* Reduced padding */
+    padding: calc(0.4rem + 0.2vw) 0;
   }
   .navContainer {
     max-width: 90%;
-    border-radius: calc(1rem + 0.3vmin); /* Reduced border radius */
-    padding: calc(0.4rem + 0.2vw); /* Reduced padding */
-    box-shadow:
-      0 calc(0.5rem + 0.2vmin) calc(1.2rem + 0.6vmin) var(--shadow-primary),
-      0 calc(0.25rem + 0.1vmin) calc(0.6rem + 0.3vmin) var(--shadow-secondary),
-      inset 0 1px calc(0.3rem + 0.15vmin) var(--highlight-inner);
+    border-radius: calc(1.2rem + 0.3vmin);
+    padding: calc(0.4rem + 0.2vw);
   }
   .navTabs {
-    gap: calc(0.3rem + 0.15vw); /* Reduced gap */
-    padding: calc(0.2rem + 0.1vw); /* Reduced padding */
+    gap: calc(0.35rem + 0.15vw);
+    padding: calc(0.25rem + 0.1vw);
   }
   .navTab {
-    padding: calc(0.4rem + 0.15vw) calc(0.7rem + 0.3vw); /* Reduced padding */
-    font-size: calc(0.8rem + 0.08vmin); /* Reduced font size */
-    border-radius: calc(0.7rem + 0.15vmin); /* Reduced border radius */
+    padding: calc(0.4rem + 0.15vw) calc(0.7rem + 0.3vw);
+    font-size: calc(0.8rem + 0.08vmin);
   }
 }
 
 @media (max-width: 768px) {
   .navContainer {
     max-width: 95%;
-    border-radius: calc(0.8rem + 0.2vmin); /* Reduced border radius */
-    padding: calc(0.3rem + 0.15vw); /* Reduced padding */
+    border-radius: calc(1rem + 0.25vmin);
+    padding: calc(0.3rem + 0.15vw);
   }
   .navTabs {
     flex-wrap: wrap;
-    gap: calc(0.2rem + 0.1vw); /* Reduced gap */
+    gap: calc(0.25rem + 0.1vw);
   }
   .navTab {
-    padding: calc(0.3rem + 0.1vw) calc(0.5rem + 0.2vw); /* Reduced padding */
-    font-size: calc(0.7rem + 0.08vmin); /* Reduced font size */
-    border-radius: calc(0.6rem + 0.1vmin); /* Reduced border radius */
+    padding: calc(0.3rem + 0.1vw) calc(0.55rem + 0.2vw);
+    font-size: calc(0.75rem + 0.08vmin);
   }
   .navTab:hover {
-    transform: translateY(-2px) scale(1.03);
+    transform: translateY(-1.5px) scale(1.03);
   }
 }
 
@@ -313,43 +338,38 @@
   .navContainer {
     max-width: 98%;
     border: 1px solid var(--border-color);
-    padding: calc(0.2rem + 0.1vw); /* Reduced padding */
+    padding: calc(0.25rem + 0.1vw);
   }
   .navTabs {
     flex-wrap: wrap;
-    gap: calc(0.1rem + 0.05vw); /* Reduced gap */
+    gap: calc(0.15rem + 0.06vw);
   }
   .navTab {
-    padding: calc(0.25rem + 0.1vw) calc(0.4rem + 0.15vw); /* Reduced padding */
-    font-size: calc(0.7rem + 0.05vmin); /* Reduced font size */
-    border-radius: calc(0.5rem + 0.08vmin); /* Reduced border radius */
+    padding: calc(0.25rem + 0.1vw) calc(0.45rem + 0.15vw);
+    font-size: calc(0.7rem + 0.05vmin);
   }
 }
 
-/* Premium wide screen optimizations */
 @media (min-width: 1440px) {
   .navContainer {
     max-width: 75%;
-    border-radius: calc(1.5rem + 0.5vmin); /* Reduced border radius */
-    padding: calc(0.7rem + 0.4vw); /* Reduced padding */
+    border-radius: calc(1.6rem + 0.5vmin);
+    padding: calc(0.7rem + 0.4vw);
   }
   .navTab {
-    padding: calc(0.7rem + 0.3vw) calc(1rem + 0.5vw); /* Reduced padding */
-    font-size: calc(0.9rem + 0.15vmin); /* Reduced font size */
-  }
-  .navGlass {
-    border-radius: calc(1rem + 0.3vmin); /* Reduced border radius */
+    padding: calc(0.7rem + 0.3vw) calc(1rem + 0.5vw);
+    font-size: calc(0.9rem + 0.15vmin);
   }
 }
 
-/* Accessibility enhancements */
+/* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   .navTab,
   .navContainer,
   .navGlass,
   .tabText {
     transition-duration: 0.2s;
-    animation-duration: 0.5s;
+    animation-duration: 0.4s;
   }
 
   .navGlass {
@@ -362,20 +382,20 @@
   }
 }
 
-/* Focus states for accessibility */
+/* Focus states */
 .navTab:focus-visible {
-  outline: 2px solid var(--accent-blue);
+  outline: 2px solid var(--accent-aqua);
   outline-offset: 2px;
   box-shadow:
-    0 0 0 4px rgba(0, 255, 255, 0.4), /* Adjusted focus glow */
-    0 calc(0.6rem + 0.3vmin) calc(1.5rem + 0.7vmin) rgba(0, 0, 0, 0.4);
+    0 0 0 4px rgba(56, 189, 248, 0.55),
+    0 calc(0.6rem + 0.3vmin) calc(1.5rem + 0.7vmin) rgba(15, 23, 42, 0.7);
 }
 
-/* High contrast mode support */
+/* High contrast mode */
 @media (prefers-contrast: high) {
   :root {
     --text-default: #FFFFFF;
-    --border-color: rgba(255, 255, 255, 0.5);
+    --border-color: rgba(255, 255, 255, 0.6);
     --tab-bg: rgba(0, 0, 0, 0.9);
   }
 }
