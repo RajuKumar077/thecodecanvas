@@ -1,0 +1,332 @@
+/* ==========================================================================
+   Site navigation — fixed, frosted, 76px.
+   ========================================================================== */
+
+.site-nav {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 100;
+  height: calc(var(--nav-height) + var(--safe-top));
+  padding-top: var(--safe-top);
+  transition: background-color var(--dur-base) var(--ease-out),
+    box-shadow var(--dur-base) var(--ease-out),
+    backdrop-filter var(--dur-base) var(--ease-out);
+}
+
+.site-nav.is-scrolled {
+  background: var(--glass-strong);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+  box-shadow: 0 1px 0 var(--color-border);
+}
+
+/* Open menu: solid, and no backdrop-filter — a filter on the header would
+   become the containing block for the fixed sheet and clip it to 76px. */
+.site-nav.is-open {
+  background: var(--color-background);
+  box-shadow: none;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  transition: none;
+}
+
+.site-nav__bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  height: 100%;
+}
+
+/* ---------- Brand ---------- */
+
+.site-nav__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-right: auto;
+  color: var(--color-text);
+  font: 700 16px/1 var(--font-display);
+  letter-spacing: -0.02em;
+}
+
+.site-nav__mark {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: var(--color-action);
+  color: var(--color-on-primary);
+  font: 600 12px/1 var(--font-code);
+  letter-spacing: 0.02em;
+  transition: background-color var(--dur-base) var(--ease-out), transform var(--dur-base) var(--ease-out);
+}
+
+.site-nav__brand:hover .site-nav__mark {
+  background: var(--color-action-hover);
+  transform: rotate(-6deg);
+}
+
+.site-nav__brand:focus-visible,
+.site-nav__links a:focus-visible,
+.site-nav__toggle:focus-visible,
+.site-nav__sheet a:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 3px;
+  border-radius: 10px;
+}
+
+/* ---------- Desktop links ---------- */
+
+.site-nav__pill {
+  position: relative;
+  padding: 5px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-button);
+  background: var(--glass);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+
+.site-nav__pill ul {
+  display: flex;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.site-nav__links a {
+  position: relative;
+  z-index: 1;
+  display: block;
+  padding: 8px 16px;
+  border-radius: var(--radius-button);
+  color: var(--color-muted);
+  font: 500 14px/1.2 var(--font-body);
+  transition: color var(--dur-base) var(--ease-out);
+}
+
+.site-nav__links a:hover,
+.site-nav__links a.is-active {
+  color: var(--color-text-primary);
+}
+
+.site-nav__links a.is-active {
+  font-weight: 600;
+}
+
+.site-nav__indicator {
+  position: absolute;
+  top: 5px;
+  bottom: 5px;
+  left: 0;
+  border-radius: var(--radius-button);
+  background: var(--color-surface-elevated);
+  box-shadow: var(--shadow-sm), 0 0 0 1px var(--color-border-strong);
+  transition: transform 500ms var(--ease-out), width 500ms var(--ease-out), opacity var(--dur-base) var(--ease-out);
+}
+
+/* ---------- Mobile toggle + sheet ---------- */
+
+.site-nav__toggle {
+  display: none;
+  position: relative;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--color-control-border);
+  border-radius: 50%;
+  background: var(--glass);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.site-nav__toggle span {
+  position: absolute;
+  left: 13px;
+  right: 13px;
+  height: 1.5px;
+  border-radius: 2px;
+  background: var(--color-text);
+  transition: transform var(--dur-base) var(--ease-out);
+}
+
+.site-nav__toggle span:first-child { transform: translateY(-3.5px); }
+.site-nav__toggle span:last-child  { transform: translateY(3.5px); }
+.is-open .site-nav__toggle span:first-child { transform: rotate(45deg); }
+.is-open .site-nav__toggle span:last-child  { transform: rotate(-45deg); }
+
+.site-nav__sheet {
+  position: fixed;
+  inset: calc(var(--nav-height) + var(--safe-top)) 0 0 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: var(--space-6) max(var(--gutter), var(--safe-left)) calc(var(--space-8) + var(--safe-bottom));
+  background: var(--color-background);
+}
+
+.site-nav__sheet[hidden] {
+  display: none;
+}
+
+.site-nav__sheet ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.site-nav__sheet li {
+  border-bottom: 1px solid var(--color-border);
+  animation: sheet-in 600ms var(--ease-out) both;
+  animation-delay: calc(var(--i) * 45ms);
+}
+
+.site-nav__sheet a {
+  display: flex;
+  align-items: baseline;
+  gap: 18px;
+  padding: 18px 0;
+  color: var(--color-text);
+  font: 600 clamp(28px, 7vw, 40px)/1.1 var(--font-display);
+  letter-spacing: -0.03em;
+}
+
+.site-nav__sheet a .t-mono {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-subtle);
+  letter-spacing: 0.08em;
+}
+
+.site-nav__sheet a[aria-current] {
+  color: var(--color-accent-text);
+}
+
+@keyframes sheet-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ---------- Reading progress ---------- */
+
+.site-nav__progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  background: var(--gradient-accent);
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  opacity: 0;
+  transition: opacity var(--dur-base) var(--ease-out);
+  pointer-events: none;
+}
+
+.is-scrolled .site-nav__progress {
+  opacity: 1;
+}
+
+.is-open .site-nav__progress {
+  opacity: 0;
+}
+
+/* Seven links: tighten between the tablet breakpoint and wide desktop. */
+@media (max-width: 1239px) {
+  .site-nav__links a {
+    padding: 8px 12px;
+    font-size: 13.5px;
+  }
+
+  .site-nav__name {
+    display: none;
+  }
+}
+
+@media (max-width: 1023px) {
+  .site-nav__bar {
+    gap: var(--space-3);
+  }
+
+  .site-nav__links,
+  .site-nav__cta {
+    display: none;
+  }
+
+  .site-nav__toggle {
+    display: block;
+  }
+}
+
+/* ---------- Theme switch (Light · System · Dark) ---------- */
+
+.theme-switch {
+  --opt: 32px;
+  position: relative;
+  flex: none;
+  display: inline-grid;
+  grid-template-columns: repeat(3, var(--opt));
+  padding: 3px;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-button);
+  background: var(--glass);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+
+.theme-switch__thumb {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: var(--opt);
+  height: var(--opt);
+  border-radius: 50%;
+  background: var(--color-surface-elevated);
+  box-shadow: var(--shadow-sm), 0 0 0 1px var(--color-primary);
+  transition: transform 420ms var(--ease-out);
+}
+
+.theme-switch[data-pref="system"] .theme-switch__thumb { transform: translateX(var(--opt)); }
+.theme-switch[data-pref="dark"] .theme-switch__thumb   { transform: translateX(calc(var(--opt) * 2)); }
+
+.theme-switch__opt {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: var(--opt);
+  height: var(--opt);
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: color var(--dur-base) var(--ease-out);
+}
+
+.theme-switch__opt:hover {
+  color: var(--color-text-primary);
+}
+
+.theme-switch__opt[aria-checked="true"] {
+  color: var(--color-accent-text);
+}
+
+.theme-switch__opt:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+@media (pointer: coarse) {
+  .theme-switch {
+    --opt: 40px;
+  }
+}
+
+@media (max-width: 380px) {
+  .theme-switch {
+    --opt: 34px;
+  }
+}

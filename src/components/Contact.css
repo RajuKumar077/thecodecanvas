@@ -1,265 +1,173 @@
-/* ===== Contact Section ===== */
-.contactSection {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 6rem 1.75rem;
-  max-width: 1400px;
-  margin: 0 auto;
-  min-height: 80vh;
-  background: radial-gradient(circle at top, #020617 0, #020617 40%, #000 100%);
-}
+/* ==========================================================================
+   Contact — mail hero card + channel list.
+   ========================================================================== */
 
-/* Main card with cleaner glass feel */
-.contactCard {
-  width: 100%;
-  max-width: 960px;
-  padding: 3rem 2.5rem;
-  border-radius: 1.75rem;
-  background: rgba(15, 23, 42, 0.9);
-  border: 1px solid rgba(148, 163, 184, 0.4);
-  backdrop-filter: blur(24px) saturate(130%);
-  text-align: center;
-  box-shadow:
-    0 28px 70px rgba(15, 23, 42, 0.95),
-    0 0 0 1px rgba(15, 23, 42, 0.9);
-  position: relative;
-  overflow: hidden;
-}
-
-/* subtle gradient wash in card */
-.contactCard::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background:
-    radial-gradient(circle at top left, rgba(56, 189, 248, 0.14), transparent 55%),
-    radial-gradient(circle at bottom right, rgba(129, 140, 248, 0.12), transparent 55%);
-  opacity: 0.7;
-  pointer-events: none;
-}
-
-/* floating light stripe */
-.contactCard::after {
-  content: "";
-  position: absolute;
-  top: -40%;
-  left: -10%;
-  width: 140%;
-  height: 60%;
-  background: linear-gradient(
-    120deg,
-    transparent 0%,
-    rgba(59, 130, 246, 0.2) 35%,
-    rgba(45, 212, 191, 0.2) 65%,
-    transparent 100%
-  );
-  opacity: 0.55;
-  filter: blur(10px);
-  transform: translate3d(0, 0, 0);
-}
-
-/* Title */
-.contactTitle {
-  font-size: clamp(2.3rem, 3vw, 2.7rem);
-  font-weight: 700;
-  margin-bottom: 1rem;
-  background: linear-gradient(120deg, #22d3ee, #3b82f6, #a855f7);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
-
-/* Subtitle text */
-.contactText {
-  font-size: 1.05rem;
-  line-height: 1.7;
-  color: rgba(226, 232, 240, 0.95);
-  margin-bottom: 3rem;
-  max-width: 620px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-/* ===== Contact Links Grid ===== */
-.contactLinks {
+.contact-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1.75rem;
-  width: 100%;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: var(--space-5);
+  align-items: stretch;
 }
 
-/* Contact link card – new polished feel */
-.contactLinkItem {
+.contact-mail {
+  position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 2.2rem 1.6rem;
-  text-decoration: none;
-  font-weight: 600;
-  color: #f9fafb;
-  position: relative;
+  justify-content: flex-end;
+  min-height: 380px;
+  padding: clamp(28px, 4vw, 56px);
   overflow: hidden;
-  border-radius: 1.4rem;
-  background: radial-gradient(circle at top, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.98));
-  border: 1px solid rgba(30, 64, 175, 0.75);
-  backdrop-filter: blur(18px);
-  text-align: center;
-  z-index: 1;
-  transition:
-    transform 220ms ease,
-    box-shadow 220ms ease,
-    border-color 220ms ease,
-    background 220ms ease,
-    filter 220ms ease;
-  box-shadow:
-    0 20px 50px rgba(15, 23, 42, 0.9),
-    0 0 0 1px rgba(15, 23, 42, 0.9);
 }
 
-/* soft gradient halo */
-.contactLinkItem::before {
+.contact-mail::before {
   content: "";
   position: absolute;
-  inset: -1px;
-  border-radius: inherit;
-  padding: 1px;
-  background: conic-gradient(
-    from 0deg,
-    rgba(34, 211, 238, 0.18),
-    rgba(59, 130, 246, 0.28),
-    rgba(168, 85, 247, 0.24),
-    rgba(34, 197, 94, 0.22),
-    rgba(34, 211, 238, 0.18)
-  );
-  -webkit-mask:
-    linear-gradient(#000 0 0) content-box,
-    linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  opacity: 0;
+  right: -120px;
+  top: -160px;
+  width: min(420px, 90vw);
+  height: 420px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgb(var(--accent-rgb) / 0.14), transparent 65%);
   pointer-events: none;
-  transition: opacity 220ms ease;
 }
 
-/* glossy light streak */
-.contactLinkItem::after {
-  content: "";
+/* The envelope is a generic glyph (not a brand mark): recolour its SVG paths to the theme accent. */
+.contact-mail__icon svg path[fill]:not([fill="none"]) { fill: var(--color-accent-display); }
+.contact-mail__icon svg path[stroke]:not([stroke="none"]) { stroke: var(--color-accent-display); }
+
+.contact-mail__icon {
   position: absolute;
-  top: -40%;
-  left: -30%;
-  width: 160%;
-  height: 70%;
-  background: radial-gradient(circle at 50% 50%, rgba(56, 189, 248, 0.25), transparent 65%);
-  opacity: 0;
-  transform: translate3d(0, 10px, 0);
-  transition:
-    opacity 260ms ease,
-    transform 260ms ease;
+  top: clamp(24px, 3vw, 40px);
+  left: clamp(20px, 3.4vw, 48px);
+  width: 76px;
+  height: 76px;
 }
 
-/* Hover state – lift + light */
-.contactLinkItem:hover {
-  transform: translateY(-8px);
-  border-color: rgba(56, 189, 248, 0.9);
-  box-shadow:
-    0 28px 60px rgba(15, 23, 42, 1),
-    0 0 32px rgba(56, 189, 248, 0.5);
-  background: radial-gradient(circle at top, #020617, #020617);
-  filter: saturate(1.12);
+.contact-mail .t-eyebrow {
+  margin: 0;
 }
 
-.contactLinkItem:hover::before {
-  opacity: 1;
-  animation: contact-border-spin 6s linear infinite;
+.contact-mail__addr {
+  display: inline-block;
+  width: fit-content;
+  max-width: 100%;
+  margin-top: 14px;
+  padding-bottom: 6px;
+  overflow-wrap: anywhere;
+  color: var(--color-text);
+  font: 700 clamp(22px, 3.1vw, 44px) / 1.15 var(--font-display);
+  letter-spacing: -0.035em;
+  background: linear-gradient(var(--color-accent), var(--color-accent)) 0 100% / 100% 2px no-repeat;
+  transition: color var(--dur-base) var(--ease-out);
 }
 
-.contactLinkItem:hover::after {
-  opacity: 1;
-  transform: translate3d(0, 0, 0);
+.contact-mail__addr:hover {
+  color: var(--color-accent-text);
 }
 
-/* Icon wrapper (for Lottie or SVG) */
-.contactLinkItem .contactIcon {
+.contact-mail__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-6);
+}
+
+.contact-links {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.contact-link {
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: 64px;
-  height: 64px;
-  margin-bottom: 1rem;
-  border-radius: 999px;
-  background: radial-gradient(circle at 30% 0%, rgba(56, 189, 248, 0.16), transparent 60%);
-  transition: transform 260ms cubic-bezier(0.22, 1.2, 0.36, 1),
-              box-shadow 260ms ease,
-              background 260ms ease;
+  gap: var(--space-4);
+  height: 100%;
+  min-height: 84px;
+  padding: 14px 22px 14px 14px;
+  transition: border-color var(--dur-base) var(--ease-out), box-shadow var(--dur-base) var(--ease-out),
+    transform var(--dur-base) var(--ease-out);
 }
 
-.contactLinkItem:hover .contactIcon {
-  transform: scale(1.16) translateY(-2px);
-  box-shadow: 0 0 22px rgba(56, 189, 248, 0.8);
-  background: radial-gradient(circle at 30% 0%, rgba(56, 189, 248, 0.28), transparent 60%);
-}
-
-/* Text in card */
-.contactLinkText {
-  font-size: 1.1rem;
-  text-align: center;
-  margin-top: 0.2rem;
-}
-
-/* Border spin animation */
-@keyframes contact-border-spin {
-  from {
-    transform: rotate(0deg);
+@media (hover: hover) {
+  .contact-link:hover {
+    border-color: var(--color-primary);
+    box-shadow: var(--shadow-md);
+    transform: translateX(4px);
   }
-  to {
-    transform: rotate(360deg);
+
+  .contact-link:hover .contact-link__arrow {
+    background: var(--color-action);
+    border-color: var(--color-action);
+    color: var(--color-on-primary);
+    transform: rotate(45deg);
   }
 }
 
-/* ===== Responsive ===== */
-@media (max-width: 992px) {
-  .contactSection {
-    padding: 4.5rem 1.5rem;
-  }
-
-  .contactCard {
-    padding: 2.6rem 1.75rem;
-  }
-
-  .contactLinks {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1.4rem;
-  }
+.contact-link__icon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  background: var(--logo-tile); /* brand glyphs are dark-ink Lotties: keep a light tile in both themes */
+  border: 1px solid var(--color-border);
 }
 
-@media (max-width: 640px) {
-  .contactSection {
-    padding: 4rem 1.25rem;
-  }
+.contact-link__icon > div {
+  width: 40px;
+  height: 40px;
+}
 
-  .contactCard {
-    padding: 2.2rem 1.5rem;
-    border-radius: 1.4rem;
-  }
+.contact-link__text {
+  display: grid;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+}
 
-  .contactTitle {
-    font-size: 2rem;
-  }
+.contact-link__label {
+  color: var(--color-text);
+  font: 600 17px/1.2 var(--font-display);
+  letter-spacing: -0.015em;
+}
 
-  .contactText {
-    font-size: 0.98rem;
-    margin-bottom: 2.4rem;
-  }
+.contact-link__handle {
+  overflow: hidden;
+  color: var(--color-text-secondary);
+  font-size: 12.5px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
 
-  .contactLinks {
+.contact-link__arrow {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--color-control-border);
+  border-radius: 50%;
+  color: var(--color-text-primary);
+  transition: background-color var(--dur-base) var(--ease-out), color var(--dur-base) var(--ease-out),
+    transform var(--dur-base) var(--ease-out);
+}
+
+@media (max-width: 899px) {
+  .contact-grid {
     grid-template-columns: 1fr;
   }
 
-  .contactLinkItem {
-    padding: 1.9rem 1.4rem;
+  .contact-mail {
+    min-height: 340px;
+  }
+}
+
+@media (max-width: 599px) {
+  .contact-mail__actions .btn {
+    flex: 1 1 100%;
   }
 }

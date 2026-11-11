@@ -1,114 +1,155 @@
-import React, { useEffect } from 'react';
+import { forwardRef, useRef } from 'react';
+import gsap from 'gsap';
+import SectionHeading from './common/SectionHeading';
+import { useSectionReveal } from '../hooks/useSectionReveal';
+import { projects } from '../data/portfolio';
 import './Projects.css';
 
-// Dummy project data
-const projectsData = [
-  {
-    id: 1,
-    title: 'Northwind Insights: Business Intelligence with SQL',
-    description: 'A comprehensive business intelligence project using the classic Northwind database. Analyzes sales trends, customer behavior, and inventory patterns through advanced SQL queries and optimized data insights.',
-    image: '/DBsql.png',
-    tags: ['SQL', 'DBeaver', 'Business Intelligence', 'Data Analysis'],
-    links: [
-      { type: 'GitHub', url: 'https://github.com/RajuKumar077/Northwind-Insights-Unlocking-Business-Intelligence-with-SQL', icon: '💻' },
-      { type: 'Presentation', url: '/SQL.pdf', icon: '📊' }
-    ],
-    codeEmbed: '',
-  },
-  {
-    id: 4,
-    title: 'SecurePay: Real-Time Credit Card Fraud Detection',
-    description: 'An advanced machine learning project designed to detect fraudulent credit card transactions in real-time. Built with imbalanced dataset handling, feature engineering, and state-of-the-art classification models to safeguard customers and financial institutions from unauthorized transactions.',
-    image: 'https://colab.research.google.com/img/colab_favicon_256px.png',
-    tags: ['Python', 'Machine Learning', 'Imbalanced Data', 'Fraud Detection', 'LightGBM'],
-    links: [
-      { type: 'Colab Notebook', url: 'https://colab.research.google.com/drive/1D_Y43yJOFKaNsvGXs1KA5BLAspxbpKWX?usp=sharing', icon: '📓' },
-      { type: 'Dataset', url: 'https://drive.google.com/file/d/14QQsG3Z96dXMxg3bl0SdgF9_Bs6gBXrk/view?usp=sharing', icon: '📊' },
-      { type: 'Google Drive', url: 'https://drive.google.com/drive/folders/1fkipZr5DINvCx3uOkmDJ4j01V0FbSscT', icon: '🔗' }
-    ],
-    codeEmbed: 'The project applies advanced ML techniques such as Logistic Regression, Random Forest, Gradient Boosting, and LightGBM with hyperparameter tuning. Evaluation emphasizes Recall, Precision, F1-Score, and AUC to ensure accurate fraud detection on a highly imbalanced dataset.',
-  },
-  {
-    id: 5,
-    title: 'Employee Performance & Workforce Trends',
-    description: 'Developed an interactive Tableau dashboard to analyze workforce metrics, including total performance scores, employee count, average sick days, and overtime trends. The dashboard provides insights into performance over time, gender distribution, job title breakdown, salary comparisons by education level, department-wise performance, and overtime patterns, helping organizations make informed HR and operational decisions.',
-    image: 'https://public.tableau.com/static/images/Em/EmployeePerformanceAndWorkforceTrends/EmployeePerformanceDashboard1/1_rss.png',
-    tags: ['Tableau', 'Data Visualization', 'Workforce Analytics', 'Interactive Dashboard'],
-    links: [
-      { type: 'Live Demo', url: 'https://public.tableau.com/views/EmployeePerformanceAndWorkforceTrends/EmployeePerformanceDashboard1?:language=en-US&:display_count=n&:origin=viz_share_link', icon: '🔗' }
-    ],
-    codeEmbed: '',
-  },
- {
-  id: 6,
-  title: 'FinGPT One: AI-Powered Financial Assistant',
-  description: 'FinGPT One is an intelligent, real-time financial assistant powered by advanced AI. It unifies market analysis, personalized insights, and smart decision-making tools into a single platform. From tracking live stock prices and forecasting trends to interpreting financial news and planning investments, FinGPT One empowers users to make informed, data-driven financial choices with confidence.',
-  image: '/FINGPT.png',
-  tags: ['Streamlit', 'LangChain', 'HuggingFace', 'Finance', 'Machine Learning', 'Visualization'],
-  links: [
-    { type: 'Live Demo', url: 'https://fingpt-one.streamlit.app/', icon: '🔗' },
-    { type: 'GitHub', url: 'https://github.com/RajuKumar077/FinGPT-One', icon: '💻' }
-  ],
-  codeEmbed: '',
-},
+const isExternal = (url) => /^https?:/.test(url);
 
+/** Cursor-lit media frame: a soft highlight follows the pointer (CSS vars only, no re-render). */
+const onMediaMove = (e) => {
+  const r = e.currentTarget.getBoundingClientRect();
+  e.currentTarget.style.setProperty('--mx', `${((e.clientX - r.left) / r.width) * 100}%`);
+  e.currentTarget.style.setProperty('--my', `${((e.clientY - r.top) / r.height) * 100}%`);
+};
 
+const Projects = forwardRef(function Projects(_props, forwardedRef) {
+  const ref = useRef(null);
+  const setRefs = (node) => {
+    ref.current = node;
+    if (typeof forwardedRef === 'function') forwardedRef(node);
+    else if (forwardedRef) forwardedRef.current = node;
+  };
 
-];
+  useSectionReveal(ref, ({ conditions }) => {
+    if (!conditions.desktop) return;
+    const cards = gsap.utils.toArray('.work-card');
 
-const Projects = React.forwardRef((props, ref) => {
-  useEffect(() => {
-    const handleMouseMove = (e) => {
-      const cards = document.querySelectorAll('.projectCard');
-      cards.forEach((card) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        const xPercent = (x / rect.width) * 100;
-        const yPercent = (y / rect.height) * 100;
-        card.style.setProperty('--cursor-x', `${xPercent}%`);
-        card.style.setProperty('--cursor-y', `${yPercent}%`);
+    // Sticky offset per card: stack under the nav, but never hide a tall card's bottom.
+    const nav = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--nav-height')) || 76;
+    const measure = () =>
+      cards.forEach((card, i) => {
+        const ideal = nav + 16 + i * 14;
+        const fit = window.innerHeight - card.offsetHeight - 24;
+        card.style.setProperty('--stick', `${Math.min(ideal, fit)}px`);
       });
-    };
+    measure();
+    const ro = new ResizeObserver(measure);
+    cards.forEach((c) => ro.observe(c));
+    window.addEventListener('resize', measure);
 
-    document.addEventListener('mousemove', handleMouseMove);
+    // Stacked cards: as the next card slides over, the previous one recedes.
+    cards.forEach((card, i) => {
+      const next = cards[i + 1];
+      if (!next) return;
+      gsap.to(card.querySelector('.work-card__inner'), {
+        scale: 0.94,
+        autoAlpha: 0.55,
+        ease: 'none',
+        scrollTrigger: { trigger: next, start: 'top bottom', end: 'top 20%', scrub: true },
+      });
+    });
+
+    // Media drifts inside its frame for depth.
+    cards.forEach((card) => {
+      gsap.fromTo(
+        card.querySelector('.work-media img'),
+        { yPercent: -4 },
+        {
+          yPercent: 4,
+          ease: 'none',
+          scrollTrigger: { trigger: card, start: 'top bottom', end: 'bottom top', scrub: true },
+        },
+      );
+    });
+
+    // Returned from the matchMedia callback → runs on revert / breakpoint change.
     return () => {
-      document.removeEventListener('mousemove', handleMouseMove);
+      ro.disconnect();
+      window.removeEventListener('resize', measure);
+      cards.forEach((c) => c.style.removeProperty('--stick'));
     };
-  }, []);
+  });
 
   return (
-    <section className="projectsSection" id="projects" ref={ref}>
-      <h2 className="projectsTitle">My Latest Projects</h2>
-      <div className="projectGridContainer">
-        {projectsData.map((project) => (
-          <div key={project.id} className="projectCard">
-            <div className="projectContent">
-              <div className="projectImageContainer">
-                <img src={project.image} alt={project.title} className="projectImage" />
-              </div>
-              <div className="projectDescriptionContainer">
-                <h3 className="projectTitle">{project.title}</h3>
-                <p className="projectText">{project.description}</p>
-                <div className="projectTags">
-                  {project.tags.map((tag, tagIndex) => (
-                    <span key={tagIndex} className="projectTag">{tag}</span>
-                  ))}
+    <section id="projects" ref={setRefs} className="section work" aria-labelledby="projects-title">
+      <div className="shell">
+        <SectionHeading
+          id="projects"
+          titleId="projects-title"
+          eyebrow="Selected work"
+          lines={['Projects that ship', 'insight.']}
+          lede="Generative AI, machine learning and analytics — each with its notebook, repository or live demo."
+        />
+
+        <ol className="work-list">
+          {projects.map((p, i) => (
+            <li key={p.id} className="work-card" style={{ '--i': i }}>
+              <article className="work-card__inner card" aria-labelledby={`work-${p.id}`}>
+                <div className="work-copy">
+                  <p className="work-meta t-mono">
+                    <span className="work-index">{String(i + 1).padStart(2, '0')}</span>
+                    <span>{p.category}</span>
+                  </p>
+                  <h3 id={`work-${p.id}`} className="work-title">
+                    {p.title}
+                    <span>{p.subtitle}</span>
+                  </h3>
+                  <p className="work-desc">{p.description}</p>
+
+                  {p.notes ? (
+                    <div className="work-notes">
+                      <p className="t-eyebrow">Technical notes</p>
+                      <p>{p.notes}</p>
+                    </div>
+                  ) : null}
+
+                  <ul className="work-tags" aria-label="Technologies">
+                    {p.tags.map((t) => (
+                      <li key={t} className="tag">
+                        {t}
+                      </li>
+                    ))}
+                  </ul>
+
+                  <div className="work-links">
+                    {p.links.map((l) => (
+                      <a
+                        key={l.type}
+                        className="link-arrow"
+                        href={l.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`${l.type} — ${p.title}${isExternal(l.url) ? ' (opens in a new tab)' : ''}`}
+                      >
+                        {l.type}
+                      </a>
+                    ))}
+                  </div>
                 </div>
-                <div className="projectLinks">
-                  {project.links.map((link, linkIndex) => (
-                    <a key={linkIndex} href={link.url} target="_blank" rel="noopener noreferrer" className="projectLink">
-                      {link.icon} {link.type}
-                    </a>
-                  ))}
-                </div>
-                {project.codeEmbed && (
-                  <p className="projectText" dangerouslySetInnerHTML={{ __html: project.codeEmbed }}></p>
-                )}
-              </div>
-            </div>
-          </div>
-        ))}
+
+                {/* Large pointer target for the primary link; the same link is in the text
+                    list above, so this duplicate is skipped by keyboard and screen readers. */}
+                <a
+                  className={`work-media${p.imageFit === 'contain' ? ' is-contain' : ''}`}
+                  href={p.links[0].url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  tabIndex={-1}
+                  aria-hidden="true"
+                  data-cursor="media"
+                  data-cursor-label={`${p.links[0].type} ↗`}
+                  data-tilt="5"
+                  onPointerMove={onMediaMove}
+                >
+                  <img src={p.image} alt="" loading="lazy" decoding="async" />
+                  <span className="work-media__glare" />
+                </a>
+              </article>
+            </li>
+          ))}
+        </ol>
       </div>
     </section>
   );

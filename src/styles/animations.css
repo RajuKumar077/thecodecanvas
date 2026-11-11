@@ -1,0 +1,35 @@
+/* ==========================================================================
+   Shared keyframes + reduced-motion policy.
+   GSAP drives choreography; CSS handles ambient, low-cost loops.
+   ========================================================================== */
+
+@keyframes float-y {
+  from { transform: translateY(-6px); }
+  to   { transform: translateY(6px); }
+}
+
+@keyframes pulse-ring {
+  0%   { box-shadow: 0 0 0 0 rgb(var(--accent-rgb) / 0.45); }
+  70%  { box-shadow: 0 0 0 8px rgb(var(--accent-rgb) / 0); }
+  100% { box-shadow: 0 0 0 0 rgb(var(--accent-rgb) / 0); }
+}
+
+@keyframes scroll-cue {
+  0%   { transform: translateY(-100%); }
+  60%  { transform: translateY(250%); }
+  100% { transform: translateY(250%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

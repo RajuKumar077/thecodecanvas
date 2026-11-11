@@ -1,90 +1,97 @@
-import React from 'react';
+import { useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import SectionHeading from './common/SectionHeading';
+import { useSectionReveal } from '../hooks/useSectionReveal';
+import { experience } from '../data/portfolio';
 import './Experience.css';
 
-const experienceData = [
-{
-  id: 1,
-  title: 'AI/ML Engineer',
-  company: 'Wipro · Client: Apple Inc.',
-  duration: 'Mar 2025 – Present',
-  location: 'Hyderabad (On-site)',
-  description: [
-    'Designing agentic AI systems using large language models and Model Context Protocol (MCP) to power an enterprise bot for incident-driven semantic search across siloed Apple platforms. ',
-    'Building context-aware RAG pipelines and semantic retrieval flows that deliver real-time incident insights, improving response accuracy and reducing time-to-resolution for SRE teams. ',
-    'Automating root-cause analysis and ticket intelligence with AI-driven NLG, cutting manual SOP lookups and freeing hundreds of engineering hours annually. ',
-    'Unifying cross-functional incident and operations data into a single search layer, boosting data accessibility and reducing manual validation and testing effort. '
-  ],
-  imageUrl: './wipro.jpg'
-},
-  {
-    id: 3,
-    title: 'Intern',
-    company: 'Psyliq',
-    duration: 'Dec 2023 – Mar 2024',
-    location: 'Remote',
-    description: [
-      'Contributed to projects involving Python programming and SQL, gaining hands-on experience in data handling, problem-solving, and analytics.',
-      'Strengthened technical foundations by working on practical applications.'
-    ],
-    imageUrl: './psyliq.jpg'
-  },
-  {
-    id: 4,
-    title: 'Internship Trainee (RPA Specialist)',
-    company: 'HighRadius',
-    duration: 'Jul 2022 – Nov 2022',
-    location: 'Bhubaneswar (On-site)',
-    description: [
-      'Specialized in building and executing automation workflows using RPA tools.',
-      'Analyzed business processes, created workflows, and improved efficiency.',
-      'Gained skills in Java, JavaScript, SQL, and handling structured/unstructured data (CSV, XML, JSON).'
-    ],
-    imageUrl: './Highradius.png'
-  },
-  {
-    id: 5,
-    title: 'Winter Intern',
-    company: 'HighRadius',
-    duration: 'Jan 2022 – Apr 2022',
-    location: 'Bhubaneswar (Remote)',
-    description: [
-      'Worked on a full-stack product development project, covering user requirements, UI/UX, backend design, and machine learning models.',
-      'Gained exposure to technologies including Python, Java, MySQL, React.js, Node.js, and data modeling.'
-    ],
-    imageUrl: './Highradius.png'
-  },
-];
+/* Outcomes the experience entries already state, set apart typographically.
+   Matches are verbatim phrases from data/portfolio.js — nothing is added. */
+const OUTCOMES =
+  /(improving response accuracy|reducing time-to-resolution|cutting manual SOP lookups|freeing hundreds of engineering hours annually|boosting data accessibility|reducing manual validation and testing effort|improved efficiency)/g;
 
-const Experience = () => {
+function withOutcomes(text) {
+  return text.split(OUTCOMES).map((part, i) =>
+    i % 2 === 1 ? (
+      <strong key={i} className="xp-metric">
+        {part}
+      </strong>
+    ) : (
+      part
+    ),
+  );
+}
+
+export default function Experience() {
+  const ref = useRef(null);
+
+  useSectionReveal(ref, () => {
+    // The rail draws itself as the timeline scrolls past.
+    gsap.fromTo(
+      '.xp-rail__fill',
+      { scaleY: 0 },
+      {
+        scaleY: 1,
+        ease: 'none',
+        scrollTrigger: { trigger: '.xp-list', start: 'top 70%', end: 'bottom 70%', scrub: 0.4 },
+      },
+    );
+
+    // Each node lights up as its role reaches the reading line.
+    gsap.utils.toArray('.xp-item').forEach((item) => {
+      ScrollTrigger.create({ trigger: item, start: 'top 70%', toggleClass: 'is-lit' });
+    });
+  });
+
   return (
-    <section id="experience" className="experienceSection">
-      <h2 className="experienceTitle">Professional Experience</h2>
-      <div className="timelineContainer">
-        {experienceData.map((item, index) => (
-          <div key={item.id} className={`timelineItem ${index % 2 === 0 ? 'contentLeft' : 'contentRight'}`}>
-            <div className="timelineContentWrapper">
-              <div className="timelineContent">
-                <h3 className="jobTitle">{item.title}</h3>
-                <p className="company">{item.company}</p>
-                <div className="infoRow">
-                  <span className="duration">{item.duration}</span>
-                  <span className="location">{item.location}</span>
-                </div>
-                <ul className="descriptionList">
-                  {item.description.map((desc, idx) => (
-                    <li key={idx}>{desc}</li>
+    <section id="experience" ref={ref} className="section section--surface xp" aria-labelledby="experience-title">
+      <div className="shell">
+        <SectionHeading
+          id="experience"
+          titleId="experience-title"
+          eyebrow="Experience"
+          lines={['Professional', 'experience.']}
+          lede="From RPA and full-stack internships to agentic AI for Apple’s SRE teams."
+        />
+
+        <div className="xp-list">
+          <span className="xp-rail" aria-hidden="true">
+            <span className="xp-rail__fill" />
+          </span>
+
+          <ol className="xp-items">
+          {experience.map((job) => (
+            <li key={job.id} className={`xp-item${job.current ? ' is-current' : ''}`}>
+              <div className="xp-when" data-reveal>
+                <span className="xp-node" aria-hidden="true" />
+                <p className="xp-duration t-mono">{job.duration}</p>
+                <p className="xp-location">{job.location}</p>
+                {job.current ? <span className="xp-badge t-mono">Current</span> : null}
+              </div>
+
+              <article className="xp-card card" data-reveal data-spotlight>
+                <header className="xp-card__head">
+                  <img className="xp-logo" src={job.logo} alt="" width="56" height="56" loading="lazy" />
+                  <div>
+                    <h3 className="xp-title">{job.title}</h3>
+                    <p className="xp-company">
+                      {job.company}
+                      {job.client ? <span> · {job.client}</span> : null}
+                    </p>
+                  </div>
+                </header>
+                <ul className="xp-points">
+                  {job.description.map((d) => (
+                    <li key={d.slice(0, 32)}>{withOutcomes(d)}</li>
                   ))}
                 </ul>
-              </div>
-              <div className="timelineImage">
-                <img src={item.imageUrl} alt={item.company || 'Project'} />
-              </div>
-            </div>
-          </div>
-        ))}
+              </article>
+            </li>
+          ))}
+          </ol>
+        </div>
       </div>
     </section>
   );
-};
-
-export default Experience;
+}

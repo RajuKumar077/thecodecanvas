@@ -3,12 +3,29 @@
 
 <head>
   <meta charset="UTF-8" />
-  <!-- PNG favicon -->
   <link rel="icon" type="image/png" href="/ruby.png" />
-  <!--  <link rel="icon" type="image/svg+xml" href="/king.svg" /> -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#E9E0D0" />
+  <meta name="color-scheme" content="light dark" />
+  <script>
+    // Resolve Light / Dark / System before first paint, so there is never a
+    // flash of the wrong theme. Mirrors src/hooks/useTheme.js (same key & rules).
+    (function () {
+      var d = document.documentElement, pref = "system", theme = "light";
+      try {
+        var s = localStorage.getItem("tcc-theme");
+        if (s === "light" || s === "dark") pref = s;
+        theme = pref === "system" ? (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light") : pref;
+      } catch (e) {}
+      d.setAttribute("data-theme", theme);
+      d.setAttribute("data-theme-pref", pref);
+      var m = document.querySelector('meta[name="theme-color"]');
+      if (m) m.setAttribute("content", theme === "dark" ? "#111824" : "#E9E0D0");
+    })();
+  </script>
+  <meta name="description"
+    content="Raju Kumar — AI/ML Engineer building LLM-driven agents, RAG search and analytics systems that turn complex, siloed data into reliable, actionable insights." />
   <title>Raju Kumar | AI Engineer, Data Scientist & Innovator</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
 </head>
 
 <body>

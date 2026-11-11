@@ -1,0 +1,174 @@
+/* ==========================================================================
+   Footer — ink panel with oversized wordmark.
+   ========================================================================== */
+
+.site-foot {
+  overflow: hidden;
+  padding: clamp(56px, 8vw, 104px) 0 28px;
+  background: var(--color-ink);
+  border-top: 1px solid var(--panel-line);
+  color: var(--panel-text-2);
+}
+
+.site-foot a {
+  color: var(--panel-text-2);
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.site-foot a:hover {
+  color: var(--panel-text);
+}
+
+.site-foot__top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-5);
+  padding-bottom: clamp(40px, 6vw, 72px);
+  border-bottom: 1px solid var(--panel-line);
+}
+
+.site-foot__word {
+  margin: 0;
+  color: var(--panel-text);
+  font: 700 clamp(48px, 10.5vw, 168px) / 0.9 var(--font-display);
+  letter-spacing: -0.05em;
+}
+
+.site-foot__word span {
+  color: var(--panel-accent);
+}
+
+.site-foot__top-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  height: 44px;
+  padding: 0 18px;
+  border: 1px solid var(--panel-control-border);
+  border-radius: var(--radius-button);
+  font: 500 14px/1 var(--font-body);
+}
+
+.site-foot__top-btn:hover {
+  border-color: var(--panel-text);
+}
+
+.site-foot__grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: var(--space-6);
+  padding: clamp(40px, 5vw, 64px) 0;
+}
+
+.site-foot__name {
+  margin: 0;
+  color: var(--panel-text);
+  font: 700 22px/1.2 var(--font-display);
+  letter-spacing: -0.02em;
+}
+
+.site-foot__role {
+  margin: 6px 0 18px;
+  font-size: 15px;
+}
+
+.site-foot__mail {
+  font-size: 15px;
+  border-bottom: 1px solid rgb(var(--panel-ink-rgb) / 0.32);
+  padding-bottom: 2px;
+}
+
+.site-foot__h {
+  margin: 0 0 14px;
+  color: var(--panel-muted);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.site-foot ul {
+  display: grid;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 15px;
+}
+
+/* ≥ 36px tall tap targets without changing the visual rhythm */
+.site-foot li a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+}
+
+.site-foot__base {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px;
+  padding-top: 22px;
+  border-top: 1px solid var(--panel-line);
+  color: var(--panel-muted);
+  font-size: 12px;
+}
+
+@media (max-width: 699px) {
+  .site-foot__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .site-foot__grid > div:first-child {
+    grid-column: 1 / -1;
+  }
+}
+
+/* Closing CTA */
+.site-foot__cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-5);
+  padding: clamp(28px, 4vw, 48px) 0;
+  border-bottom: 1px solid var(--panel-line);
+}
+
+.site-foot__cta-title {
+  max-width: 28ch;
+  margin: 0;
+  color: var(--panel-text);
+  font: 600 clamp(22px, 2.6vw, 34px) / 1.2 var(--font-display);
+  letter-spacing: var(--track-heading);
+}
+
+.site-foot__cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  height: 52px;
+  padding: 0 26px;
+  border-radius: var(--radius-button);
+  background: var(--panel-accent);
+  color: var(--panel-on-accent);
+  font: 600 15px/1 var(--font-body);
+  transition: background-color var(--dur-base) var(--ease-out), transform var(--dur-base) var(--ease-out);
+}
+
+.site-foot a.site-foot__cta-btn {
+  color: var(--panel-on-accent);
+}
+
+.site-foot a.site-foot__cta-btn:hover {
+  background: var(--panel-accent-hover);
+  color: var(--panel-on-accent);
+  transform: translateY(-2px);
+}
+
+.site-foot a:focus-visible {
+  outline: 2px solid var(--panel-accent);
+  outline-offset: 3px;
+  border-radius: 6px;
+}

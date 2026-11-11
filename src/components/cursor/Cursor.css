@@ -1,0 +1,214 @@
+/* ==========================================================================
+   Custom cursor + cursor-driven surface effects.
+   Everything here is scoped to html.has-cursor, which Cursor.jsx only sets
+   on fine pointers with motion allowed — touch and reduced-motion users
+   keep the native cursor and the original hover styles.
+   ========================================================================== */
+
+html.has-cursor,
+html.has-cursor * {
+  cursor: none !important;
+}
+
+html.has-cursor :is(input, textarea, select, [contenteditable="true"]) {
+  cursor: text !important;
+}
+
+.cursor {
+  /* Cursor colours follow the site theme; over an always-dark panel
+     (data-theme="dark" on this element) they flip to the on-ink set. */
+  --cur-ink-rgb: var(--ink-rgb);
+  --cur-accent-rgb: var(--accent-rgb);
+  --cur-bg-rgb: var(--bg-rgb);
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+.cursor__fx {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.cursor.is-suspended .cursor__fx {
+  display: none;
+}
+
+.cursor__ring,
+.cursor__dot {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  will-change: transform;
+  transition: opacity 300ms var(--ease-out);
+}
+
+.cursor.is-visible .cursor__ring,
+.cursor.is-visible .cursor__dot {
+  opacity: 1;
+}
+
+.cursor.is-suspended .cursor__ring,
+.cursor.is-suspended .cursor__dot {
+  opacity: 0 !important;
+}
+
+/* ---------- Ring ---------- */
+
+.cursor__ring {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border: 1.5px solid rgb(var(--cur-ink-rgb) / 0.32);
+  border-radius: 50%;
+  background: transparent;
+  transform-origin: 50% 50%;
+  transition:
+    opacity 300ms var(--ease-out),
+    background-color 350ms var(--ease-out),
+    border-color 350ms var(--ease-out),
+    box-shadow 350ms var(--ease-out),
+    backdrop-filter 350ms var(--ease-out);
+}
+
+.cursor__label {
+  color: rgb(var(--cur-bg-rgb));
+  font: 500 10.5px/1 var(--font-code);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  opacity: 0;
+  transform: scale(0.6);
+  transition: opacity 250ms var(--ease-out), transform 400ms var(--ease-out);
+}
+
+/* ---------- Dot ---------- */
+
+.cursor__dot span {
+  display: block;
+  width: 6px;
+  height: 6px;
+  margin: -3px 0 0 -3px;
+  border-radius: 50%;
+  background: rgb(var(--cur-ink-rgb));
+  transition: transform 300ms var(--ease-out), background-color 300ms var(--ease-out), opacity 200ms var(--ease-out);
+}
+
+/* ---------- States ---------- */
+
+.cursor[data-state="link"] .cursor__ring {
+  border-color: rgb(var(--cur-accent-rgb) / 0.55);
+  background: rgb(var(--cur-accent-rgb) / 0.08);
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+}
+
+.cursor[data-state="link"] .cursor__dot span {
+  background: rgb(var(--cur-accent-rgb));
+  transform: scale(1.2);
+}
+
+.cursor[data-state="stick"] .cursor__ring {
+  border-color: rgb(var(--cur-accent-rgb) / 0.7);
+  box-shadow: 0 0 0 4px rgb(var(--cur-accent-rgb) / 0.08);
+}
+
+.cursor[data-state="stick"] .cursor__dot span {
+  opacity: 0;
+  transform: scale(0);
+}
+
+.cursor[data-state="lens"] .cursor__ring {
+  border-color: rgb(var(--cur-accent-rgb) / 0.35);
+  border-style: dashed;
+}
+
+.cursor[data-state="lens"] .cursor__dot span {
+  background: rgb(var(--cur-accent-rgb));
+}
+
+.cursor[data-state="media"] .cursor__ring {
+  border-color: transparent;
+  background: rgb(var(--cur-ink-rgb) / 0.9);
+  box-shadow: 0 18px 40px -12px rgb(var(--shadow-rgb) / 0.45);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+
+.cursor[data-state="media"] .cursor__label {
+  opacity: 1;
+  transform: none;
+}
+
+.cursor[data-state="media"] .cursor__dot span,
+.cursor[data-state="text"] .cursor__dot span {
+  opacity: 0;
+  transform: scale(0);
+}
+
+.cursor[data-state="text"] .cursor__ring {
+  opacity: 0;
+}
+
+/* ---------- Dark surfaces (Lab console, footer) ---------- */
+
+.cursor[data-theme="dark"] {
+  --cur-ink-rgb: var(--panel-ink-rgb);
+  --cur-accent-rgb: var(--panel-accent-rgb);
+  --cur-bg-rgb: var(--panel-bg-rgb);
+}
+
+.cursor[data-theme="dark"][data-state="link"] .cursor__ring,
+.cursor[data-theme="dark"][data-state="stick"] .cursor__ring {
+  box-shadow: 0 0 0 4px rgb(var(--cur-accent-rgb) / 0.1);
+}
+
+/* ---------- Click ripple ---------- */
+
+.cursor__ripple {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 44px;
+  height: 44px;
+  border: 1.5px solid rgb(var(--cur-accent-rgb));
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   Cursor-lit surfaces — [data-spotlight]
+   The border is painted as backgrounds (padding-box fill over border-box
+   gradients) so a radial highlight can follow the pointer around the edge.
+   --spot-a is tweened 0 → 1 by Cursor.jsx on enter / leave.
+   ========================================================================== */
+
+html.has-cursor [data-spotlight] {
+  --spot-bg: var(--color-surface);
+  border-color: transparent !important;
+  background:
+    radial-gradient(420px circle at var(--mx, -999px) var(--my, -999px), rgb(var(--accent-rgb) / calc(var(--spot-a, 0) * 0.05)), transparent 65%) padding-box,
+    linear-gradient(var(--spot-bg), var(--spot-bg)) padding-box,
+    radial-gradient(260px circle at var(--mx, -999px) var(--my, -999px), rgb(var(--accent-rgb) / calc(var(--spot-a, 0) * 0.75)), transparent 70%) border-box,
+    linear-gradient(var(--color-border), var(--color-border)) border-box;
+}
+
+/* Dark console: an interior glow instead of a border. */
+html.has-cursor .lab-console[data-spotlight] {
+  background:
+    radial-gradient(560px circle at var(--mx, -999px) var(--my, -999px), rgb(var(--panel-accent-rgb) / calc(var(--spot-a, 0) * 0.13)), transparent 60%),
+    radial-gradient(900px 400px at 85% -10%, rgb(var(--panel-accent-rgb) / 0.22), transparent 60%),
+    linear-gradient(180deg, var(--panel-bg-soft), var(--panel-bg));
+}
+
+/* Tilted media keeps its rounded clip crisp while rotating in 3D. */
+html.has-cursor [data-tilt] {
+  will-change: transform;
+  backface-visibility: hidden;
+}

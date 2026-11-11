@@ -1,0 +1,274 @@
+/* ==========================================================================
+   thecodecanvas — CHAMPAGNE × MIDNIGHT design tokens
+   Single source of truth for colour, type, spacing, radius, motion.
+
+   Architecture (three layers; nothing else in the codebase defines colour):
+     1. PALETTE   — Day · Champagne / Night · Midnight. The approved brand
+                    values; only these two blocks differ per theme.
+     2. SEMANTIC  — surfaces, text, borders, states, overlays, gradients,
+                    shadows. Components consume these and never a raw hex.
+     3. ALIASES   — the short names components already use (--color-text,
+                    --color-accent …) mapped onto layers 1 and 2.
+
+   Theme is html[data-theme="light|dark"], resolved from the user's preference
+   (Light · Dark · System) by hooks/useTheme and, before first paint, by the
+   inline script in index.html. Alpha is composed from space-separated channels:
+   rgb(var(--accent-rgb) / 0.3).
+
+   AA COMPANIONS — derived (never new hues) so small text stays readable:
+     Day gold #A77D48 is 2.8:1 on the page, so it is used for fills, borders,
+     rules and large display type only. Small gold text uses --color-accent-text
+     (accent-hover blended 30% toward ink) and gold fills that carry text use
+     --color-action. Muted text #77766F (3.5:1) is kept for large/decorative
+     use; --color-text-subtle is the AA-safe metadata colour. Hairline control
+     borders use --color-control-border (≥3:1 against page and cards).
+   ========================================================================== */
+
+/* ---------- 1 · PALETTE ---------- */
+
+:root,
+:root[data-theme="light"] {
+  color-scheme: light;
+
+  /* DAY — Champagne */
+  --color-background: #E9E0D0;
+  --color-surface: #F4EEE3;
+  --color-surface-secondary: #DED3C1;
+  --color-surface-tertiary: #D5C8B5;
+  --color-surface-elevated: #F4EEE3;
+
+  --color-text-primary: #252C38;
+  --color-text-secondary: #59616B;
+  --color-text-muted: #77766F;
+
+  --color-primary: #A77D48;          /* Accent */
+  --color-primary-hover: #90683A;    /* Accent hover */
+  --color-primary-soft: #E4D3B8;     /* Accent soft */
+
+  --color-border: #D3C7B5;
+  --color-border-strong: #BDAE99;
+
+  --color-success: #54785E;
+  --color-warning: #A7793E;
+  --color-error: #B85D55;
+  --color-info: #A77D48;
+
+  /* AA companions (derived from the values above) */
+  --color-accent-text: color-mix(in srgb, var(--color-primary-hover) 70%, var(--color-text-primary));
+  --color-accent-display: var(--color-primary-hover);   /* ≥3:1 for large display glyphs */
+  --color-action: color-mix(in srgb, var(--color-primary-hover) 85%, var(--color-text-primary));
+  --color-action-hover: color-mix(in srgb, var(--color-primary-hover) 70%, var(--color-text-primary));
+  --color-on-primary: var(--color-surface);
+  --color-text-subtle: color-mix(in srgb, var(--color-text-secondary) 85%, var(--color-text-primary));
+  --color-control-border: color-mix(in srgb, var(--color-text-muted) 90%, var(--color-border-strong));
+
+  /* Channels */
+  --accent-rgb: 167 125 72;
+  --periwinkle-rgb: 193 161 119;   /* = --color-periwinkle, as channels (canvas) */
+  --secondary-rgb: 144 104 58;     /* = --color-secondary, as channels (canvas)  */
+  --ink-rgb: 37 44 56;
+  --bg-rgb: 233 224 208;
+  --surface-rgb: 244 238 227;
+  --shadow-rgb: 37 44 56;
+  --glare-rgb: 244 238 227;
+
+  /* Secondary tone = deeper champagne (one hue family, no second brand colour) */
+  --color-secondary: var(--color-primary-hover);
+  --color-secondary-soft: var(--color-primary-soft);
+  --color-secondary-text: var(--color-accent-text);
+
+  /* Soft tan — derived, used only inside gradients and tonal groups */
+  --color-periwinkle: color-mix(in srgb, var(--color-primary) 58%, var(--color-primary-soft));
+
+  --glare-a: 0.45;
+  --logo-tile: var(--color-surface-secondary);
+  --section-alt: color-mix(in srgb, var(--color-surface-secondary) 35%, var(--color-background));
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* NIGHT — Midnight */
+  --color-background: #111824;
+  --color-surface: #192434;
+  --color-surface-secondary: #223044;
+  --color-surface-tertiary: #29394D;
+  --color-surface-elevated: #223044;
+
+  --color-text-primary: #F1E8D8;
+  --color-text-secondary: #C0C5CD;
+  --color-text-muted: #AAB2C0;
+
+  --color-primary: #C69B60;
+  --color-primary-hover: #D8B47F;
+  --color-primary-soft: #3A3026;
+
+  --color-border: #304055;
+  --color-border-strong: #43556A;
+
+  --color-success: #83B58F;
+  --color-warning: #D5AC70;
+  --color-error: #E28B82;
+  --color-info: #C69B60;
+
+  --color-accent-text: var(--color-primary);
+  --color-accent-display: var(--color-primary);
+  --color-action: var(--color-primary);
+  --color-action-hover: var(--color-primary-hover);
+  --color-on-primary: var(--color-background);
+  --color-text-subtle: var(--color-text-muted);
+  --color-control-border: color-mix(in srgb, var(--color-text-muted) 40%, var(--color-border-strong));
+
+  --accent-rgb: 198 155 96;
+  --periwinkle-rgb: 205 164 108;
+  --secondary-rgb: 216 180 127;
+  --ink-rgb: 241 232 216;
+  --bg-rgb: 17 24 36;
+  --surface-rgb: 25 36 52;
+  --shadow-rgb: 0 0 0;
+  --glare-rgb: 241 232 216;
+
+  --color-secondary: var(--color-primary-hover);
+  --color-secondary-soft: var(--color-primary-soft);
+  --color-secondary-text: var(--color-primary-hover);
+
+  --color-periwinkle: color-mix(in srgb, var(--color-primary) 62%, var(--color-primary-hover));
+
+  --glare-a: 0.14;
+  --logo-tile: color-mix(in srgb, var(--color-plate) 93%, var(--color-primary-soft));
+  --section-alt: color-mix(in srgb, var(--color-surface) 55%, var(--color-background));
+}
+
+/* ---------- 2 · SEMANTIC ---------- */
+
+:root {
+  /* Constant cream plate — company logos & rendered PDF pages (Day surface) */
+  --color-plate: #F4EEE3;
+  --plate-accent: #90683A;     /* accent ON a cream plate (cert placeholder) */
+  --plate-line: #D3C7B5;
+  --plate-line-strong: #BDAE99;
+
+  /* Always-midnight panels (footer, lab console): the Night palette in BOTH
+     themes, so text and lines on them never depend on the page theme. */
+  --panel-bg: #111824;
+  --panel-bg-soft: #192434;
+  --panel-text: #F1E8D8;
+  --panel-text-2: #C0C5CD;
+  --panel-muted: #AAB2C0;
+  --panel-accent: #C69B60;
+  --panel-primary: #A77D48;
+  --panel-accent-hover: #D8B47F;
+  --panel-on-accent: #111824;
+  --panel-secondary: #D8B47F;
+  --panel-border: #304055;
+  --panel-border-strong: #43556A;      /* decorative dividers only */
+  --panel-control-border: color-mix(in srgb, var(--panel-muted) 40%, var(--panel-border-strong)); /* interactive outlines: ≥3:1 on both panel surfaces */
+  --panel-ink-rgb: 241 232 216;
+  --panel-accent-rgb: 198 155 96;
+  --panel-bg-rgb: 17 24 36;
+  --panel-line: rgb(var(--panel-ink-rgb) / 0.1);
+
+  /* States & overlays */
+  --color-focus: var(--color-primary-hover);
+  --color-overlay: rgb(var(--bg-rgb) / 0.74);
+  --color-hover-wash: rgb(var(--accent-rgb) / 0.08);
+  --color-disabled-bg: color-mix(in srgb, var(--color-text-muted) 14%, transparent);
+  --color-disabled-fg: color-mix(in srgb, var(--color-text-muted) 80%, transparent);
+
+  /* Glass (nav, chips, pills) — used sparingly */
+  --glass: rgb(var(--surface-rgb) / 0.78);
+  --glass-strong: rgb(var(--bg-rgb) / 0.82);
+  --glass-border: var(--color-border);
+
+  /* Gradients (champagne → tan only) */
+  --gradient-accent: linear-gradient(90deg, var(--color-primary), var(--color-periwinkle));
+
+  /* Elevation — soft, tonal; borders do most of the work */
+  --shadow-sm: 0 1px 2px rgb(var(--shadow-rgb) / 0.05), 0 2px 6px rgb(var(--shadow-rgb) / 0.04);
+  --shadow-md: 0 2px 6px rgb(var(--shadow-rgb) / 0.05), 0 12px 28px -10px rgb(var(--shadow-rgb) / 0.14);
+  --shadow-lg: 0 30px 70px -24px rgb(var(--shadow-rgb) / 0.3);
+
+  /* ---------- 3 · ALIASES (names the components already use) ---------- */
+
+  --color-text: var(--color-text-primary);
+  --color-muted: var(--color-text-secondary);
+  --color-subtle: var(--color-text-subtle);
+  --color-faint: var(--color-border-strong);     /* pre-ink state of reveal-on-scroll */
+  --color-accent: var(--color-primary);
+  --color-accent-strong: var(--color-primary-hover);
+  --color-accent-mist: var(--color-primary-soft);
+  --color-elevated: var(--color-surface-elevated);
+  --color-ink: var(--panel-bg);
+  --color-ink-soft: var(--panel-bg-soft);
+
+/* ---------- Typography ---------- */
+  /* Headings: Manrope · Body: Inter · Metadata: IBM Plex Mono (all self-hosted). */
+  --font-display: "Manrope Variable", "Manrope", system-ui, sans-serif;
+  --font-body: "Inter Variable", "Inter", system-ui, -apple-system, sans-serif;
+  --font-code: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* Scale (clamp-based; ratio ≈ 1.25 → 1.333 as the viewport grows) */
+  --fs-hero: clamp(2.5rem, 5.2vw + 0.25rem, 6.25rem);     /* 40 → 100px */
+  --fs-h2: clamp(2rem, 3.4vw + 0.75rem, 3.75rem);         /* 32 → 60px  */
+  --fs-h3: clamp(1.625rem, 1.9vw + 0.85rem, 2.625rem);    /* 26 → 42px  */
+  --fs-lead: clamp(1.0625rem, 0.35vw + 0.95rem, 1.25rem); /* 17 → 20px  */
+  --fs-body: clamp(1rem, 0.15vw + 0.95rem, 1.125rem);     /* 16 → 18px  */
+  --fs-h4: clamp(1.125rem, 0.5vw + 1rem, 1.375rem);       /* 18 → 22px  */
+  --fs-small: 0.875rem;                                   /* 14px       */
+  --fs-meta: 0.8125rem;                                   /* 13px       */
+  --fs-caption: 0.75rem;                                  /* 12px       */
+  --track-display: -0.03em;
+  --track-heading: -0.022em;
+  --lh-display: 1.06;
+  --lh-heading: 1.15;
+  --lh-body: 1.65;
+
+  /* Spacing scale: 4 · 8 · 12 · 16 · 24 · 32 · 48 · 64 · 96 · 128 */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+  --space-10: 128px;
+
+  /* Layout */
+  --container-width: 1280px;
+  --gutter: clamp(16px, 5vw, 80px);
+  --section-space: clamp(72px, 12vw, 160px);
+  --nav-height: 76px;
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+
+  /* Radius */
+  --radius-card: 20px;
+  --radius-button: 999px;
+
+  /* Motion — one easing family used everywhere */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: 180ms;
+  --dur-base: 320ms;
+  --dur-slow: 640ms;
+}
+
+/* Wide screens: let the grid breathe instead of floating in the middle. */
+@media (min-width: 1700px) {
+  :root {
+    --container-width: 1440px;
+  }
+}
+
+/* Small phones: tighten display type so headlines never overflow. */
+@media (max-width: 380px) {
+  :root {
+    --fs-hero: 2.25rem;
+    --fs-h2: 1.875rem;
+    --nav-height: 68px;
+  }
+}

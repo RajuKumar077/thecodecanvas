@@ -1,89 +1,40 @@
-import React, { useEffect, useRef } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-// Register GSAP plugins (important: do this only once)
-gsap.registerPlugin(ScrollTrigger);
-
-// Import all your main components
-import NavbarIcons from './components/Navbar';
-import Skills from './components/Skills';
+import Navbar from './components/layout/Navbar';
+import Footer from './components/layout/Footer';
+import Cursor from './components/cursor/Cursor';
+import Hero from './components/hero/Hero';
 import About from './components/About';
-import Projects from './components/Projects';
-import Contact from './components/Contact';
-import Home from './components/Home';
-
-// --- NEW IMPORTS FOR EXPERIENCE AND EDUCATION ---
 import Experience from './components/Experience';
+import Projects from './components/Projects';
+import Skills from './components/Skills';
 import Education from './components/Education';
-
-// Import your global CSS
+import Playground from './components/Playground';
+import Contact from './components/Contact';
+import { SECTIONS } from './data/portfolio';
 import './App.css';
 
-// Define the section IDs here.
-// The list is updated to include the new 'experience' and 'education' sections.
-const sectionIds = ['home', 'about', 'experience',  'projects', 'skills','education', 'contact'];
+const sectionIds = SECTIONS.map((s) => s.id);
 
+/** Each section owns its GSAP choreography (see hooks/useSectionReveal). */
 function App() {
-  const sectionRefs = useRef([]);
-  sectionRefs.current = [];
-
-  const addToSectionRefs = (el) => {
-    if (el && !sectionRefs.current.includes(el)) {
-      sectionRefs.current.push(el);
-    }
-  };
-
-  useEffect(() => {
-    ScrollTrigger.getAll().forEach(trigger => trigger.kill());
-
-    const setupScrollAnimations = () => {
-     
-      sectionRefs.current.forEach((el, i) => {
-        if (el) {
-          gsap.from(el, {
-            scrollTrigger: {
-              trigger: el,
-              start: 'top 80%',
-              toggleActions: 'play none none reverse',
-              markers: false,
-            },
-            y: 30,
-            opacity: 0,
-            duration: 1,
-            delay: i * 0.1,
-            ease: 'power2.out',
-          });
-        }
-      });
-    };
-
-    const timeoutId = setTimeout(setupScrollAnimations, 0);
-
-    return () => {
-      clearTimeout(timeoutId);
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
-    };
-  }, []);
-
   return (
-    <div className="relative w-full h-full text-white bg-black">
-      <div className="relative z-10 w-full">
-        {/* Navigation Bar */}
-        {/* The Navbar now correctly lists and links to all sections */}
-        <NavbarIcons sectionIds={sectionIds} />
-
-        {/* Main content sections */}
-        {/* Components with their own internal GSAP animations don't need the 'ref' prop here. */}
-        <Home ref={addToSectionRefs} />
+    <>
+      <a className="skip-link" href="#main">
+        Skip to content
+      </a>
+      <Navbar sectionIds={sectionIds} />
+      <main id="main">
+        <Hero />
         <About />
-        <Experience /> 
-        <Projects ref={addToSectionRefs} />
-        <Skills ref={addToSectionRefs} />
+        <Experience />
+        <Projects />
+        <Skills />
         <Education />
-        <Contact ref={addToSectionRefs} />
-      </div>
-    </div>
+        <Playground />
+        <Contact />
+      </main>
+      <Footer />
+      <Cursor />
+    </>
   );
 }
 

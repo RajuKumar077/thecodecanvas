@@ -1,136 +1,104 @@
-import React, { useRef, useLayoutEffect, useEffect } from 'react';
-import { gsap } from 'gsap';
+import { useRef } from 'react';
+import gsap from 'gsap';
+import SectionHeading from './common/SectionHeading';
+import { useSectionReveal } from '../hooks/useSectionReveal';
+import { profile } from '../data/portfolio';
+import { useReducedMotion } from '../hooks/useReducedMotion';
 import './About.css';
 
-const About = () => {
-  // GSAP Refs for animating elements
-  const aboutSectionRef = useRef(null);
-  const aboutCardRef = useRef(null);
-  const profileImageRef = useRef(null);
-  const textContentRef = useRef(null);
-  const highlightsRef = useRef(null);
-  const backgroundAuraRef = useRef(null);
+const [lead, ...rest] = profile.about;
+const EMPHASIS = new Set(['AI/ML', 'Engineer']);
 
-  useLayoutEffect(() => {
-    // Timeline for the staggered entrance animation
-    const tl = gsap.timeline({ defaults: { duration: 1, ease: 'power3.out' } });
+export default function About() {
+  const ref = useRef(null);
+  const reduced = useReducedMotion();
 
-    // Initial state of the elements (hidden or scaled down)
-    gsap.set(aboutCardRef.current, { scale: 0.95, autoAlpha: 0 });
-    gsap.set(profileImageRef.current, { y: 20, autoAlpha: 0 });
-    gsap.set(textContentRef.current.children, { y: 20, autoAlpha: 0 });
-    gsap.set(highlightsRef.current.children, { y: 20, autoAlpha: 0 });
-
-    // Animation sequence
-    tl.to(aboutCardRef.current, { scale: 1, autoAlpha: 1, duration: 1.2 })
-      .to(
-        profileImageRef.current,
-        { y: 0, autoAlpha: 1, duration: 0.8 },
-        '-=0.8'
-      )
-      .fromTo(
-        textContentRef.current.children,
-        { y: 20, autoAlpha: 0 },
-        {
-          y: 0,
-          autoAlpha: 1,
-          stagger: 0.2,
-          duration: 0.8,
+  useSectionReveal(ref, ({ conditions }) => {
+    // Lead paragraph "reads itself": words ink in as the paragraph scrolls through.
+    gsap.fromTo(
+      '.about-lead__w',
+      { '--p': 0 },
+      {
+        '--p': 1,
+        stagger: 0.04,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: '.about-lead',
+          start: conditions.desktop ? 'top 78%' : 'top 85%',
+          end: conditions.desktop ? 'bottom 45%' : 'bottom 60%',
+          scrub: 0.5,
         },
-        '-=0.6'
-      )
-      .fromTo(
-        highlightsRef.current.children,
-        { y: 20, autoAlpha: 0 },
+      },
+    );
+
+    if (conditions.desktop) {
+      gsap.fromTo(
+        '.about-portrait__img',
+        { yPercent: -6, scale: 1.12 },
         {
-          y: 0,
-          autoAlpha: 1,
-          stagger: 0.15,
-          duration: 0.6,
+          yPercent: 6,
+          scale: 1.12,
+          ease: 'none',
+          scrollTrigger: { trigger: '.about-portrait', start: 'top bottom', end: 'bottom top', scrub: true },
         },
-        '-=0.4'
       );
-  }, []);
-
-  // Effect for the glowing mouse hover background
-  useEffect(() => {
-    const handleMouseMove = (e) => {
-      if (backgroundAuraRef.current) {
-        gsap.to(backgroundAuraRef.current, {
-          x: e.clientX,
-          y: e.clientY,
-          duration: 1.2,
-          ease: 'power2.out',
-        });
-      }
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-    };
-  }, []);
+    }
+  });
 
   return (
-    <section id="about" className="about-section" ref={aboutSectionRef}>
-      {/* New glowing background aura element */}
-      <div className="background-aura" ref={backgroundAuraRef}></div>
+    <section id="about" ref={ref} className="section about" aria-labelledby="about-title">
+      <div className="shell">
+        <SectionHeading id="about" titleId="about-title" eyebrow="About" lines={['Data in.', 'Decisions out.']} />
 
-      <div className="about-card" ref={aboutCardRef}>
-        <div className="about-content-wrapper">
-          {/* Left Column: Profile */}
-          <div className="about-profile-column">
-            <div className="profile-image-container" ref={profileImageRef}>
-              <img
-                src="/certificates/Profile Picture.gif"
-                alt="Raju Kumar Profile"
-                className="profile-image"
+        <div className="about-grid">
+          <aside className="about-profile" aria-label="Profile">
+            <figure className="about-portrait" data-reveal="scale" data-cursor="lens" data-tilt="6">
+              {/* Looping muted clip (~190 KB) instead of the 4.7 MB GIF; reduced-motion users get a still first frame. */}
+              <video
+                className="about-portrait__img"
+                src={profile.video}
+                aria-label="Portrait of Raju Kumar"
+                width="696"
+                height="704"
+                muted
+                playsInline
+                loop={!reduced}
+                autoPlay={!reduced}
+                preload={reduced ? 'auto' : 'metadata'}
               />
+            </figure>
+            <div className="about-id" data-reveal>
+              <h3 className="about-id__name">{profile.name}</h3>
+              <p className="about-id__title t-mono">{profile.title}</p>
             </div>
-            <h3 className="profile-name">Raju Kumar</h3>
-            <p className="profile-title">AI/ML Engineer & LLM Builder</p>
-            <div className="about-highlights-section" ref={highlightsRef}>
-              <div className="highlight-item">
-                <span className="highlight-icon">💼</span>
-                <p className="highlight-text">AI/ML Engineer at Wipro (Apple)</p>
-              </div>
-              <div className="highlight-item">
-                <span className="highlight-icon">🔎</span>
-                <p className="highlight-text">RAG & Semantic Search Systems</p>
-              </div>
-              <div className="highlight-item">
-                <span className="highlight-icon">📈</span>
-                <p className="highlight-text">Data‑driven SRE & Analytics</p>
-              </div>
-            </div>
-          </div>
+            <ul className="about-highlights">
+              {profile.highlights.map((h, i) => (
+                <li key={h} data-reveal>
+                  <span className="t-mono">{String(i + 1).padStart(2, '0')}</span>
+                  {h}
+                </li>
+              ))}
+            </ul>
+          </aside>
 
-          {/* Right Column: About Text */}
-          <div className="about-text-column" ref={textContentRef}>
-            <h2 className="about-title">About Me</h2>
-            <p className="about-description">
-              I am an <strong>AI/ML Engineer</strong> focused on building LLM‑powered
-              agents, RAG pipelines, and semantic search engines that help
-              engineering and SRE teams move faster with more reliable insights. 
+          <div className="about-copy">
+            <p className="about-lead">
+              {lead.split(' ').map((w, i) => (
+                <span key={i} className="about-lead__w" data-em={EMPHASIS.has(w) ? '' : undefined}>
+                  {w}{' '}
+                </span>
+              ))}
             </p>
-            <p className="about-description">
-              At Wipro, working with Apple&apos;s ecosystem, I design agentic workflows
-              that unify incident data, automate root‑cause analysis, and remove
-              repetitive manual checks, turning scattered information into a
-              single, trustworthy source of truth. 
-            </p>
-            <p className="about-description">
-              Beyond production systems, I experiment with financial AI projects
-              like FinGPT and CryptoPredictor, explore time series and LLM
-              applications, and enjoy collaborating on ideas that blend data,
-              automation, and real business impact. 
-            </p>
+            <div className="about-more">
+              {rest.map((p) => (
+                <p key={p.slice(0, 24)} data-reveal>
+                  {p}
+                </p>
+              ))}
+            </div>
           </div>
         </div>
       </div>
     </section>
   );
-};
-
-export default About;
+}

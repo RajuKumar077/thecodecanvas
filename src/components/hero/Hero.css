@@ -1,0 +1,444 @@
+/* ==========================================================================
+   Hero — "Precision meets imagination."
+   ========================================================================== */
+
+.hero {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  min-height: 100svh;
+  padding-top: var(--nav-height);
+  overflow: clip;
+  background: var(--color-background);
+}
+
+/* Fine dot-grid that fades out toward the edges */
+.hero-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image: radial-gradient(rgb(var(--ink-rgb) / 0.08) 1px, transparent 1px);
+  background-size: 28px 28px;
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 62% 48%, rgb(var(--ink-rgb)) 20%, transparent 75%);
+  mask-image: radial-gradient(ellipse 70% 60% at 62% 48%, rgb(var(--ink-rgb)) 20%, transparent 75%);
+}
+
+.hero-backdrop::after {
+  /* soft champagne floor that eases into the next section */
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 30%;
+  background: linear-gradient(to bottom, transparent, var(--color-background));
+}
+
+/* Cursor spotlight (fine pointers only): gold light + a brighter dot-grid
+   revealed in a circle around the pointer. Same 28px grid as the backdrop. */
+.hero-spot {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0;
+  pointer-events: none;
+  background: radial-gradient(460px circle at var(--sx, 62%) var(--sy, 48%), rgb(var(--accent-rgb) / 0.09), transparent 70%);
+  transition: opacity 700ms var(--ease-out);
+}
+
+.hero-spot::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgb(var(--accent-rgb) / 0.6) 1.2px, transparent 1.2px);
+  background-size: 28px 28px;
+  -webkit-mask-image: radial-gradient(200px circle at var(--sx, 62%) var(--sy, 48%), rgb(var(--ink-rgb)) 0%, transparent 75%);
+  mask-image: radial-gradient(200px circle at var(--sx, 62%) var(--sy, 48%), rgb(var(--ink-rgb)) 0%, transparent 75%);
+}
+
+.hero.is-lit .hero-spot {
+  opacity: 1;
+}
+
+/* Hidden until the GSAP intro starts (avoids flash of un-animated content).
+   Without JS or under reduced motion, it is revealed immediately. */
+.hero-intro {
+  visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+@media (scripting: none) {
+  .hero-intro { visibility: visible; }
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--space-5);
+  align-items: center;
+  flex: 1;
+  padding-block: clamp(32px, 6vh, 72px);
+}
+
+.hero-copy {
+  grid-column: 1 / span 7;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-art {
+  grid-column: 8 / span 5;
+  position: relative;
+  z-index: 1;
+}
+
+/* ---------- Meta row ---------- */
+
+.hero-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3) var(--space-5);
+  margin-bottom: clamp(24px, 4vh, 40px);
+}
+
+.hero-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 14px 7px 12px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-button);
+  background: var(--glass);
+  color: var(--color-text);
+  font: 500 12px/1 var(--font-code);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.hero-status__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  animation: pulse-ring 2.4s var(--ease-out) infinite;
+}
+
+/* ---------- Headline ---------- */
+
+.hero-title {
+  margin: 0;
+  color: var(--color-text);
+  font-family: var(--font-display);
+  font-size: var(--fs-hero);
+  font-weight: 700;
+  line-height: var(--lh-display);
+  letter-spacing: var(--track-display);
+  font-feature-settings: "ss01", "cv11";
+}
+
+/* Split-text mask rules (.at-line/.at-mask/.at-word/.at-accent) live in global.css */
+.hero-title .at-word {
+  will-change: transform;
+}
+
+/* Second line: the rotating keyword, in the champagne accent. */
+.hero-title__key {
+  color: var(--color-accent-display);
+}
+
+.hero-rotator {
+  display: inline-grid;
+  overflow: hidden;
+}
+
+.hero-rotator__w {
+  grid-area: 1 / 1;
+  white-space: nowrap;
+  will-change: transform;
+}
+
+/* ---------- Supporting copy ---------- */
+
+.hero-lede {
+  max-width: 30rem;
+  margin: var(--space-5) 0 0;
+  color: var(--color-muted);
+  font-size: var(--fs-lead);
+  line-height: 1.6;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: clamp(28px, 5vh, 48px);
+}
+
+/* ---------- Footer row ---------- */
+
+.hero-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: clamp(20px, 4vh, 36px);
+}
+
+.hero-scroll {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  color: var(--color-muted);
+  font: 500 13px/1 var(--font-body);
+  transition: color var(--dur-base) var(--ease-out);
+}
+
+.hero-scroll:hover {
+  color: var(--color-text);
+}
+
+.hero-scroll:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 6px;
+  border-radius: 6px;
+}
+
+.hero-scroll__track {
+  position: relative;
+  width: 1px;
+  height: 36px;
+  overflow: hidden;
+  background: var(--color-border);
+}
+
+.hero-scroll__track span {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 40%;
+  background: var(--color-text);
+  animation: scroll-cue 2.2s var(--ease-in-out) infinite;
+}
+
+/* ==========================================================================
+   Interactive visual
+   ========================================================================== */
+
+.viz {
+  position: relative;
+  width: min(100%, 560px);
+  aspect-ratio: 1;
+  margin-inline: auto;
+}
+
+.viz [data-depth] {
+  will-change: transform;
+}
+
+.viz-aura {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(56px);
+  pointer-events: none;
+}
+
+.viz-aura--gold {
+  inset: 18% 14% 22% 22%;
+  background: radial-gradient(circle at 40% 40%, rgb(var(--accent-rgb) / 0.34), rgb(var(--accent-rgb) / 0) 70%);
+}
+
+.viz-aura--tan {
+  inset: 30% 4% 4% 30%;
+  background: radial-gradient(circle, rgb(var(--secondary-rgb) / 0.22), rgb(var(--secondary-rgb) / 0) 70%);
+}
+
+.viz-galaxy {
+  position: absolute;
+  inset: -6% -14%;
+  pointer-events: none;
+}
+
+.viz-galaxy__canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* ---------- Capability chips ---------- */
+
+.viz-chip-wrap {
+  position: absolute;
+}
+
+.viz-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 14px;
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-button);
+  background: rgb(var(--surface-rgb) / 0.9);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  box-shadow: var(--shadow-md);
+  color: var(--color-text);
+  font: 500 12px/1 var(--font-code);
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+}
+
+.viz-chip i {
+  width: 6px;
+  height: 6px;
+  border-radius: 2px;
+  background: var(--color-text);
+}
+
+.viz-chip--accent i {
+  background: var(--color-accent);
+}
+
+/* ==========================================================================
+   Resume dialog
+   ========================================================================== */
+
+.resume-dialog {
+  width: min(960px, calc(100vw - 32px));
+  height: min(88vh, 88dvh, 1100px);
+  max-width: none;
+  max-height: none;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-card);
+  background: var(--color-background);
+  box-shadow: var(--shadow-lg);
+  color: var(--color-text);
+}
+
+.resume-dialog::backdrop {
+  background: var(--color-overlay);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+}
+
+.resume-dialog[open] {
+  animation: dialog-in 500ms var(--ease-out);
+}
+
+@keyframes dialog-in {
+  from { opacity: 0; transform: translateY(16px) scale(0.98); }
+  to   { opacity: 1; transform: none; }
+}
+
+.resume-dialog__panel {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.resume-dialog__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: 14px 16px 14px 24px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.resume-dialog__head h2 {
+  margin: 0;
+}
+
+.resume-dialog__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.resume-dialog__close {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--color-control-border);
+  border-radius: 50%;
+  background: var(--color-surface-secondary);
+  color: var(--color-text-primary);
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color var(--dur-fast) var(--ease-out);
+}
+
+.resume-dialog__close:hover {
+  background: var(--color-primary-soft);
+  border-color: var(--color-primary);
+}
+
+.resume-dialog__close:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.resume-dialog__frame {
+  flex: 1;
+  width: 100%;
+  border: 0;
+  background: var(--color-surface-secondary);
+}
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+
+@media (max-width: 1023px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+    row-gap: var(--space-6);
+    align-content: center;
+  }
+
+  .hero-copy,
+  .hero-art {
+    grid-column: 1 / -1;
+  }
+
+  .hero-art {
+    order: -1;
+  }
+
+  .viz {
+    width: min(78vw, 400px);
+  }
+
+  .viz-chip {
+    padding: 7px 11px;
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 599px) {
+  .hero-foot .t-eyebrow {
+    display: none;
+  }
+
+  .hero-actions .btn {
+    flex: 1 1 100%;
+  }
+
+  /* Lighter visual on phones: fewer blurred layers */
+  .viz-aura--tan {
+    display: none;
+  }
+
+  .viz-galaxy {
+    inset: -4% -8%;
+  }
+
+}
+
+/* Reduced motion: no rolling — show the first keyword only. */
+@media (prefers-reduced-motion: reduce) {
+  .hero-rotator__w:not(:first-child) {
+    display: none;
+  }
+}

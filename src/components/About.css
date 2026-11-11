@@ -1,142 +1,162 @@
-/* Google Fonts Import */
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&family=Roboto:wght@300;400;500&display=swap');
+/* ==========================================================================
+   About — editorial split: sticky profile · scroll-inked lead paragraph.
+   ========================================================================== */
 
-/* Main Section */
-.about-section {
-    position: relative;
-    width: 100%;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 2rem;
-    background: #000000;
-    font-family: 'Roboto', sans-serif;
-    color: #e0e0e0;
+.about-grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--space-5);
+  row-gap: var(--space-7);
+  align-items: start;
 }
 
-/* Glassmorphism Card Container */
-.about-card {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 20px;
-    padding: 2.5rem;
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-    max-width: 1000px;
-    width: 100%;
-    margin: 2rem 0;
+.about-profile {
+  grid-column: 1 / span 4;
+  position: sticky;
+  top: calc(var(--nav-height) + var(--space-5));
 }
 
-/* Flexbox for Two Columns */
-.about-content-wrapper {
-    display: flex;
-    flex-wrap: wrap; /* Allows columns to stack on mobile */
-    gap: 3rem;
-    align-items: flex-start;
+.about-portrait {
+  position: relative;
+  margin: 0;
+  aspect-ratio: 4 / 4.6;
+  overflow: hidden;
+  border-radius: var(--radius-card);
+  background: var(--color-surface-secondary);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-md);
 }
 
-/* Profile Column */
-.about-profile-column {
-    flex: 1;
-    min-width: 250px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding: 1rem;
-    border-right: 1px solid rgba(255, 255, 255, 0.1);
+.about-portrait::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 1px rgb(var(--ink-rgb) / 0.06);
+  pointer-events: none;
 }
 
-@media (max-width: 768px) {
-    .about-profile-column {
-        border-right: none;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        padding-bottom: 2rem;
-        margin-bottom: 2rem;
-    }
+.about-portrait__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.12);
 }
 
-.profile-image-container {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    overflow: hidden;
-    position: relative;
-    background: rgba(0, 198, 255, 0.2);
-    box-shadow: 0 0 15px rgba(0, 198, 255, 0.5);
-    transition: transform 0.3s ease;
+.about-id {
+  margin-top: var(--space-5);
 }
 
-.profile-image-container:hover {
-    transform: scale(1.05);
+.about-id__name {
+  margin: 0;
+  font: 700 24px/1.2 var(--font-display);
+  letter-spacing: var(--track-heading);
 }
 
-.profile-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+.about-id__title {
+  margin: 6px 0 0;
+  color: var(--color-text-secondary);
+  font-size: 13px;
+  letter-spacing: 0.02em;
 }
 
-.profile-name {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 2.2rem;
-    font-weight: 700;
-    margin-top: 1.5rem;
-    color: #fff;
+.about-highlights {
+  margin: var(--space-5) 0 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--color-border);
 }
 
-.profile-title {
-    font-size: 1.1rem;
-    font-weight: 300;
-    color: #8ab4f8;
-    margin-bottom: 1rem;
+.about-highlights li {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-text);
+  font-size: 15px;
+  font-weight: 500;
 }
 
-.about-highlights-section {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-    margin-top: 1rem;
+.about-highlights .t-mono {
+  color: var(--color-accent-text);
+  font-size: 11px;
+  letter-spacing: 0.08em;
 }
 
-.highlight-item {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
+.about-copy {
+  grid-column: 6 / -1;
 }
 
-.highlight-icon {
-    font-size: 1.5rem;
+.about-lead {
+  margin: 0;
+  color: var(--color-text);
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: 600;
+  line-height: 1.22;
+  letter-spacing: var(--track-display);
+  text-wrap: pretty;
 }
 
-.highlight-text {
-    font-size: 0.95rem;
-    margin: 0;
-    color: #bdc1c6;
+/* Words ink in as the paragraph scrolls: About.jsx tweens --p from 0 to 1.
+   Defaults to 1 so no-JS / reduced-motion readers see the finished text,
+   and it re-resolves on a theme switch because it mixes live tokens. */
+.about-lead__w {
+  --p: 1;
+  color: color-mix(in srgb, var(--color-text-primary) calc(var(--p) * 100%), var(--color-faint));
 }
 
-/* About Text Column */
-.about-text-column {
-    flex: 2;
+.about-lead__w[data-em] {
+  color: color-mix(in srgb, var(--color-primary) calc(var(--p) * 100%), var(--color-faint));
 }
 
-.about-title {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: #8ab4f8;
-    margin-bottom: 1rem;
+.about-more {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-6);
+  margin-top: clamp(40px, 6vw, 80px);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--color-border);
 }
 
-.about-description {
-    font-size: 1.1rem;
-    line-height: 1.8;
-    color: #e0e0e0;
-    margin-bottom: 1.5rem;
+.about-more p {
+  margin: 0;
+  color: var(--color-muted);
+  font-size: var(--fs-body);
+  line-height: 1.7;
 }
 
-.about-description strong {
-    color: #fff;
-    font-weight: 500;
+@media (max-width: 1023px) {
+  .about-profile {
+    grid-column: 1 / -1;
+    position: static;
+    display: grid;
+    grid-template-columns: minmax(160px, 260px) 1fr;
+    column-gap: var(--space-6);
+    align-items: end;
+  }
+
+  .about-portrait {
+    grid-row: span 2;
+  }
+
+  .about-copy {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 599px) {
+  .about-profile {
+    grid-template-columns: 1fr;
+  }
+
+  .about-portrait {
+    max-width: 320px;
+  }
+
+  .about-more {
+    grid-template-columns: 1fr;
+  }
 }
